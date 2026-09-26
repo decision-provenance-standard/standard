@@ -1,0 +1,112 @@
+{
+  "format": "dps-spec-editions/2",
+  "baseline_tag": "rev8-published",
+  "note": "Each edition is the plain byte concatenation of its parts, in order. 'published' is the SHA-256 of the Markdown file in the md/ folder of the published rev. 8 release bundle and never changes. 'current_sha256' is the SHA-256 of the joined parts as they stand in this commit; a pull request that changes the text updates it. 'line_endings' is the line-ending convention the edition was published with.",
+  "editions": [
+    {
+      "id": "core",
+      "title": "Decision Provenance Standard, Core v1.0, Reading Edition rev. 8",
+      "published_name": "decision-provenance-standard-v1.0-rev8-core.md",
+      "line_endings": "crlf",
+      "parts": [
+        "core-00a-title-and-contents.md",
+        "core-00b-read-this-first.md",
+        "core-01-preamble-and-scope.md",
+        "core-02-definitions.md",
+        "core-03-charter-mechanism.md",
+        "core-04-authority-and-authorship.md",
+        "core-05-record-lifecycle.md",
+        "core-06-part1-artifact-set.md",
+        "core-06-part2-6.2.3.1-altitude-access-binding.md",
+        "core-06-part3-artifact-set-continued.md",
+        "core-07-conformance-levels.md",
+        "core-08-regulatory-cross-references.md",
+        "core-09-worked-examples.md",
+        "core-10-implementation-guidance.md",
+        "core-11-trademark-governance-adoption.md",
+        "core-12-references.md"
+      ],
+      "published": {
+        "release": "Decision Provenance Standard v1.0, rev. 8",
+        "sha256": "10f634360b66ff574ceedd79407227a577d46aca3917e9740e0773eee7ca6f51",
+        "bytes": 276948
+      },
+      "current_sha256": "10f634360b66ff574ceedd79407227a577d46aca3917e9740e0773eee7ca6f51"
+    },
+    {
+      "id": "companion-A",
+      "title": "Companion A: Regulatory Cross-References",
+      "published_name": "decision-provenance-standard-v1.0-companion-A-regulatory-cross-reference.md",
+      "line_endings": "lf",
+      "parts": [
+        "companion-A-regulatory-cross-references.md"
+      ],
+      "published": {
+        "release": "Decision Provenance Standard v1.0, rev. 8",
+        "sha256": "e372984adc607a519c18d6e91d9f20f024168a5c80c72459ca2a521855a0bfaf",
+        "bytes": 90809
+      },
+      "current_sha256": "e372984adc607a519c18d6e91d9f20f024168a5c80c72459ca2a521855a0bfaf"
+    },
+    {
+      "id": "companion-B",
+      "title": "Companion B: Worked Charter Library",
+      "published_name": "decision-provenance-standard-v1.0-companion-B-worked-charter-library.md",
+      "line_endings": "lf",
+      "parts": [
+        "companion-B-worked-charter-library.md"
+      ],
+      "published": {
+        "release": "Decision Provenance Standard v1.0, rev. 8",
+        "sha256": "9f1f8b38161696512058db294eefecd0fb28303d74f93ef1700ccb0386b181f9",
+        "bytes": 61721
+      },
+      "current_sha256": "9f1f8b38161696512058db294eefecd0fb28303d74f93ef1700ccb0386b181f9"
+    },
+    {
+      "id": "companion-C",
+      "title": "Companion C: Implementation Guidance",
+      "published_name": "decision-provenance-standard-v1.0-companion-C-implementation-guidance.md",
+      "line_endings": "lf",
+      "parts": [
+        "companion-C-implementation-guidance.md"
+      ],
+      "published": {
+        "release": "Decision Provenance Standard v1.0, rev. 8",
+        "sha256": "e53a2b4af11960d5fb6d677728ac5f8dd9bbd4fc8e0fa6e0d4eff155ccd20c3f",
+        "bytes": 32582
+      },
+      "current_sha256": "e53a2b4af11960d5fb6d677728ac5f8dd9bbd4fc8e0fa6e0d4eff155ccd20c3f"
+    },
+    {
+      "id": "companion-D",
+      "title": "Companion D: Diagrams",
+      "published_name": "decision-provenance-standard-v1.0-companion-D-diagrams.md",
+      "line_endings": "lf",
+      "parts": [
+        "companion-D-diagrams.md"
+      ],
+      "published": {
+        "release": "Decision Provenance Standard v1.0, rev. 8",
+        "sha256": "3e2945136d995df97afdb3756555434f1c01db83e913ff4f5b964fe175f6fc64",
+        "bytes": 24634
+      },
+      "current_sha256": "3e2945136d995df97afdb3756555434f1c01db83e913ff4f5b964fe175f6fc64"
+    },
+    {
+      "id": "appendix-G",
+      "title": "Appendix G: Governance and References",
+      "published_name": "decision-provenance-standard-v1.0-appendix-G-governance-and-references.md",
+      "line_endings": "lf",
+      "parts": [
+        "appendix-G-governance-and-references.md"
+      ],
+      "published": {
+        "release": "Decision Provenance Standard v1.0, rev. 8",
+        "sha256": "6f88ff46532f3ab31fedd5300bd6c2a010d6b10b4ee9f3a1013fffe886d53fa2",
+        "bytes": 65872
+      },
+      "current_sha256": "6f88ff46532f3ab31fedd5300bd6c2a010d6b10b4ee9f3a1013fffe886d53fa2"
+    }
+  ]
+}

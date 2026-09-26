@@ -1,0 +1,11 @@
+# New text files are stored with LF line endings.
+* text=auto eol=lf
+
+# The published text and the published reference files are kept byte-for-byte as released.
+# Git must never convert their line endings (the core text uses CRLF, the rest LF).
+spec/** -text
+standard/** -text
+
+*.png binary
+*.pdf binary
+*.zip binary
