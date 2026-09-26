@@ -1,0 +1,8 @@
+# Direct dependencies of the checks, and their dependencies, pinned.
+jsonschema==4.26.0
+referencing==0.37.0
+PyYAML==6.0.3
+attrs==25.4.0
+jsonschema-specifications==2025.9.1
+rpds-py==0.30.0
+typing-extensions==4.15.0

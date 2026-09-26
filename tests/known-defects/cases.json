@@ -1,0 +1,541 @@
+{
+  "about": "Expected behaviour is what the Standard's text says. 'control' cases must behave as expected; a mismatch fails CI. 'known-defect' cases document where reference release 5.1.0 differs from the text; while the defect's status is 'open', a mismatch is reported, not failed. When a fix is merged, set the defect's status to 'fixed' in the same pull request so its cases are enforced from then on.",
+  "defects": {
+    "KD-01": {
+      "summary": "The schemas' own $id addresses (/schemas/v5.0/...) do not match where the files are served (/standard/v5.0/...), so the decision record's link to the attestation schema cannot be resolved by a standard validator.",
+      "status": "open"
+    },
+    "KD-02": {
+      "summary": "A record that omits record_type is treated as a redaction event. The text says an omitted record_type means decision.",
+      "status": "open"
+    },
+    "KD-03": {
+      "summary": "Redaction fields: the allowed values of redaction_basis and the sub-fields of redaction_authority and operational_store_deletion_attestation differ from the Section 6.2.3 table, so a redaction record written as the text describes is rejected.",
+      "status": "open"
+    },
+    "KD-04": {
+      "summary": "Section 6.2.2 requires disclosure_metadata_pointer from drafted for mode-1-with-embedded-mode-2-summary records; the schema does not enforce it.",
+      "status": "open"
+    },
+    "KD-05": {
+      "summary": "The text requires altitude from the drafted state; the schema never requires it, and a missing altitude surfaces as an unrelated consent_posture error.",
+      "status": "open"
+    },
+    "KD-06": {
+      "summary": "Disclosure block: the text requires 5 fields, the schema 7; the text's jurisdiction and content-type spellings (including other:<...>) are rejected.",
+      "status": "open"
+    },
+    "KD-07": {
+      "summary": "For mode-2 records the schema requires disclosure_metadata_pointer already at dispatched; the text requires it from drafted.",
+      "status": "open"
+    }
+  },
+  "cases": [
+    {
+      "id": "C1",
+      "kind": "known-defect",
+      "defect": "KD-02",
+      "description": "draft record with record_type omitted",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "altitude": "executive"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C2",
+      "kind": "control",
+      "defect": null,
+      "description": "record_type=redaction_event with no redaction fields",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "C3",
+      "kind": "known-defect",
+      "defect": "KD-04",
+      "description": "embedded-summary draft without disclosure pointer",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1-with-embedded-mode-2-summary",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "C4",
+      "kind": "control",
+      "defect": null,
+      "description": "embedded-summary draft with disclosure pointer",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1-with-embedded-mode-2-summary",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        },
+        "disclosure_metadata_pointer": "a50://1"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C5",
+      "kind": "known-defect",
+      "defect": "KD-07",
+      "description": "mode-2 record at dispatched without pointer",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "dispatched",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C6",
+      "kind": "known-defect",
+      "defect": "KD-05",
+      "description": "drafted record with altitude missing (must fail for the right reason)",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision"
+      },
+      "expected": "fail",
+      "must_not_mention": "consent_posture"
+    },
+    {
+      "id": "C7",
+      "kind": "known-defect",
+      "defect": "KD-05",
+      "description": "dispatched record with altitude missing",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "dispatched",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C8",
+      "kind": "control",
+      "defect": null,
+      "description": "altitude individual-professional without consent_posture",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "individual-professional"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "C9",
+      "kind": "known-defect",
+      "defect": "KD-03",
+      "description": "redaction record written as the Section 6.2.3 table describes",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "gdpr_article_17",
+        "redaction_authority": {
+          "authorizing_actor": "data subject request ref. PRV-TEST-1",
+          "request_record_pointer": "PRV-TEST-1",
+          "legal_basis_review_pointer": null
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attesting_actor": "Test Person",
+          "attestation_timestamp": "2026-09-25T11:30:00Z",
+          "deletion_method": "field_purge",
+          "verification_method": "manual_inspection"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C10",
+      "kind": "control",
+      "defect": null,
+      "description": "redaction record in the release-5.1.0 shape (must stay valid: deprecated, never silently removed)",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "gdpr-art-17-erasure",
+        "redaction_basis_detail": "request TEST-1",
+        "redaction_authority": {
+          "full_name": "Test Person",
+          "role": "DPO"
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attested_by": "Test Person",
+          "attested_at": "2026-09-25T11:30:00Z",
+          "stores_covered": [
+            "crm"
+          ],
+          "deletion_method": "purge"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C11",
+      "kind": "control",
+      "defect": null,
+      "description": "text-shape redaction with other_named_statute and no detail",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "other_named_statute",
+        "redaction_authority": {
+          "authorizing_actor": "data subject request ref. PRV-TEST-1",
+          "request_record_pointer": "PRV-TEST-1",
+          "legal_basis_review_pointer": null
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attesting_actor": "Test Person",
+          "attestation_timestamp": "2026-09-25T11:30:00Z",
+          "deletion_method": "field_purge",
+          "verification_method": "manual_inspection"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "C12",
+      "kind": "known-defect",
+      "defect": "KD-03",
+      "description": "text-shape redaction with gdpr_article_17 and no detail (the text does not require one)",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "gdpr_article_17",
+        "redaction_authority": {
+          "authorizing_actor": "data subject request ref. PRV-TEST-1",
+          "request_record_pointer": "PRV-TEST-1",
+          "legal_basis_review_pointer": null
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attesting_actor": "Test Person",
+          "attestation_timestamp": "2026-09-25T11:30:00Z",
+          "deletion_method": "field_purge",
+          "verification_method": "manual_inspection"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C13",
+      "kind": "known-defect",
+      "defect": "KD-01",
+      "description": "closed record with a complete layer-4 attestation",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "closed",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "mode_classification_attestation": {
+          "attestor_full_name": "Test Person",
+          "attestor_role_title": "Head of Test",
+          "attestor_employer": "Example Ltd",
+          "attestation_timestamp": "2026-09-25T12:00:00Z",
+          "jurisdiction": "UK",
+          "attestation_language_version": "v1.0",
+          "attestation_text_signed": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "attestor_capacity": "employee"
+        },
+        "accountable_owner_signoff": {
+          "signed_by": "Test Person",
+          "signed_at": "2026-09-25T12:00:00Z"
+        },
+        "re_decision_trigger": "t",
+        "record_location": "register://1"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C14",
+      "kind": "control",
+      "defect": null,
+      "description": "closed record missing the attestation",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "closed",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "accountable_owner_signoff": {
+          "signed_by": "T",
+          "signed_at": "2026-09-25T12:00:00Z"
+        },
+        "re_decision_trigger": "t",
+        "record_location": "register://1"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "A1",
+      "kind": "known-defect",
+      "defect": "KD-06",
+      "description": "disclosure block with only the text's 5 fields and the text's spellings",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "declaring_authority": {
+          "full_name": "Test Person",
+          "role_title": "Head of Test",
+          "employer": "Example Ltd",
+          "capacity": "employee"
+        },
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "eu"
+        ],
+        "content_type_tag": [
+          "decision-summary"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "A2",
+      "kind": "control",
+      "defect": null,
+      "description": "disclosure block in the release-5.1.0 spellings with 7 fields (must stay valid)",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "declaring_authority": {
+          "full_name": "Test Person",
+          "role_title": "Head of Test",
+          "employer": "Example Ltd",
+          "capacity": "employee"
+        },
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "EU"
+        ],
+        "content_type_tag": [
+          "decision-summary"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z",
+        "disclosure_text_pointer": "doc://x",
+        "attached_at": "2026-09-25T09:05:00Z"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "A3",
+      "kind": "known-defect",
+      "defect": "KD-06",
+      "description": "jurisdiction other:BR and content type other:memo",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "declaring_authority": {
+          "full_name": "Test Person",
+          "role_title": "Head of Test",
+          "employer": "Example Ltd",
+          "capacity": "employee"
+        },
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "other:BR"
+        ],
+        "content_type_tag": [
+          "other:memo"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z",
+        "disclosure_text_pointer": "doc://x",
+        "attached_at": "2026-09-25T09:05:00Z"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "A4",
+      "kind": "control",
+      "defect": null,
+      "description": "jurisdiction 'mars'",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "declaring_authority": {
+          "full_name": "Test Person",
+          "role_title": "Head of Test",
+          "employer": "Example Ltd",
+          "capacity": "employee"
+        },
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "mars"
+        ],
+        "content_type_tag": [
+          "decision-summary"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z",
+        "disclosure_text_pointer": "doc://x",
+        "attached_at": "2026-09-25T09:05:00Z"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "A5",
+      "kind": "control",
+      "defect": null,
+      "description": "declaring_authority missing",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "EU"
+        ],
+        "content_type_tag": [
+          "decision-summary"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z",
+        "disclosure_text_pointer": "doc://x",
+        "attached_at": "2026-09-25T09:05:00Z"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    }
+  ]
+}
