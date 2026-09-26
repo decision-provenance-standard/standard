@@ -1,0 +1,42 @@
+Decision Provenance Standard™
+=============================
+
+LICENSING (by folder)
+---------------------
+- The Standard's TEXT (spec/), its diagrams, and the documentation in this
+  repository are licensed under the Creative Commons Attribution 4.0
+  International License (CC BY 4.0). See the root LICENSE file.
+
+- The reference files under standard/v5.0/ are licensed under the MIT License
+  for the whole 5.x line of reference releases, including corrections to them.
+  See standard/v5.0/LICENSE.
+
+- Everything in folders created after reference release 5.1.0 is licensed under
+  the Apache License, Version 2.0: the automated checks (tools/, tests/,
+  .github/), the adoption kit, and any new line of reference files. See
+  LICENSES/Apache-2.0.txt.
+
+- Contributions are accepted under the licence of the folder they change
+  (inbound = outbound), with a Developer Certificate of Origin 1.1 sign-off on
+  every commit. See CONTRIBUTING.md.
+
+MARK
+----
+"Decision Provenance Standard" and its associated mark are held defensively
+(unregistered, denoted with the trademark symbol, not the registered-mark
+symbol) and are NOT licensed by the CC BY 4.0 License, the MIT License or the
+Apache License. None of these licences grants any right to use the name or
+mark. Self-declared, non-certified use of the Standard does not imply
+endorsement, certification, or approval by the Steward. Contributing to this
+repository gives no rights in the name or mark.
+
+WHAT THE STANDARD IS NOT
+------------------------
+The records are input, not evidence. The Standard informs frameworks without
+satisfying them. Conformance is self-declared; no body certifies it. It is not
+legal advice and not a regulatory substitute.
+
+STEWARDSHIP
+-----------
+Founding Steward: Yohay Etsion.
+Institutional Steward: Etsion Brands Ltd.

@@ -1,0 +1,47 @@
+name: Defect
+description: Something in the text, the reference files, the site or a download is wrong, broken or contradicts itself.
+title: "[Defect] "
+labels: ["defect", "needs-triage"]
+body:
+  - type: input
+    id: release
+    attributes:
+      label: Which release?
+      description: Text revision, reference-files release, and the file path or page address.
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where is it?
+      options:
+        - "Text of the Standard"
+        - "Reference files (schemas, signal list, state machines, reporter contract)"
+        - "Text and reference files disagree with each other"
+        - "Website"
+        - "Downloads or checksums"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What you found instead
+      description: Quote the text, or paste the validator output.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to repeat it
+      description: For schema problems, a minimal example record and the validator you used (name and version).
+  - type: textarea
+    id: ai
+    attributes:
+      label: AI assistance and other contributors
+      description: Was a substantial part of this prepared with an AI tool? Did anyone else help who should be named?

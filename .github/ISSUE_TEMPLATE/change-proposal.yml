@@ -1,0 +1,79 @@
+name: Change proposal
+description: Propose a change to the Standard's rules, fields, signals or wording. One proposal per issue.
+title: "[Proposal] "
+labels: ["proposal", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Please keep to one proposal per issue. The Steward decides what the Standard says; you decide how your contribution is credited. See CONTRIBUTING.md.
+  - type: input
+    id: release
+    attributes:
+      label: Which release did you read?
+      description: Text revision and reference-files release, for example "Core v1.0 rev. 8, files 5.1.0".
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What is missing, unclear or contradictory today? Quote the section numbers.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you propose
+      description: Describe the change. Proposed wording is welcome but not required. You can also open a pull request directly.
+    validations:
+      required: true
+  - type: dropdown
+    id: sections
+    attributes:
+      label: Which parts does it touch?
+      multiple: true
+      options:
+        - "§5 Record lifecycle (Steward-only)"
+        - "§6 including the decision-record schema and §6.2.3.1 / §6.2.3.2 (Steward-only)"
+        - "§7 Conformance levels (Steward-only)"
+        - "§11 or Appendix G, governance (Steward-only)"
+        - "Companion A, regulatory citations (Steward-only)"
+        - "Other sections of the text"
+        - "Reference files (schemas, signal list, state machines)"
+        - "Companions B, C or D, examples and guidance"
+        - "Website or downloads"
+    validations:
+      required: true
+  - type: dropdown
+    id: effect
+    attributes:
+      label: Effect on people already using the Standard (your best guess)
+      options:
+        - "Wording only, no rule changes (patch)"
+        - "Adds or clarifies without breaking any valid record (minor)"
+        - "Would make some currently valid records invalid (major)"
+        - "Not sure"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or test
+      description: How did you find this? If you ran something, say what and how we can repeat it.
+  - type: textarea
+    id: ai
+    attributes:
+      label: AI assistance and other contributors
+      description: Was a substantial part of this prepared with an AI tool? Did anyone else help who should be named?
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: Before you submit
+      options:
+        - label: I have read CONTRIBUTING.md.
+          required: true
+        - label: I understand that any pull request I open needs a DCO sign-off on every commit, and that contributions are licensed under the licence of the folder they change.
+          required: true
+        - label: This proposal does not claim that following the Standard makes anyone certified or compliant.
+          required: true

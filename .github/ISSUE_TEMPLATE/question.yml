@@ -1,0 +1,21 @@
+name: Question
+description: Ask how something in the Standard is meant to work.
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: input
+    id: release
+    attributes:
+      label: Which release are you reading?
+      description: For example "Core v1.0 rev. 8, files 5.1.0".
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: Quote the section numbers you are asking about.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Answers here explain the Standard. They are not legal advice and not a statement that any use is compliant with any law.

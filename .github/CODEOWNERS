@@ -1,0 +1,37 @@
+# Whose approval each path needs. See GOVERNANCE.md.
+# Until maintainers are named, every path belongs to the Steward (@yohayetsion).
+# The last matching pattern wins, so the specific lines below are listed after the default.
+
+# Default: everything.
+*                                                   @yohayetsion
+
+# Protected sections named in Standard §11.2: §5, §6.2.3.1 and §7.
+/spec/core-05-record-lifecycle.md                   @yohayetsion
+/spec/core-06-part2-6.2.3.1-altitude-access-binding.md  @yohayetsion
+/spec/core-07-conformance-levels.md                 @yohayetsion
+
+# Also Steward-only under GOVERNANCE.md.
+/spec/core-01-preamble-and-scope.md                 @yohayetsion
+/spec/core-06-part1-artifact-set.md                 @yohayetsion
+/spec/core-06-part3-artifact-set-continued.md       @yohayetsion
+/spec/core-11-trademark-governance-adoption.md      @yohayetsion
+/spec/appendix-G-governance-and-references.md       @yohayetsion
+/spec/companion-A-regulatory-cross-references.md    @yohayetsion
+/spec/editions.json                                 @yohayetsion
+/standard/                                          @yohayetsion
+
+# The automated checks: a pull request must not be able to weaken its own checks.
+/tools/                                             @yohayetsion
+/tests/                                             @yohayetsion
+/.github/                                           @yohayetsion
+/.gitattributes                                     @yohayetsion
+
+# Licensing and governance files.
+/LICENSE                                            @yohayetsion
+/LICENSES/                                          @yohayetsion
+/NOTICE                                             @yohayetsion
+/GOVERNANCE.md                                      @yohayetsion
+/CONTRIBUTING.md                                    @yohayetsion
+/SECURITY.md                                        @yohayetsion
+/CITATION.cff                                       @yohayetsion
+/README.md                                          @yohayetsion
