@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Deliberate exceptions to the leak guard (tools/check_leaks.py), one per line:
+# the SHA-256 of the exact added line, then an optional note after a space.
+# Get the value with: python tools/check_leaks.py --hash-line "the line"
+# Steward-only. Add an exception in its own pull request before the change that needs it.
