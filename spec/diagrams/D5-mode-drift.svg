@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 720" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="d5title d5desc">
   <title id="d5title">Figure 4-2 — Mode-Drift Four-Layer Composed Mitigation</title>
-  <desc id="d5desc">A four-row matrix of orthogonal mitigation layers (Layer, Actor, Detection moment, Coverage), no two layers sharing an actor or detection moment, plus a phased Layer 1 rollout timeline strip. Faithful to substrate v5.1.0.</desc>
+  <desc id="d5desc">A four-row matrix of orthogonal mitigation layers (Layer, Actor, Detection moment, Coverage), no two layers sharing an actor or detection moment, plus a phased Layer 1 rollout timeline strip.</desc>
 
   <style>
     .ttl   { font-size: 17px; font-weight: bold; fill: #1A1A1A; }
@@ -26,7 +26,7 @@
   </defs>
 
   <text x="20" y="28" class="ttl">Figure 4-2 — Mode-Drift Four-Layer Composed Mitigation</text>
-  <text x="20" y="46" class="sub">Structural answer to R-001 (silent Mode 1 to Mode 2 drift, P0/H). Orthogonal composition: no two layers share an actor or a detection moment.</text>
+  <text x="20" y="46" class="sub">Structural answer to silent Mode 1 to Mode 2 drift. Orthogonal composition: no two layers share an actor or a detection moment.</text>
 
   <!-- Matrix header -->
   <g>
@@ -36,7 +36,8 @@
     <rect x="620" y="62" width="280" height="34" class="boxlt"/>
     <text x="30" y="84" class="hdr">Layer</text>
     <text x="210" y="84" class="hdr">Actor (independence axis)</text>
-    <text x="410" y="84" class="hdr">Detection moment (independence axis)</text>
+    <text x="410" y="76" class="hdr">Detection moment</text>
+    <text x="410" y="90" class="hdr">(independence axis)</text>
     <text x="630" y="84" class="hdr">Coverage</text>
   </g>
 
@@ -144,9 +145,9 @@
     <line x1="580" y1="590" x2="600" y2="590" class="arrow" marker-end="url(#ah)"/>
 
     <rect x="20" y="630" width="880" height="40" class="boxlt"/>
-    <text x="30" y="654" class="note">R-001 closes day-one (Layers 2/3/4 live day-one); Layer 1 adds population-level signal at wk 7+.</text>
+    <text x="30" y="654" class="note">The silent-drift failure mode is closed day-one (Layers 2/3/4 live day-one); Layer 1 adds population-level signal at wk 7+.</text>
   </g>
 
-  <!-- Faithful-to-substrate stamp -->
-  <text x="20" y="698" class="sub">Explanatory figure (non-normative) — faithful to substrate v5.1.0. The text is the contract; this figure illustrates it.</text>
+  <!-- Non-normative stamp -->
+  <text x="20" y="698" class="sub">Explanatory figure (non-normative). The text is the contract; this figure illustrates it.</text>
 </svg>
