@@ -72,3 +72,28 @@ jobs:
         with:
           python-version: "3.12"
       - run: python tools/check_dco.py
+
+  leak-guard:
+    name: Leak guard (nothing internal in added text)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0   # the base commit is needed to see only what the change adds
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      # A change must not be able to weaken its own guard: run the base branch's copy when it has one.
+      - name: Take the guard from the base commit
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -n "$BASE" ] && git cat-file -e "$BASE:tools/check_leaks.py" 2>/dev/null; then
+            git show "$BASE:tools/check_leaks.py" > "$RUNNER_TEMP/check_leaks.py"
+          else
+            cp tools/check_leaks.py "$RUNNER_TEMP/check_leaks.py"
+          fi
+      - run: python "$RUNNER_TEMP/check_leaks.py" --self-test
+      - run: python "$RUNNER_TEMP/check_leaks.py"
