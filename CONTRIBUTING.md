@@ -54,7 +54,7 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
 ## Practical notes for pull requests
 
 - **Editing the text.**
-  - Edit the section file in `spec/`, then update that document's `current_sha256` in `spec/editions.json`, so every text change is declared. `python tools/check_split.py` prints the new value when it differs.
+  - Edit the section file in `spec/`, then update that document's `current_sha256` in `spec/editions.json`, so every text change is declared. When it differs, `python tools/check_split.py` prints the exact value to paste.
   - Adding, removing or renaming a section file also needs a matching change to `spec/editions.json`.
   - The core files keep the Windows line endings (CRLF) they were published with; the other documents use Unix line endings (LF). Make sure your editor does not convert them. The check fails if it does.
 - **Text and reference files must agree.** If your change affects both, change both in the same pull request.
@@ -69,6 +69,7 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
   python tests/known-defects/run_checks.py
   python tools/check_dco.py origin/main..HEAD
   ```
+- **Waiting checks are normal.** For contributors from outside the organisation, GitHub waits for a maintainer to approve running the checks on each pull request. We approve them; you don't need to do anything.
 
 ## What we can't accept
 

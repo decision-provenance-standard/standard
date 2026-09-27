@@ -118,6 +118,7 @@ def main():
     if sorted(set(on_disk) - set(listed)):
         problems.append(f"Markdown files in spec/ that belong to no edition: {sorted(set(on_disk) - set(listed))}")
 
+    declared_ok = {}
     # 3. per edition: line endings, heading starts, declared current digest, identity with published
     joined_now, changed = {}, []
     for e in manifest["editions"]:
@@ -132,10 +133,13 @@ def main():
         joined = b"".join(parts.get(p, b"") for p in e["parts"])
         joined_now[e["id"]] = joined
         digest = sha(joined)
-        if digest != e.get("current_sha256"):
-            problems.append(f"{e['id']}: the joined text does not match editions.json current_sha256 "
-                            f"(joined {digest[:16]}..., declared {str(e.get('current_sha256'))[:16]}...). "
-                            "Every text change must update current_sha256 in the same pull request.")
+        declared_ok[e["id"]] = (digest == e.get("current_sha256"))
+        if not declared_ok[e["id"]]:
+            problems.append(f"{e['id']}: the joined text does not match editions.json current_sha256.\n"
+                            f"      declared: {e.get('current_sha256')}\n"
+                            f"      joined:   {digest}\n"
+                            f"      To declare this change, set current_sha256 for {e['id']} in spec/editions.json to the 'joined' value above, "
+                            "in the same pull request.")
         pub = PUBLISHED.get(e["id"])
         if pub and digest == pub:
             print(f"[identical] {e['id']}: {len(e['parts'])} part(s), {len(joined)} bytes, identical to published rev. 8")
@@ -172,8 +176,11 @@ def main():
             if not is_subsequence(top_headings(at_tag), top_headings(joined_now.get(eid, b""))):
                 problems.append(f"{eid}: top-level headings were reordered or dropped compared with the baseline")
         for e in changed:
-            print(f"[changed]   {e['id']}: differs from published rev. 8 (declared in editions.json); "
-                  f"baseline order and line endings preserved")
+            if declared_ok.get(e["id"]):
+                print(f"[changed]   {e['id']}: differs from published rev. 8 (declared in editions.json); "
+                      f"baseline order and line endings preserved")
+            else:
+                print(f"[changed]   {e['id']}: differs from published rev. 8 and is NOT yet declared (see FAIL below)")
 
     for n in notes:
         print("note:", n)
