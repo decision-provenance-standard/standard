@@ -45,7 +45,7 @@ The Charter commits to maintaining the following record-types per Section 6 §6.
 
 ### Conformance signals
 
-At Section 7 grading (cross-referenced once Section 7 lands), a conformant PMM Charter would emit:
+At Section 7 grading, a conformant PMM Charter would emit:
 
 - **Level 1** — Charter-conformant signals: `mode_declaration` populated; `charter_id`, `accountable_owner`, `decision_class`, `inside_decisions`, `outside_decisions` populated at `mode-declared`; `cadence`, `record_location`, `re_decision_triggers`, `escalation_rule` populated at `fields-required`; `schedule_of_records` and `conformance_level_declared` populated at `fields-completed`.
 - **Level 2** — Mode-disambiguated signals: every record under the Charter carries `dispatch_mode`; the Mode-Drift Composed Mitigation sub-spec's Layer 2 Substantive-Authorship Challenge fires at record-close on every Mode-1-declared record; sampled records pass Layer 1 statistical detection at the 15% baseline rate.

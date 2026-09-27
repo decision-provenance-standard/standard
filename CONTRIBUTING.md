@@ -30,9 +30,9 @@ There is no separate agreement to sign. By contributing, you license your contri
 
 | You change | Your contribution is licensed under |
 |---|---|
-| The Standard's text, the diagrams, or documentation (`spec/`, and `*.md` files outside `standard/`) | Creative Commons Attribution 4.0 (CC BY 4.0) |
-| The reference files under `standard/v5.0/` (the 5.x line, including corrections) | MIT |
-| The automated checks (`tools/`, `tests/`, `.github/`) and any folder created after reference release 5.1.0 | Apache License 2.0 |
+| Text (`spec/`, `governance/`, and the Markdown documentation at the repository root) | Creative Commons Attribution 4.0 (CC BY 4.0) |
+| `standard/v5.0/`, including its Markdown files (all of 5.x, including corrections) | MIT |
+| Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later | Apache License 2.0 |
 
 Contributing gives no rights in the name "Decision Provenance Standard" or its mark. See [NOTICE](NOTICE).
 

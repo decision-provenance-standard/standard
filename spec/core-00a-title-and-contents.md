@@ -1,12 +1,12 @@
 # The Decision Provenance Standard™
 
 **Version**: 1.0 — Reading Edition (rev. 8 — 2026-05-30)
-**Date of base text**: 2026-04-30 (v1.0 integration close)
-**Date of rev. 4 deltas**: 2026-05-06
-**Date of rev. 5 deltas**: 2026-05-09
-**Date of rev. 6 deltas**: 2026-05-15
-**Date of rev. 6.5 deltas**: 2026-05-18
-**Reading Edition (rev. 8)**: 2026-05-30 — readability + de-defensiveness + thinning + genericization (the Standard reads as a standalone generic standard, decoupled from any companion book or reference-implementation product name in normative text). Conformance contract UNCHANGED from v1.0 (no field, lifecycle-state, enum, conformance-level, or signal-definition change). The Standard is restructured into a normative core plus Companion A (Regulatory Cross-References), Companion B (Worked Charter Library), Companion C (Implementation Guidance), and Appendix G (Governance and References).
+**Base text (v1.0)**: 2026-04-30
+**rev. 4**: 2026-05-06
+**rev. 5**: 2026-05-09
+**rev. 6**: 2026-05-15
+**rev. 6.5**: 2026-05-18
+**Reading Edition (rev. 8)**: 2026-05-30. Conformance contract UNCHANGED from v1.0 (no field, lifecycle-state, enum, conformance-level, or signal-definition change). The Standard is restructured into a normative core plus Companion A (Regulatory Cross-References), Companion B (Worked Charter Library), Companion C (Implementation Guidance), and Appendix G (Governance and References).
 **Author**: Yohay Etsion (Founding Steward)
 **Steward**: Etsion Brands Ltd. (institutional Steward, Israeli holding company)
 **License**: Creative Commons Attribution 4.0 International (CC-BY 4.0)
@@ -24,11 +24,11 @@
 
 The Decision Provenance Standard™ is an open standard for the production and maintenance of audit-ready decision provenance in organizations that dispatch consequential decisions through a mix of human and AI authorship. It is an open record format published under the Creative Commons Attribution 4.0 International License (CC-BY 4.0), authored by Yohay Etsion as Founding Steward under the institutional Steward role held by Etsion Brands Ltd.
 
-By design, there is no certification track and no certifying body: every conformance level is self-declared, which keeps the Standard open infrastructure rather than a gated regime (self-declared / no-certifying-body posture treated authoritatively at §7 and §11.2). The trademark on the name is separate from the CC-BY 4.0 license on the text: per the Creative Commons license terms (Section 2(c) of the CC-BY 4.0 legal code: "Patent and trademark rights are not licensed under this Public License"), trademark rights are not licensed with the text, so anyone may use, extend, and fork the text under attribution while the name stays protected against misrepresentation (full trademark convention at §11.1).
+By design, there is no certification track and no certifying body: every conformance level is self-declared, which keeps the Standard open infrastructure rather than a gated regime (self-declared / no-certifying-body posture treated authoritatively at §7 and §11.2). The trademark on the name is separate from the CC-BY 4.0 license on the text: per the Creative Commons license terms (Section 2(b)(2) of the CC-BY 4.0 legal code: "Patent and trademark rights are not licensed under this Public License"), trademark rights are not licensed with the text, so anyone may use, extend, and fork the text under attribution while the name stays protected against misrepresentation (full trademark convention at §11.1).
 
-A working open-source reference implementation is published under the MIT License and is described in Appendix G §12.4; it is a real artifact that readers may consult, but it is not the Standard and the Standard does not depend on it.
+Machine-readable reference files (schemas, state machines, the signal list, the reporter contract and a test plan) are published under the MIT License in `standard/v5.0/`. They are not the Standard, and the Standard does not depend on them.
 
-The Standard's central term, "audit-ready decision provenance," is defined and firewalled at §1.4.1; the locked definition and its load-bearing UPL firewall are stated authoritatively there.
+The Standard's central term, "audit-ready decision provenance," is defined and firewalled at §1.4.1; the locked definition and its "is not evidence, certification, or attestation" clause are stated authoritatively there.
 
 ### Normative Keywords (RFC 2119)
 

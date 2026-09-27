@@ -6,13 +6,15 @@ Companion to the Decision Provenance Standard v1.0; tracks core revision rev. 8.
 
 # Companion A — Regulatory Cross-References
 
-> **Disclaimer pointer.** See the top of the core Standard for the load-bearing UPL firewall, jurisdiction-assumed declaration, and the rule that the Standard produces audit-ready decision provenance — input to compliance work performed by qualified personnel — and is not itself a regulatory substitute, certification, or attestation.
+> **Disclaimer pointer.** See the top of the core Standard for the not-legal-advice notice, jurisdiction-assumed declaration, and the rule that the Standard produces audit-ready decision provenance — input to compliance work performed by qualified personnel — and is not itself a regulatory substitute, certification, or attestation.
 
 > **Jurisdiction Assumed**: U.S. federal + Delaware as primary; UK / EU AI Act / Israel as named secondaries.
 
 ---
 
-> *Decision Provenance Standard records inform — without satisfying — regulatory frameworks. A Decision Provenance Standard record may be cited as supporting evidence under NIST AI RMF, ISO/IEC 42001, EU AI Act and equivalent frameworks. It does NOT itself satisfy any control, requirement, or audit obligation under those frameworks. Adopting organizations remain responsible for their own regulatory posture.*
+> *Decision Provenance Standard records inform — without satisfying — regulatory frameworks. A Decision Provenance Standard record may be used as input when preparing evidence under NIST AI RMF, ISO/IEC 42001, EU AI Act and equivalent frameworks. It does NOT itself satisfy any control, requirement, or audit obligation under those frameworks. Adopting organizations remain responsible for their own regulatory posture.*
+
+Sections headed "What ... requires", "What ... require" or "What ... certifies" summarize the cited text for orientation. They are not rules of this Standard and not legal advice; read the source.
 
 ---
 

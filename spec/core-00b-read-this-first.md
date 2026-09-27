@@ -39,7 +39,7 @@ The Standard is sequential but not linear. Read the sections your role finds loa
 |---|---|---|---|
 | **CIO / CAIO / executive deciding whether to adopt** | This On-Ramp, then §1 (Preamble + Scope) and §3 (the Charter Mechanism) | §5 (Record Lifecycle) for how records reach sealed status; §7 (Conformance Levels) for what you commit to | Companion C (Implementation Guidance) for the install path |
 | **General Counsel / counsel** | §1.4 (What This Standard Claims — and What It Does Not Claim) | §6 (Required Artifact Set) and §5 (Record Lifecycle) for what the records contain | Companion A (Regulatory Cross-Reference Mapping) for framework-by-framework treatment and the per-framework non-claims |
-| **Technical architect** | §3 (the Charter Mechanism), §5 (Record Lifecycle), §6 (Required Artifact Set) | §4 (Authority and Authorship) for the dispatch state machine and §7 for conformance signals | Companion C for sequencing; Appendix G for the reference implementation |
+| **Technical architect** | §3 (the Charter Mechanism), §5 (Record Lifecycle), §6 (Required Artifact Set) | §4 (Authority and Authorship) for the dispatch state machine and §7 for conformance signals | Companion C for sequencing; Appendix G for the reference files |
 | **AI-governance researcher** | §1 (Preamble + Scope) and §4 (Authority and Authorship in AI-Mediated Decisions) | §5 (Record Lifecycle) and §7 (Conformance Levels) for the novel contributions | Appendix G (Governance & References, including Related Work) |
 | **Board / oversight director** | This On-Ramp, then §1.4 (the claim and the firewall) | §7 (Conformance Levels) for what your organization self-declares | Companion A §A.6 (Caremark / board oversight duties) |
 

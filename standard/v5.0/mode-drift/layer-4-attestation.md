@@ -1,7 +1,7 @@
 # Layer 4 — Named Human-Attestation Fallback
 
 **Authority**: Mode-Drift mitigation Layer 4
-**Status**: Fires at first use — load-bearing for R-001 closure
+**Status**: Fires at first use — load-bearing for closing the silent-drift failure mode
 
 ---
 
@@ -58,4 +58,4 @@ The attestor signs onto the proposition that **given those four answers and any 
 
 ---
 
-*Layer 4 closes R-001 at first use. The structured-object form is what makes the attestation deliberate and the capacity cabining is what makes the liability framing defensible.*
+*Layer 4 closes the silent-drift failure mode at first use. The structured-object form is what makes the attestation deliberate and the capacity cabining is what makes the liability framing defensible.*

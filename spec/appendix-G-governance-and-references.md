@@ -4,61 +4,61 @@ Companion to the Decision Provenance Standard v1.0; tracks core revision rev. 8.
 
 > **Lettering note.** Lettered **G**; Appendices A–F are reserved.
 
-> **Normative annex (NOT informative).** Sections §G.7.5, §G.7.6, and §G.7.7 below are the Standard's version-stability rules, relocated byte-identical from core §7.5–§7.7. **They remain normative and binding** on any Charter or release that claims conformance under core §7; they are aggregated here for length, not demoted to reference material. Core §7 retains a normative back-pointer to this annex (see core §7.5). The remainder of this Appendix G (§G.1, §G.11.3, §G.11.4, and Section 12 References) is informative/reference material.
+> **Normative annex (NOT informative).** Sections §G.7.5, §G.7.6, and §G.7.7 below are the Standard's version-stability rules, relocated from core §7.5–§7.7. **They remain normative and binding** on any Charter or release that claims conformance under core §7; they are aggregated here for length, not demoted to reference material. Core §7 retains a normative back-pointer to this annex (see core §7.5). The remainder of this Appendix G (§G.1, §G.11.3, §G.11.4, and Section 12 References) is informative/reference material.
 
 ---
 
 # Appendix G — Governance and References
 
-> **Disclaimer pointer.** See top of the core Standard for the load-bearing UPL firewall and Jurisdiction Assumed. Section 12 of this appendix is a bibliography; it cites the frameworks the Standard converses with and does not characterize what those frameworks substantively require, certify, or attest. Substantive engagement with each framework lives in Companion A (Regulatory Cross-References).
+> **Disclaimer pointer.** See top of the core Standard for the not-legal-advice notice and Jurisdiction Assumed. Section 12 of this appendix is a bibliography; it cites the frameworks the Standard converses with and does not characterize what those frameworks substantively require, certify, or attest. Substantive engagement with each framework lives in Companion A (Regulatory Cross-References).
 
 ---
 
 ## G.7 Version-Stability Rules (Normative Annex)
 
-> *Back-pointer: §G.7.5–§G.7.7 are the relocated, byte-identical core §7.5–§7.7. They are NORMATIVE. Core §7 carries a binding back-pointer to this annex; the R-005 non-break commitment, the classifier-version-increment rule, and the classification-ambiguity arbiter declared here govern conformance under core §7 exactly as if they appeared inline in §7. Cross-references in this annex to Section 4, Section 6 §6.2, Section 7 §7.3.3, and Section 11 resolve against the core Standard; intra-annex sibling references use the §G.7.x form.*
+> *Back-pointer: §G.7.5–§G.7.7 are the relocated core §7.5–§7.7. They are NORMATIVE. Core §7 carries a binding back-pointer to this annex; the minor-release non-break commitment, the classifier-version-increment rule, and the classification-ambiguity arbiter declared here govern conformance under core §7 exactly as if they appeared inline in §7. Cross-references in this annex to Section 4, Section 6 §6.2, Section 7 §7.3.3, and Section 11 resolve against the core Standard; intra-annex sibling references use the §G.7.x form.*
 
-### G.7.5 Classifier-Version Increments and the R-005 Minor-Release Non-Break Commitment
+### G.7.5 Classifier-Version Increments and the Minor-Release Non-Break Commitment
 
-The Mode-Drift Composed Mitigation sub-spec's Layer 1 (statistical detection) trains an independent Mode-2-trained classifier. The training corpus is curated and disjoint from any AI worker output the classifier will later classify. The classifier is versioned. Each output emits `corpus_id` + `corpus_version` + `classifier_version` provenance fields per the sub-spec FINAL, so a downstream auditor can verify independence at any point. The classifier version increments as the corpus expands and the classifier retrains. Section 7 must answer one question: does a classifier-version increment count as a Conformance Level 2 break under the Standard's R-005 minor-release non-break commitment? I decide it normatively in this Subsection.
+The Mode-Drift Composed Mitigation sub-spec's Layer 1 (statistical detection) trains an independent Mode-2-trained classifier. The training corpus is curated and disjoint from any AI worker output the classifier will later classify. The classifier is versioned. Each output emits `corpus_id` + `corpus_version` + `classifier_version` provenance fields per the sub-spec, so a downstream auditor can verify independence at any point. The classifier version increments as the corpus expands and the classifier retrains. Section 7 must answer one question: does a classifier-version increment count as a Conformance Level 2 break under the Standard's minor-release non-break commitment? This Subsection decides it normatively.
 
 #### G.7.5.1 The decision
 
 **A classifier-version increment is NOT a Conformance Level 2 break in the general case.** Section 7 grades against the structural fact `no_silent_mode_drift_in_sample` at the audit moment the Layer 3 sample audit runs, not against the Layer 1 classifier's identity at any given moment. A Charter whose Layer 3 audit ran clean against classifier version N and whose audit re-runs clean against classifier version N+1 grades the same at Level 2; a Charter whose audit re-runs and produces a peer-confirmed drift finding at version N+1 does not grade at Level 2 until the affected records are re-dispatched per the demotion mechanism. The grade is a fact about the audit outcome, not a fact about which classifier version produced the audit's input flags.
 
-This is the (A) position from the CPO sub-spec sign-off — classifier-version increments do not constitute Level 2 breaks in the general case. I adopt it in Section 7 normative text on three grounds.
+Classifier-version increments do not constitute Level 2 breaks in the general case. Three grounds support this rule.
 
-**First, the conformance reporter does not bind to classifier version.** The Level 2 reporter reads `no_silent_mode_drift_in_sample` from the Layer 3 audit output. That output is itself a peer-reviewer-confirmed disposition (per Mode-Drift sub-spec FINAL Layer 3 §7.3.3 above), and the peer reviewer is the named firing authority for the signal. A classifier-version increment that produces additional Layer 1 hard flags routes those flags to Layer 3 peer review. The peer review either confirms drift (Level 2 grade flips to fail until re-dispatch) or rejects the flag (Level 2 grade unchanged). The Level 2 grade follows the peer review's disposition, not the classifier's version number. Binding the grade to classifier version would bind it to a layer that is not the named firing authority.
+**First, the conformance reporter does not bind to classifier version.** The Level 2 reporter reads `no_silent_mode_drift_in_sample` from the Layer 3 audit output. That output is itself a peer-reviewer-confirmed disposition (per Mode-Drift sub-spec Layer 3 §7.3.3 above), and the peer reviewer is the named firing authority for the signal. A classifier-version increment that produces additional Layer 1 hard flags routes those flags to Layer 3 peer review. The peer review either confirms drift (Level 2 grade flips to fail until re-dispatch) or rejects the flag (Level 2 grade unchanged). The Level 2 grade follows the peer review's disposition, not the classifier's version number. Binding the grade to classifier version would bind it to a layer that is not the named firing authority.
 
-**Second, Layer 1's phased deployment is itself a classifier-version progression.** The sub-spec FINAL deploys Layer 1 in three phases — detection-only weeks 1-3 (Layer A + B corpus), detection-only weeks 4-6 (Layer A + B + C corpus), enforcement-mode week 7+ (full corpus, full firing authority). Each phase transition is in effect a classifier-version increment. If such increments were R-005 minor-release breaks in the general case, the sub-spec's own phased deployment would generate three Level 2 breaks per Charter in the first 7 weeks. That is precisely the wrong kind of structural noise. The phased deployment is the architecturally correct rollout (per the CPO sub-spec sign-off Call (ii)), and Section 7 grading must accommodate it without registering a break at every phase boundary.
+**Second, Layer 1's phased deployment is itself a classifier-version progression.** The sub-spec deploys Layer 1 in three phases — detection-only weeks 1-3 (Layer A + B corpus), detection-only weeks 4-6 (Layer A + B + C corpus), enforcement-mode week 7+ (full corpus, full firing authority). Each phase transition is in effect a classifier-version increment. If such increments were minor-release breaks in the general case, the sub-spec's own phased deployment would generate three Level 2 breaks per Charter in the first 7 weeks. That is precisely the wrong kind of structural noise. The phased deployment is the architecturally correct rollout, and Section 7 grading must accommodate it without registering a break at every phase boundary.
 
-**Third, the false-positive-rate-shift threshold (the (B) position) cannot be specified at this altitude without arbitrariness.** The (B) position lets classifier-version increments achieve Level 2 breaks when false-positive rate moves more than X%, which requires fixing X. The CPO sub-spec sign-off rejected (B): specifying X without a Section 7 baseline for acceptable signal stability would be theater. Section 7 is now drafted, and the structural baseline is clear. The Level 2 grade follows the Layer 3 audit's peer-reviewer disposition. A false-positive-rate shift in Layer 1 produces additional flags that route through Layer 3. Those flags either confirm drift (and the Charter's Level 2 grade flips to fail until re-dispatch, per the standard mechanism) or reject as false positive (and the Level 2 grade is unchanged). The structural mechanism handles the rate shift without a numeric threshold pinned to classifier version.
+**Third, the false-positive-rate-shift threshold cannot be specified at this altitude without arbitrariness.** The false-positive-rate-shift threshold alternative lets classifier-version increments achieve Level 2 breaks when false-positive rate moves more than X%, which requires fixing X. Specifying X without a Section 7 baseline for acceptable signal stability would be theater. The structural baseline is clear. The Level 2 grade follows the Layer 3 audit's peer-reviewer disposition. A false-positive-rate shift in Layer 1 produces additional flags that route through Layer 3. Those flags either confirm drift (and the Charter's Level 2 grade flips to fail until re-dispatch, per the standard mechanism) or reject as false positive (and the Level 2 grade is unchanged). The structural mechanism handles the rate shift without a numeric threshold pinned to classifier version.
 
 #### G.7.5.2 The narrow exception
 
-The general-case rule above admits one narrow structural exception. **A classifier-version increment that materially changes the corpus disjointness property is a Conformance Level 2 break.** The disjointness property is load-bearing for Layer 1 — the classifier's training corpus must be disjoint from any AI worker output it will later classify, per the Mode-Drift sub-spec FINAL Layer 1, "Classifier training corpus" subsection. A classifier retrained on a corpus that includes AI worker output it has previously classified, or that includes Mode-1-declared records that should have dispatched as Mode 2 (and that the prior classifier missed), is a classifier whose disjointness has lapsed. Layer 1's safety property depends on disjointness; without it, the classifier is reading its own output and the post-close population sampling collapses to a self-consistency check rather than an independent detection layer.
+The general-case rule above admits one narrow structural exception. **A classifier-version increment that materially changes the corpus disjointness property is a Conformance Level 2 break.** The disjointness property is load-bearing for Layer 1 — the classifier's training corpus must be disjoint from any AI worker output it will later classify, per the Mode-Drift sub-spec Layer 1, "Classifier training corpus" subsection. A classifier retrained on a corpus that includes AI worker output it has previously classified, or that includes Mode-1-declared records that should have dispatched as Mode 2 (and that the prior classifier missed), is a classifier whose disjointness has lapsed. Layer 1's safety property depends on disjointness; without it, the classifier is reading its own output and the post-close population sampling collapses to a self-consistency check rather than an independent detection layer.
 
 A classifier-version increment that lapses disjointness is not a routine retrain — it is a structural amendment to Layer 1's architecture. Section 4 normative-text amendment process governs structural amendments to Mode-Drift sub-spec architecture, and a deployer whose classifier version has lapsed disjointness must route the change through the amendment process before reasserting Level 2 conformance.
 
 The narrow exception protects against one failure mode: a Charter's Level 2 grade looks stable across classifier-version increments while the underlying detection layer has silently lost its independence property. The exception is structural. It does not require a numeric threshold, and it does not turn every retrain into a conformance break. The trigger is the disjointness lapse, recorded as a sub-spec amendment, with the amendment's `closed_at` timestamp as the moment the Level 2 grade re-asserts.
 
-#### G.7.5.3 The R-005 watch-item
+#### G.7.5.3 The non-break watch-item
 
-The R-005 minor-release non-break commitment is the Standard's commitment that minor releases of the Standard, the Mode-Drift sub-spec, the Section 4 dispatch architecture, and the conformance-signal vocabulary do not break a deployer's pre-release Conformance Level grade except in the explicit cases Section 11 enumerates. The classifier-version-vs-R-005 question is the most-likely-contested case of the commitment per the Phase 0.5.F.4 panel, and the CPO sub-spec sign-off routed it here. The decision in §G.7.5.1 and the narrow exception in §G.7.5.2 together resolve the question structurally: classifier-version increments are not breaks in the general case, and only disjointness-lapsing increments are breaks.
+The minor-release non-break commitment is the Standard's commitment that minor releases of the Standard, the Mode-Drift sub-spec, the Section 4 dispatch architecture, and the conformance-signal vocabulary do not break a deployer's pre-release Conformance Level grade except in the explicit cases Section 11 enumerates. The classifier-version question is the most-likely-contested case of the commitment. The decision in §G.7.5.1 and the narrow exception in §G.7.5.2 together resolve the question structurally: classifier-version increments are not breaks in the general case, and only disjointness-lapsing increments are breaks.
 
-The R-005 commitment is itself subject to the single-arbiter-vs-3-of-6-sub-panel question §G.7.7 below resolves. A clarifying-language edge case — a deployer who reads §G.7.5.1 and reasonably arrives at a different interpretation of "the general case" — is the precise surface §G.7.7's classification-ambiguity arbiter resolves. The arbiter's role is to declare, in cases where the rule's application to a specific classifier-version increment is contested, whether the increment is a routine retrain or a disjointness lapse.
+The non-break commitment is itself subject to the single-arbiter-vs-3-of-6-sub-panel question §G.7.7 below resolves. A clarifying-language edge case — a deployer who reads §G.7.5.1 and reasonably arrives at a different interpretation of "the general case" — is the precise surface §G.7.7's classification-ambiguity arbiter resolves. The arbiter's role is to declare, in cases where the rule's application to a specific classifier-version increment is contested, whether the increment is a routine retrain or a disjointness lapse.
 
 ---
 
 ### G.7.6 The Minor-Release Non-Break Commitment as Conformance Property
 
-The R-005 minor-release non-break commitment is a Standard-level property: minor releases of the Standard's authoring artifacts (Sections 2 through 8 normative text, the Section 4 dispatch architecture, the Mode-Drift sub-spec, the conformance-signal vocabulary, the Article 50 conformance language) do not break a deployer's pre-release Conformance Level grade in the general case. The commitment is structural — it lives at the Standard altitude rather than the Charter altitude — and Section 7 grades against it through the conformance-reporter's behavior across releases.
+The minor-release non-break commitment is a Standard-level property: minor releases of the Standard's authoring artifacts (Sections 2 through 8 normative text, the Section 4 dispatch architecture, the Mode-Drift sub-spec, the conformance-signal vocabulary, the Article 50 conformance language) do not break a deployer's pre-release Conformance Level grade in the general case. The commitment is structural — it lives at the Standard altitude rather than the Charter altitude — and Section 7 grades against it through the conformance-reporter's behavior across releases.
 
 A Charter whose pre-release Conformance Level grade was Level 3 against Standard release N grades at Level 3 against Standard release N+1 (minor release) unless the release explicitly enumerates the Charter's grade as broken in Section 11. Section 11 enumerates the explicit breaks per minor release; absence from the enumeration is the commitment that the grade carries forward. The conformance reporter reads the deployer's release version and the Charter's grade against that version, and the Standard's commitment is that the release version increment does not silently mutate the grade.
 
 The commitment exists because conformance-level grading is consumed by counsel, auditors, and the deployer's accountable personnel as input to substantive work. A grade that mutated silently across releases would force every consumer to re-validate every Charter on every Standard release. That would defeat the structural-input value the grade is designed to provide. The commitment is the Standard's promise that the structural-input value is stable across minor releases, and its load-bearing surface is Section 11.
 
-The §G.7.5 classifier-version-vs-R-005 decision applies the commitment from first principles to the Mode-Drift sub-spec's Layer 1 versioning. Subsequent applications — to the Section 4 dispatch architecture, the conformance-signal vocabulary, the Article 50 conformance language — follow the same structure. Routine versioning does not break grades. Structural amendments to load-bearing properties (disjointness for Layer 1; the dispatch state machine's actor read/write boundaries in Section 4; the five required Article 50 fields for the conformance language) do break grades, and Section 11 enumerates the breaks per release.
+The §G.7.5 classifier-version decision applies the commitment from first principles to the Mode-Drift sub-spec's Layer 1 versioning. Subsequent applications — to the Section 4 dispatch architecture, the conformance-signal vocabulary, the Article 50 conformance language — follow the same structure. Routine versioning does not break grades. Structural amendments to load-bearing properties (disjointness for Layer 1; the dispatch state machine's actor read/write boundaries in Section 4; the five required Article 50 fields for the conformance language) do break grades, and Section 11 enumerates the breaks per release.
 
 A clarifying-language edge case in any of these applications is the surface §G.7.7 below resolves through the classification-ambiguity arbiter.
 
@@ -66,7 +66,7 @@ A clarifying-language edge case in any of these applications is the surface §G.
 
 ### G.7.7 Classification-Ambiguity Arbiter
 
-R-005 mitigation per Phase 0.5.F.4 names the surface at which the most-likely-contested case of the minor-release non-break commitment is resolved. The surface is the classification-ambiguity arbiter — the named authority who declares, in cases where the Standard's rule application to a specific case is contested, whether the case is routine or a structural amendment. The Phase 0.5 sub-spec sign-off recorded that the arbiter is a single agent and routed the normative declaration to Section 7.
+This Subsection names the surface at which the most-likely-contested case of the minor-release non-break commitment is resolved. The surface is the classification-ambiguity arbiter — the named authority who declares, in cases where the Standard's rule application to a specific case is contested, whether the case is routine or a structural amendment.
 
 #### G.7.7.1 The decision
 
@@ -74,7 +74,7 @@ R-005 mitigation per Phase 0.5.F.4 names the surface at which the most-likely-co
 
 Three grounds support the single-agent structure.
 
-**First, the arbiter's role is binary.** The contested case is either a routine versioning event or a structural amendment, and the arbiter declares one or the other. A 3-of-6 sub-panel introduces deliberation overhead. That overhead suits substantive multi-disciplinary decisions (Phase 0.5.F panels for the most-likely-contested rule formulations) but is excessive for binary classification decisions. The single-agent structure preserves decision-time velocity at the altitude where the structural mechanism's input-stability property depends on timely calls.
+**First, the arbiter's role is binary.** The contested case is either a routine versioning event or a structural amendment, and the arbiter declares one or the other. A 3-of-6 sub-panel introduces deliberation overhead. That overhead suits substantive multi-disciplinary decisions but is excessive for binary classification decisions. The single-agent structure preserves decision-time velocity at the altitude where the structural mechanism's input-stability property depends on timely calls.
 
 **Second, the arbiter's call is auditable in the same surface as Charter `accountable_owner` calls.** Section 6 §6.2 specifies the decision-record schema. The arbiter's calls produce records under the schema, with the arbiter's identity in `accountable_owner`, the contested case in `decision_statement`, the rule application in `options_considered`, and the call's reasoning in the substantive content fields. A 3-of-6 sub-panel would produce records spanning six accountable-owner identities (or a single-named representative aggregating six positions). That is a structural mismatch with the rest of the Standard's `accountable_owner` discipline.
 
@@ -134,7 +134,7 @@ The voluntary-adoption discipline carries three load-bearing properties:
 
 **Active leader verb: install / installation.** A CPO **installs** the Standard at the seat. The verb is the Standard's chosen register for what a deployer does with it. **The Standard is never "complied with" or "audited against" or "Standard-mandated"**; it is installed. A deployer who reads the Standard as a compliance regime has misread the Standard.
 
-**Self-declared Conformance Levels.** An organization **self-declares** Conformance Level X against the Standard per §7. The Standard's Steward (per §11.2) does NOT certify, accredit, audit, stamp, or grade any organization. There is no certification body, no auditor pool, no plan to create either. **Etsion Brands does not certify deployer organizations.** Per IP Counsel R4 Finding 6 and the locked language at §7's lead paragraph, self-declared / non-certified usage does NOT trigger Lanham Act §1054 certification-mark obligations — that's load-bearing for the trademark posture established in §11.1.
+**Self-declared Conformance Levels.** An organization **self-declares** Conformance Level X against the Standard per §7. The Standard's Steward (per §11.2) does NOT certify, accredit, audit, stamp, or grade any organization. There is no certification body, no auditor pool, no plan to create either. **Etsion Brands does not certify deployer organizations, and the name is not used as a certification mark.**
 
 **Vendors do NOT certify against the Standard.** A vendor MAY build "Standard-aware tooling" or "Standard-conformant tooling" as the vendor's own product, MAY market the tooling using the Standard's name per the permitted trademark uses in §11.1, and MAY build Standard-conformance into the tooling's runtime behavior. A vendor MAY NOT stamp a customer organization as "Standard-compliant," "Decision Provenance Standard™-certified," or any equivalent third-party-certification framing. **Stamp the tool, not the org.**
 
@@ -161,7 +161,7 @@ The Steward reviews the public-URL contents for the structural elements above (n
 
 **Structural-correctness review.** The Steward's review of a recognition publication is limited to the four structural elements enumerated above (deployer name, public URL, Charters covered, Conformance Level claimed and dated, self-declaration statement). The Steward MAY decline to list a publication that is missing one or more of the four structural elements, that is hosted at a non-resolving or non-stable URL, or that uses the Standard's name in a manner outside the §11.1 permitted trademark uses (for example, a publication that frames the listing as third-party certification by the Steward, or that brands a consulting service or training program in a manner suggesting Steward authorization per §11.1). The Steward does NOT review the underlying implementation, does NOT evaluate whether the deployer's records support the Conformance Level claimed, and does NOT opine on whether the self-declaration is substantively accurate; the substantive accuracy of the self-declaration is the deployer's responsibility per §G.11.3 and §7. Decisions to decline a listing are themselves recorded as decisions at the Steward altitude, in the Steward's own decision register; the Steward operates the Standard's authoring under a Charter consistent with §3 of the Standard.
 
-**Founding Confirmer recognition (post-launch).** Where the Steward recognizes early adopters who self-declared organically in the first months after the Standard's publication, the framing is *"we recognized their self-declaration"* — never *"we certified them"* — per the §G.11.3 voluntary-adoption discipline.
+**Founding Confirmer recognition.** Where the Steward recognizes early adopters who self-declared organically in the first months after the Standard's publication, the framing is *"we recognized their self-declaration"* — never *"we certified them"* — per the §G.11.3 voluntary-adoption discipline.
 
 ---
 
@@ -179,7 +179,7 @@ The Steward reviews the public-URL contents for the structural elements above (n
 
 Section 12 is the bibliography of named regulatory frameworks, prior art, and source materials the Standard cites. It enumerates each citation with sufficient precision — issuing body, version or year, article or clause where applicable, and a stable pointer URL — for a reader, an audit chair, or a reader's counsel to locate the underlying source and confirm currency.
 
-A reader's counsel turns to Section 12 to validate that the Standard engages real frameworks in the form those frameworks actually exist. Section 12 also makes the Standard's "input to regulatory work" framing legible. By listing the frameworks the Standard converses with, and by citing them with discipline without characterizing what they substantively require, Section 12 makes clear what the Standard is *not* replacing. The bibliography is a bibliography. It is not a regulatory cross-walk, a compliance crosswalk, or a substitution map. Companion A holds the substantive cross-reference territory and is authored under the verification chain named in §12.5 below.
+A reader's counsel turns to Section 12 to validate that the Standard engages real frameworks in the form those frameworks actually exist. Section 12 also makes the Standard's "input to regulatory work" framing legible. By listing the frameworks the Standard converses with, and by citing them with discipline without characterizing what they substantively require, Section 12 makes clear what the Standard is *not* replacing. The bibliography is a bibliography. It is not a regulatory cross-walk, a compliance crosswalk, or a substitution map. Companion A holds the substantive cross-reference territory.
 
 Section 12 follows three discipline rules:
 
@@ -191,7 +191,7 @@ Section 12 follows three discipline rules:
 
 ## 12.2 Regulatory frameworks
 
-The Standard's Companion A (Regulatory Cross-References) maps the Standard's structural requirements onto the named regulatory frameworks below. Section 12 cites those frameworks; Companion A engages them. The frameworks are grouped in three blocks: AI-specific frameworks (the AI/ISO trio sub-verified by Privacy Counsel); traditional internal-control and assurance frameworks (sub-verified by the General Counsel); and case law (sub-verified by the General Counsel). Each entry follows the citation form: issuing body — full title — version/year — article/clause where the Standard cites it — pointer URL — one-line neutral descriptor.
+The Standard's Companion A (Regulatory Cross-References) maps the Standard's structural requirements onto the named regulatory frameworks below. Section 12 cites those frameworks; Companion A engages them. The frameworks are grouped in three blocks: AI-specific frameworks (the AI/ISO trio); traditional internal-control and assurance frameworks; and case law. Each entry follows the citation form: issuing body — full title — version/year — article/clause where the Standard cites it — pointer URL — one-line neutral descriptor.
 
 ### 12.2.1 AI-specific frameworks (the AI/ISO trio)
 
@@ -281,23 +281,9 @@ Prior art listed here is the published material the Standard builds on, names, o
 
 The Charter mechanism, Mode taxonomy, and decision-record discipline formalized in this Standard were first developed in the author's prior work on product-organization decision systems. That work is acknowledged here as origin; it is not required reading and the Standard's normative content is self-contained in Sections 1–11 and its companions.
 
-### 12.3.2 Phase 0.5 preflight materials internal to this Standard's authoring
+### 12.3.2 Intentionally removed
 
-These are internal authoring substrates that Section 12 cites because Sections 2–9 reference them. They are not external prior art; they are shared constraints across the Standard's sections.
-
-**Language Discipline Cheat Sheet (Phase 0.5.A).**
-- Version: v1, 2026-04-28.
-- Pointer: `working/preflight/language-discipline-cheat-sheet.md`.
-- Neutral descriptor: Internal authoring constraint document specifying terms-to-use and terms-to-avoid for every section and every cross-reference; load-bearing for the Standard's "audit-ready provenance" framing.
-
-**Standard ↔ Reference-Implementation Specification (Phase 0.5.B).**
-- Version: v1, 2026-04-28.
-- Pointer: `working/preflight/standard-reference-implementation-spec.md`.
-- Neutral descriptor: Internal authoring constraint document defining the relationship between the Standard's Section 4 normative text and a reference implementation's runnable surfaces (Charter state model per Section 3, Article 50 disclosure metadata schema per Section 4 §4.6, Mode 1/2 dispatch state machine per Section 4, conformance-signal vocabulary per Section 7).
-
-**Message Architecture Lock v1 (Phase 0.5.C).**
-- Pointer: `working/preflight/message-architecture-lock-v1.md`.
-- Neutral descriptor: Internal authoring constraint document locking the canonical Mode 1 / Mode 2 names and the accessible-alias pair, governing where each may appear.
+This subsection is intentionally removed; its number is kept so that later numbering stays stable.
 
 ### 12.3.3 Related Work Citations
 
@@ -320,13 +306,13 @@ The following citations support the Related Work paragraph at §G.1 (origin §1.
 **AGENTSAFE — framework for agentic AI safety.**
 - Publication: arxiv preprint
 - Date: December 2025
-- Pointer URL: arxiv preprint at `https://arxiv.org/` — the specific arxiv identifier for the AGENTSAFE framework as cited in §G.1 will be filled in at v1.0 publication; readers verifying citation currency between the v1.0 publication date and any subsequent rev. should consult the arxiv search interface for AGENTSAFE.
+- Pointer URL: `https://arxiv.org/abs/2512.03180` (arXiv:2512.03180, "AGENTSAFE: A Unified Framework for Ethical Assurance and Governance in Agentic AI").
 - Neutral descriptor: Framework for safety properties of agentic AI systems at the system-design altitude.
 
 **Trammell, J. — *Chief Executive Operating System*.**
 - Author: Joel Trammell
 - Year: 2023
-- Pointer URL: *(book publisher URL to be confirmed at publication)*
+- Pointer URL: none cited; the entry is identified by author, title, and year.
 - Neutral descriptor: CEO-seat prior work on executive operating systems; the Standard's altitude — open record format for human-judgment decisions — is distinct.
 
 **Gartner — Bimodal IT (Mode 1 / Mode 2 origins).**
@@ -337,28 +323,20 @@ The following citations support the Related Work paragraph at §G.1 (origin §1.
 
 ---
 
-## 12.4 Tooling and reference implementations
+## 12.4 Reference files
 
-§12.4 records that a reference implementation of the Standard's structural requirements exists. A reference implementation is not a conformance-certifying body, and using one does not by itself produce a Standard-conformant Charter. A reference implementation structures the inputs; conformance against any framework remains a determination by the deployer's qualified personnel.
+§12.4 records the machine-readable reference files published with the Standard. Reference files are not a conformance-certifying body, and using them does not by itself produce a Standard-conformant Charter. Reference files structure the inputs; conformance against any framework remains a determination by the deployer's qualified personnel. No public implementation of the Standard is cited here.
 
-**Reference implementation.**
-- License: MIT License (the reference implementation is code; the Standard's own text is separately licensed under Creative Commons Attribution 4.0 International (CC-BY 4.0)).
-- Neutral descriptor: An open-source skill bundle implementing the structural requirements of the Standard's Sections 3 (Charter mechanism), 5 (decision-record schema), and 6 (conformance levels) as runnable skills. A reference implementation is not a substitute for the Standard's normative text and does not declare conformance with any external regulatory framework.
+**Reference files.**
+- License: MIT License (the Standard's own text is separately licensed under Creative Commons Attribution 4.0 International (CC-BY 4.0)).
+- Neutral descriptor: Machine-readable reference files (schemas, state machines, the signal list, the reporter contract and a test plan), published in `standard/v5.0/`. The reference files are not a substitute for the Standard's normative text and do not declare conformance with any external regulatory framework.
 
 ---
 
-## 12.5 Versioning note and verification chain
+## 12.5 Versioning
 
 ### 12.5.1 Versioning note
 
-Citations in §12.2 through §12.4 are version-specific. Frameworks evolve: regulations are amended, standards are revised, case law is interpreted by subsequent decisions, and reference implementations release new versions. A reader relying on any citation in Section 12 verifies currency at the issuing body's pointer URL before treating that citation as current. A bibliography entry that was accurate when this Standard was published can become stale. The entry is a starting point for the reader's verification, not a snapshot of authoritative current state.
+Citations in §12.2 through §12.4 are version-specific. Frameworks evolve: regulations are amended, standards are revised, case law is interpreted by subsequent decisions, and reference files are updated. A reader relying on any citation in Section 12 verifies currency at the issuing body's pointer URL before treating that citation as current. A bibliography entry that was accurate when this Standard was published can become stale. The entry is a starting point for the reader's verification, not a snapshot of authoritative current state.
 
-Note on NIST AI RMF version scope: as of this draft, NIST has published a Generative AI Profile companion (NIST AI 600-1, July 2024) to the AI RMF 1.0. The Generative AI Profile is a companion document, not a successor version; AI RMF 1.0 (NIST AI 100-1, January 2023) remains the operative framework version Companion A engages with.
-
-Where a citation in §12.2–§12.4 is marked `[TBD]`, the authoring agent could not confirm a specific version, edition, or revision identifier with sufficient confidence to lock it. `[TBD]` markers make the gap visible to verifiers in the chain below; they are not placeholders to be filled silently. Each `[TBD]` is resolved at verification or escalated to the named verifier.
-
-### 12.5.2 Verification chain
-
-Section 12 is the bibliography backbone of the Standard. The substantive accuracy of each citation block is verified by the domain owner accountable for that block. Privacy Counsel verifies the AI-specific frameworks (EU AI Act Articles 14/17/50; NIST AI RMF 1.0 including Manage 4.1; ISO/IEC 42001:2023). The General Counsel verifies the traditional internal-control and assurance frameworks (COSO 2013; SOX § 404; SOC 2 Type II / Trust Services Criteria) and the case law (*In re Caremark*; *Marchand v. Barnhill*). The Compliance Officer verifies the prior-art and tooling entries, with the Chief Architect consulted on the reference-implementation entry. The CPO verifies architectural fidelity — whether Section 12 cites what the Standard's sections actually reference.
-
-The verification chain is documented here so a reader of the Standard can see who validated each citation block. The Standard's reliability comes from the chain, not from any single agent's authorship.
+Note on NIST AI RMF version scope: NIST has published a Generative AI Profile companion (NIST AI 600-1, July 2024) to the AI RMF 1.0. The Generative AI Profile is a companion document, not a successor version; AI RMF 1.0 (NIST AI 100-1, January 2023) remains the operative framework version Companion A engages with.

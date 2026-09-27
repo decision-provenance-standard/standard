@@ -1,6 +1,6 @@
 # Section 8 — Regulatory Cross-References
 
-> **Disclaimer pointer.** See top of document for the load-bearing UPL firewall, jurisdiction-assumed declaration, and the rule that the Standard produces audit-ready decision provenance — input to compliance work performed by qualified personnel — and is not itself a regulatory substitute, certification, or attestation.
+> **Disclaimer pointer.** See top of document for the not-legal-advice notice, jurisdiction-assumed declaration, and the rule that the Standard produces audit-ready decision provenance — input to compliance work performed by qualified personnel — and is not itself a regulatory substitute, certification, or attestation.
 
 > **Jurisdiction Assumed**: U.S. federal + Delaware as primary; UK / EU AI Act / Israel as named secondaries.
 
