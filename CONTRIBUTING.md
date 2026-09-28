@@ -60,7 +60,7 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
 - **Text and reference files must agree.** If your change affects both, change both in the same pull request.
 - **Fixing a known defect.** The differences between the text and reference release 5.1.1 are listed in `tests/known-defects/cases.json`. If your pull request fixes one, set that defect's `status` to `fixed` in the same pull request, so the fix is protected from then on.
 - **Compatibility.** When renaming an allowed value, keep the old value accepted and mark it deprecated. Old values are removed only in a major release.
-- **The checks** run on every pull request: the text split, the reference files, the known-defects report, the DCO sign-off and the leak guard. To run them locally:
+- **The checks** run on every pull request: the text split, the reference files, the known-defects report, the DCO sign-off, the leak guard, and whether the declaration kit in `kit/` (Apache-2.0) is in sync with its sources. To run them locally:
 
   ```
   pip install -r tools/requirements.txt
@@ -69,6 +69,7 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
   python tests/known-defects/run_checks.py
   python tools/check_dco.py origin/main..HEAD
   python tools/check_leaks.py --base origin/main
+  python kit/declaration/build.py --check --kit-only
   ```
 - **The leak guard** looks only at what your pull request adds, and fails if it finds a private record number, a local folder path or an internal name from its list. Text already in the repository never fails it.
 - **Waiting checks are normal.** For contributors from outside the organisation, GitHub waits for a maintainer to approve running the checks on each pull request. We approve them; you don't need to do anything.
