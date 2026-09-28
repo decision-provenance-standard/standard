@@ -96,7 +96,7 @@ At sub-Series-C scale the schedule-of-records maintainer is often the same perso
 
 ### C.3.4 Engagement cadence
 
-The three roles engage on the cadence the Charter declares. The accountable owner runs the Charter's standing forum on the declared cadence (weekly, monthly, quarterly, or on-trigger). The declaring authority reviews and reaffirms the disclosure block on the cadence the Charter declares for disclosure review (the `last_reviewed_at` field per Section 4). The schedule-of-records maintainer runs the conformance-level reporter on the cadence the Charter declares for conformance reporting. The three cadences may be the same or different; the Charter declares each one.
+The three roles engage on the cadence the Charter declares. The accountable owner runs the Charter's standing forum on the declared cadence (weekly, monthly, quarterly, or on-trigger). The declaring authority reviews and reaffirms the disclosure block on the cadence the Charter declares for disclosure review (recorded as a `last_reviewed_at` date or a disclosure-review record; §7.4.1). The schedule-of-records maintainer runs the conformance-level reporter on the cadence the Charter declares for conformance reporting. The three cadences may be the same or different; the Charter declares each one.
 
 ---
 
