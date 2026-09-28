@@ -16,7 +16,7 @@
 - [ ] §6, including the decision-record schema and §6.2.3.1 / §6.2.3.2
 - [ ] §7 Conformance levels
 - [ ] §11, Appendix G or Companion A
-- [ ] "What this is not" wording, NOTICE or the licence files
+- [ ] "What this is not" wording, NOTICE or the license files
 - [ ] Reference files under `standard/`
 - [ ] The automated checks (`tools/`, `tests/`, `.github/`) or `spec/editions.json`
 - [ ] None of the above
@@ -31,6 +31,6 @@
 ## Contributor checklist
 
 - [ ] Every commit has a `Signed-off-by:` line (`git commit -s`), certifying the Developer Certificate of Origin 1.1
-- [ ] I understand my contribution is licensed under the licence of the folder it changes (see NOTICE)
+- [ ] I understand my contribution is licensed under the license of the folder it changes (see NOTICE)
 - [ ] I have said whether a substantial part was generated with an AI tool, and named anyone else who helped
 - [ ] Nothing here says that following the Standard makes anyone certified or compliant

@@ -88,9 +88,9 @@
     <text x="30" y="317" class="lbl">Mode-Confirmation</text>
     <text x="30" y="332" class="lbl">Audit primitive</text>
     <text x="210" y="300" class="cell">designated peer reviewer</text>
-    <text x="210" y="315" class="mono">peer_reviewer_pool</text>
-    <text x="210" y="330" class="cell">(&#8805;3 named; not</text>
-    <text x="210" y="345" class="cell">original author)</text>
+    <text x="210" y="315" class="cell">(named in the Charter; not the</text>
+    <text x="210" y="330" class="cell">original author; not the Charter</text>
+    <text x="210" y="345" class="cell">owner if the owner is the author)</text>
     <text x="410" y="300" class="mono">review-required</text>
     <text x="410" y="315" class="cell">interrupt</text>
     <text x="630" y="300" class="cell">confirms / migrates / demotes</text>

@@ -73,7 +73,7 @@ body:
       options:
         - label: I have read CONTRIBUTING.md.
           required: true
-        - label: I understand that any pull request I open needs a DCO sign-off on every commit, and that contributions are licensed under the licence of the folder they change.
+        - label: I understand that any pull request I open needs a DCO sign-off on every commit, and that contributions are licensed under the license of the folder they change.
           required: true
         - label: This proposal does not claim that following the Standard makes anyone certified or compliant.
           required: true

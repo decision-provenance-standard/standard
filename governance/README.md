@@ -20,6 +20,12 @@ Every record under the Charter is listed here by id, type, state and date. Stand
 | [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | closed | 2026-09-28T05:18:01Z | v1.1 is a minor release |
 | [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | closed | 2026-09-28T06:13:32Z | Products and tools implement the Standard |
 | [DR-2026-0007](decisions/DR-2026-0007-disclosure-review-at-v1.1.md) | disclosure_review | drafted | 2026-09-28T06:34:38Z | Disclosure review at the v1.1 release |
+| [DR-2026-0008](decisions/DR-2026-0008-appendix-g-is-informative-and-counsel-is-a-recommendation.md) | decision | drafted | 2026-09-28T13:35:48Z | Appendix G is informative, and named counsel is a recommendation |
+| [DR-2026-0009](decisions/DR-2026-0009-level-rules-in-section-7-and-no-breaks-in-minor-releases.md) | decision | drafted | 2026-09-28T13:35:49Z | Level rules in Section 7, and no breaks in minor releases |
+| [DR-2026-0010](decisions/DR-2026-0010-exclusion-in-the-level-checks-and-disclosure-review-evidence.md) | decision | drafted | 2026-09-28T13:35:50Z | The exclusion in the Level checks, and disclosure-review evidence |
+| [DR-2026-0011](decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md) | decision | drafted | 2026-09-28T13:35:51Z | Level 2 checks with nothing to check |
+| [DR-2026-0012](decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) | decision | drafted | 2026-09-28T13:35:52Z | The declaration kit is Steward-only |
+| [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | drafted | 2026-09-28T13:35:53Z | v1.2 is a minor release |
 
 The Charter is in its first version. Any change to it is made by a Charter-amendment record listed here.
 
