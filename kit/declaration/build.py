@@ -173,10 +173,11 @@ def build_prompt(crit, statements, levels):
              "made and signed off (its records' altitude)? Ask me to name every level that applies: executive; function leader "
              "(the head of a function or department); team leader; an individual professional deciding about their own work. "
              "In the same message, ask whether we work in an EU or UK country with a works council. Use the answers this way: "
-             "any level below executive needs use_case_scope_limit_declaration (L1-01); function leader or below, where the "
-             "records describe people, needs named_employment_counsel_of_record (L1-01), and, in a country with a works "
-             "council, works_council_consultation_record (L1-01); function leader or below also brings in L2-09; team leader "
-             "or below brings in L2-10.")
+             "any level below executive needs use_case_scope_limit_declaration (L1-01); function leader or below, in a country "
+             "with a works council, needs works_council_consultation_record (L1-01); function leader or below also brings in "
+             "L2-09. Two things are recommended, not required, and never change the Level: where records at function leader "
+             "or below describe people, naming the employment counsel of record (a note under L1-01); and, at team leader or "
+             "below, a minimum group size for team-level records (a note under L2-09).")
     L.append("Ask L1-01 as one checklist in plain words, as given under it, not as one question per field. "
              "Leave out any \"if\" item that my earlier answers already settle.")
     L.append("")

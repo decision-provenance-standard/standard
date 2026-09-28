@@ -17,7 +17,7 @@ A Charter is the written rulebook for one area of decisions: who owns them, how 
 
 ## How it relates to the badge page
 
-The badge page is at https://decisionprovenancestandard.org/badges.html. It embeds the same prompt, and checks a declaration against the same data format (`declaration/dps-declaration.schema.json`). When your declaration is ready, paste its data block into the badge page. It gives you one piece of code: the badge, a small "Our declaration" fold-out anyone can read, and the declaration as data.
+The badge page is at https://decisionprovenancestandard.org/badges.html. It embeds the same prompt, and checks a declaration against the same data format (`declaration/dps-declaration.schema.json`). The schema is also served at its `$id` address. When your declaration is ready, paste its data block into the badge page. It gives you one piece of code: the badge, a small "Our declaration" fold-out anyone can read, and the declaration as data.
 
 ## How to use the prompt
 
@@ -37,7 +37,7 @@ The badge page is at https://decisionprovenancestandard.org/badges.html. It embe
 
 | Path | What it is |
 |---|---|
-| `declaration/criteria.json` | The single source for the Conformance Level criteria: 24 criteria (7 for Level 1, 11 for Level 2, 6 for Level 3), each with its question, the Standard's sections and signal (the Standard's name for each check), and, where needed, a note on how to judge it |
+| `declaration/criteria.json` | The single source for the Conformance Level criteria: 25 criteria (8 for Level 1, 10 for Level 2, 7 for Level 3), each with its question, the Standard's sections and signal (the Standard's name for each check), and, where needed, a note on how to judge it |
 | `declaration/dps-declaration.schema.json` | The declaration's data format, version 1 (JSON Schema 2020-12), with its fixed statements |
 | `declaration/prompt.md` | The prompt for any AI assistant. Generated |
 | `declaration/build.py` | Generates the prompt and the skill's references from the two sources, and checks that they match |
@@ -46,7 +46,9 @@ The badge page is at https://decisionprovenancestandard.org/badges.html. It embe
 
 ## Versions
 
-The prompt and the skill draft declarations against version 1.1 (reading edition rev. 9) only, `"standard_version": "v1.1-rev9"`. Version 1.1 is a minor release, so a Charter that meets version 1.0 (rev. 8) also meets version 1.1. The format still accepts `"v1.0-rev8"` for declarations already made against it.
+The prompt and the skill draft declarations against version 1.2 (reading edition rev. 10) only, `"standard_version": "v1.2-rev10"`. Version 1.2 is a minor release, so a Charter that meets version 1.1 (reading edition rev. 9) also meets version 1.2. The format still accepts `"v1.1-rev9"` and `"v1.0-rev8"` for declarations already made against them.
+
+For version 1.2 the kit added L1-08 (every record carries the fields required at its state) and L3-07 (records findable and retained as §6.4 requires), and retired L2-10: the minimum group size for team-level records is now a recommendation, shown as a note under L2-09. A retired ID is never reused.
 
 ## Changing the kit
 
@@ -57,10 +59,8 @@ The prompt and the skill draft declarations against version 1.1 (reading edition
 
 ## Known limits
 
-- **Rules outside the Section 7 tables.** The criteria follow the Section 7 tables. Two rules elsewhere in the text are not checked yet: §6.2.4 says a required record field missing at its state "is a Charter conformance failure at Level 1", and §6.5.2 says Level 3 reads the §6.4 retention rules. How they relate to Section 7 is for the Steward to settle.
-- **Appendix G §G.11.3.** Appendix G's opening note says that §G.11.3 is "informative/reference material", yet §G.11.3 sets rules in SHALL wording that affect the Levels: the named employment counsel of record for Charters with records about people at function-leader level or below (checked under L1-01), and the documented minimum group size for team-level records (L2-10). The kit applies both, so that it is not looser than the text. Which reading holds is for the Steward to settle.
-- **The schema's address.** The schema's `$id` is an identifier, not yet a page you can open.
+- **Appendix G §G.11.3.** Appendix G is informative. Since v1.2, a requirement in §G.11.3 that no core section states reads as SHOULD, so the kit checks only the core rules and shows §G.11.3's recommendations as notes.
 
-## Licence
+## License
 
-The files in this folder are licensed under the Apache License 2.0; the licence text is in [`LICENSES/Apache-2.0.txt`](../LICENSES/Apache-2.0.txt). The criteria's wording is adapted from the Standard's text, which is published under CC BY 4.0. The licence gives no rights in the name "Decision Provenance Standard" or its mark; see [NOTICE](../NOTICE).
+The files in this folder are licensed under the Apache License 2.0; the license text is in [`LICENSES/Apache-2.0.txt`](../LICENSES/Apache-2.0.txt). The criteria's wording is adapted from the Standard's text, which is published under CC BY 4.0. The license gives no rights in the name "Decision Provenance Standard" or its mark; see [NOTICE](../NOTICE).
