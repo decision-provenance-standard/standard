@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/decision-provenance-standard/standard/security/advisories/new
     about: Something that could let records be forged or altered undetected, or the downloads be tampered with. See SECURITY.md.
   - name: Read the Standard
-    url: https://decisionprovenancestandard.org/dps-v1.1-rev9-core.html
-    about: Core v1.1, reading edition rev. 9. Its reference files (release 5.1.1) are in standard/v5.0/ in this repository.
+    url: https://decisionprovenancestandard.org/dps-v1.2-rev10-core.html
+    about: Core v1.2, reading edition rev. 10. Its reference files (release 5.1.2) are in standard/v5.0/ in this repository.

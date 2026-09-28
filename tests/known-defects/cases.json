@@ -1,5 +1,5 @@
 {
-  "about": "Expected behaviour is what the Standard's text says. 'control' cases must behave as expected; a mismatch fails CI. 'known-defect' cases document where reference release 5.1.1 differs from the text; while the defect's status is 'open', a mismatch is reported, not failed. When a fix is merged, set the defect's status to 'fixed' in the same pull request so its cases are enforced from then on.",
+  "about": "Expected behavior is what the Standard's text says. 'control' cases must behave as expected; a mismatch fails CI. 'known-defect' cases document where reference release 5.1.2 differs from the text; while the defect's status is 'open', a mismatch is reported, not failed. When a fix is merged, set the defect's status to 'fixed' in the same pull request so its cases are enforced from then on.",
   "defects": {
     "KD-01": {
       "summary": "The schemas' own $id addresses (/schemas/v5.0/...) do not match where the files are served (/standard/v5.0/...), so the decision record's link to the attestation schema cannot be resolved by a standard validator.",
