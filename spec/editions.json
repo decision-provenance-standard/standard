@@ -31,7 +31,7 @@
         "sha256": "10f634360b66ff574ceedd79407227a577d46aca3917e9740e0773eee7ca6f51",
         "bytes": 276948
       },
-      "current_sha256": "8fa01086930a61489aaaf0877e2e7aeb81e381ad7096f76741f90defa773cff7"
+      "current_sha256": "6d4a535060d37cdfc09982d0469eb10e7906b2578229014a97759a22cec6345a"
     },
     {
       "id": "companion-A",
@@ -46,7 +46,7 @@
         "sha256": "e372984adc607a519c18d6e91d9f20f024168a5c80c72459ca2a521855a0bfaf",
         "bytes": 90809
       },
-      "current_sha256": "24ef2275d30bf31c8ff47bafb96905ed0f2771cdfb00b4b2e1757b14aee6f0dd"
+      "current_sha256": "07b8b1682b46d8f6ec10eaaa60ccf13ae00c29929a5634275a5817fb8ceebc0d"
     },
     {
       "id": "companion-B",
@@ -61,7 +61,7 @@
         "sha256": "9f1f8b38161696512058db294eefecd0fb28303d74f93ef1700ccb0386b181f9",
         "bytes": 61721
       },
-      "current_sha256": "b0e21f7047798ae6cae4a4f522aea0338104e5305cd493b6b73744b0a1332c53"
+      "current_sha256": "4af6b512e7ba6b38b3c67ba952ebb9313954ad966d693dc58f8fa14f947b1225"
     },
     {
       "id": "companion-C",
@@ -76,7 +76,7 @@
         "sha256": "e53a2b4af11960d5fb6d677728ac5f8dd9bbd4fc8e0fa6e0d4eff155ccd20c3f",
         "bytes": 32582
       },
-      "current_sha256": "08626235066c0e0227d63a442893d2b0faa3e3bf717a426d275b4d7c8718e73d"
+      "current_sha256": "07b262e670751fb18ddd1bebc8913ce405a8a927f27f7286d90e50a9a12110f0"
     },
     {
       "id": "companion-D",
@@ -91,7 +91,7 @@
         "sha256": "3e2945136d995df97afdb3756555434f1c01db83e913ff4f5b964fe175f6fc64",
         "bytes": 24634
       },
-      "current_sha256": "cbb74c0ccfcacbb8d080006b2cee6b5c1deffbef2f2e36196da4bab99e759b60"
+      "current_sha256": "646b078f871988ba794317b176b7237b5dd45f8dadf9531234580ccca96e5f60"
     },
     {
       "id": "appendix-G",
@@ -106,7 +106,7 @@
         "sha256": "6f88ff46532f3ab31fedd5300bd6c2a010d6b10b4ee9f3a1013fffe886d53fa2",
         "bytes": 65872
       },
-      "current_sha256": "29baf07505896d481b1f149c9bf25fc3c744c90ee9dac44c7cfbfe45c269fe12"
+      "current_sha256": "aa483841d44761fa00580f63ef001516ba483d2c2627f7976331acbdb160968d"
     }
   ]
 }

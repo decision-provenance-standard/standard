@@ -28,6 +28,14 @@
     "KD-07": {
       "summary": "For mode-2 records the schema requires disclosure_metadata_pointer already at dispatched; the text requires it from drafted.",
       "status": "open"
+    },
+    "KD-08": {
+      "summary": "Sections 4.6.2 and 2.2.12 accept a declaring authority that names only the person or only the organization; the disclosure schema's declaring_authority object requires a person's full_name, role_title and capacity and the employer, so a value that names only one of them is rejected.",
+      "status": "open"
+    },
+    "KD-09": {
+      "summary": "The reference Charter state machine requires a peer_reviewer_pool of at least 3 named individuals before fields-completed, and the Charter schema rejects any pool smaller than 3; the text (Sections 3.2 and 3.3) requires neither. The state-machine rule is prose and is not machine-checked here; the case covers the schema's pool size.",
+      "status": "open"
     }
   },
   "cases": [
@@ -535,6 +543,190 @@
         "attached_at": "2026-09-25T09:05:00Z"
       },
       "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "A6",
+      "kind": "known-defect",
+      "defect": "KD-08",
+      "description": "disclosure block whose declaring authority names only the organization (the text accepts it)",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "declaring_authority": {
+          "employer": "Example Ltd"
+        },
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "EU"
+        ],
+        "content_type_tag": [
+          "decision-summary"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z",
+        "disclosure_text_pointer": "doc://x",
+        "attached_at": "2026-09-25T09:05:00Z"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "A7",
+      "kind": "control",
+      "defect": null,
+      "description": "declaring authority that names no one (must stay invalid)",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "declaring_authority": {},
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "EU"
+        ],
+        "content_type_tag": [
+          "decision-summary"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z",
+        "disclosure_text_pointer": "doc://x",
+        "attached_at": "2026-09-25T09:05:00Z"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "A8",
+      "kind": "known-defect",
+      "defect": "KD-08",
+      "description": "disclosure block whose declaring authority names only the person (the text accepts it)",
+      "schema": "standard/v5.0/schemas/article-50-disclosure-metadata.json",
+      "instance": {
+        "declaring_authority": {
+          "full_name": "Test Person",
+          "role_title": "Head of Test",
+          "capacity": "employee"
+        },
+        "ai_system_identity": {
+          "system_name": "drafter",
+          "system_version": "1",
+          "model_provider": "example"
+        },
+        "jurisdictional_applicability": [
+          "EU"
+        ],
+        "content_type_tag": [
+          "decision-summary"
+        ],
+        "generation_timestamp": "2026-09-25T09:00:00Z",
+        "disclosure_text_pointer": "doc://x",
+        "attached_at": "2026-09-25T09:05:00Z"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "CH1",
+      "kind": "known-defect",
+      "defect": "KD-09",
+      "description": "Charter at fields-completed with a peer_reviewer_pool of 2 (the text sets no pool size)",
+      "schema": "standard/v5.0/schemas/charter.schema.json",
+      "instance": {
+        "charter_id": "test-charter",
+        "charter_name": "Test Charter",
+        "decision_class": "Test decisions",
+        "accountable_owner": {
+          "full_name": "Test Person",
+          "role": "Head of Test",
+          "employer": "Example Ltd"
+        },
+        "charter_state": "fields-completed",
+        "mode_declaration": "mode-1",
+        "cadence": {
+          "frequency": "monthly",
+          "trigger": "month end"
+        },
+        "record_location": "doc://schedule",
+        "re_decision_triggers": [
+          {
+            "trigger_type": "outcome_evidence",
+            "trigger_description": "outcome misses the stated threshold"
+          },
+          {
+            "trigger_type": "market_evidence",
+            "trigger_description": "a competitor changes the category"
+          }
+        ],
+        "escalation_rule": "doc://escalation",
+        "schedule_of_records": [
+          "decision",
+          "re-decision",
+          "escalation",
+          "charter-amendment"
+        ],
+        "conformance_level_declared": 1,
+        "created_at": "2026-09-25T09:00:00Z",
+        "peer_reviewer_pool": [
+          {
+            "full_name": "Reviewer One",
+            "role": "Peer reviewer"
+          },
+          {
+            "full_name": "Reviewer Two",
+            "role": "Peer reviewer"
+          }
+        ]
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "CH2",
+      "kind": "control",
+      "defect": null,
+      "description": "Charter at fields-completed without a peer_reviewer_pool (must stay valid: the text does not require one)",
+      "schema": "standard/v5.0/schemas/charter.schema.json",
+      "instance": {
+        "charter_id": "test-charter",
+        "charter_name": "Test Charter",
+        "decision_class": "Test decisions",
+        "accountable_owner": {
+          "full_name": "Test Person",
+          "role": "Head of Test",
+          "employer": "Example Ltd"
+        },
+        "charter_state": "fields-completed",
+        "mode_declaration": "mode-1",
+        "cadence": {
+          "frequency": "monthly",
+          "trigger": "month end"
+        },
+        "record_location": "doc://schedule",
+        "re_decision_triggers": [
+          {
+            "trigger_type": "outcome_evidence",
+            "trigger_description": "outcome misses the stated threshold"
+          },
+          {
+            "trigger_type": "market_evidence",
+            "trigger_description": "a competitor changes the category"
+          }
+        ],
+        "escalation_rule": "doc://escalation",
+        "schedule_of_records": [
+          "decision",
+          "re-decision",
+          "escalation",
+          "charter-amendment"
+        ],
+        "conformance_level_declared": 1,
+        "created_at": "2026-09-25T09:00:00Z"
+      },
+      "expected": "pass",
       "must_not_mention": null
     }
   ]

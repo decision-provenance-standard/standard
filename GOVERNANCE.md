@@ -10,7 +10,7 @@
 
 | Lane | Covers | Who approves |
 |---|---|---|
-| **Steward only** | §5 (Record Lifecycle); §6, including the decision-record schema, §6.2.3.1 and §6.2.3.2; §7 (Conformance Levels); §11; Appendix G; Companion A; every "what this is not" passage, including §1.4 and the non-claim sections; `spec/editions.json`; `NOTICE`; the licence files; the reference files under `standard/`; the automated checks (`tools/`, `tests/`, `.github/`); this file; `CODEOWNERS`; release tags | The Steward |
+| **Steward only** | §5 (Record Lifecycle); §6, including the decision-record schema, §6.2.3.1 and §6.2.3.2; §7 (Conformance Levels); §11; Appendix G; Companion A; every "what this is not" passage, including §1.4 and the non-claim sections; `spec/editions.json`; `NOTICE`; the licence files; the reference files under `standard/`; the Steward's own Charter and decision records (`governance/`); the automated checks (`tools/`, `tests/`, `.github/`); this file; `CODEOWNERS`; release tags | The Steward |
 | **Maintainer** (no maintainers yet; the Steward meanwhile) | Wording fixes that don't change meaning, broken links, Companion B, C and D examples, diagram text alternatives, translations | A named maintainer |
 | **Anyone** | Opening issues and pull requests on anything | No approval needed to open one |
 
@@ -33,7 +33,7 @@ A change is a **rule change**, and goes to the Steward, if it touches a MUST, SH
 
 - **Renamed values.** When an allowed value is renamed, the old value stays accepted and is marked deprecated. It is removed only in a major release.
 - **What each release publishes.** Each release names the text revision, the reference-files release and the repository commit, and gives the SHA-256 digest of every published file.
-- **Disputes about whether a change is minor or major** are decided by the Steward, by name, and recorded as a decision record. The rev. 8 text of Appendix G §G.7.7 names this role differently; that text is being brought into line.
+- **Whether a change is a patch, minor or major release** is decided by the Steward, by name, and recorded publicly as a decision record. The call concerns the Standard's text; it does not grade, confirm or change any organization's self-declared Level. Anyone may raise the question as an issue. The Steward aims to answer within 30 days of the issue being raised. No answer is not a ruling either way. Appendix G §G.7.7 says the same.
 
 ## What the Steward does not do
 

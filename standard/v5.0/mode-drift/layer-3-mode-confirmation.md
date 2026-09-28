@@ -10,7 +10,7 @@
 The Mode-Confirmation Audit primitive is an **interrupt at the `review-required` RECORD-state** in the dispatch state machine. It fires under three triggers:
 
 1. **Layer 1 hard flag** — classifier-confidence ≥ 0.75 routes the record to the peer-reviewer queue (enforcement mode active from Week 7+ of the implementation lifecycle).
-2. **Layer 2 audit-hook routing** — any non-`Yes` Q1-Q4 answer, declined answer, or Layer-1-vs-Layer-2 inconsistency.
+2. **Layer 2 audit-hook routing** — `Yes` or `Uncertain` on Q1-Q3, anything but `Yes` on Q4, a declined answer, or a Layer-1-vs-Layer-2 inconsistency.
 3. **Explicit reviewer invocation** — the reviewer at `review-required` invokes the audit explicitly.
 
 When fired, the primitive holds the record at `review-required` and routes to a designated human peer reviewer. The peer reviewer either:

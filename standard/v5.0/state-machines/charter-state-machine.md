@@ -51,7 +51,7 @@ The enum is exhaustive — no fourth mode. Any drafter or implementer believing 
 
 ## RECORD-state Interrupt: `review-required`
 
-When fired (Layer 1 hard flag, Layer 2 non-Yes audit-hook answer, Layer 3 explicit invocation, or Charter `escalation_rule` invoked), the affected decision record holds at `review-required` and routes to a designated peer reviewer (per `peer_reviewer_pool` + Layer 3 designation rule).
+When fired (Layer 1 hard flag; Layer 2 audit-hook routing on `Yes` or `Uncertain` on Q1-Q3, anything but `Yes` on Q4, a declined answer, or a Layer-1-vs-Layer-2 inconsistency; Layer 3 explicit invocation; or Charter `escalation_rule` invoked), the affected decision record holds at `review-required` and routes to a designated peer reviewer (per `peer_reviewer_pool` + Layer 3 designation rule).
 
 The Charter itself remains in `fields-completed`. Other records under the same Charter continue dispatching normally.
 

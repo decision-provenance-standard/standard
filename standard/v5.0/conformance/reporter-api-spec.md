@@ -246,7 +246,7 @@ The endpoint is bounded to ≤ 500ms p99 server-side. If a deployer's Reporter c
     },
     "classifier_metadata": {
       "type": "object",
-      "description": "Required when escalation_type is layer_1_*. Per Mode-Drift sub-spec Layer 1 corpus-version provenance.",
+      "description": "Required when escalation_type is layer_1_*. Per Mode-Drift Layer 1 corpus-version provenance (Standard §4.8.1).",
       "additionalProperties": false,
       "properties": {
         "classifier_version": {"type": "string"},
