@@ -4,7 +4,7 @@ An open standard for audit-ready provenance of consequential decisions made by h
 
 **Website:** https://decisionprovenancestandard.org
 
-> The current release is version 1.2 (reading edition rev. 10), tag `v1.2-rev10`, released <RELEASE-DATE>, with reference files 5.1.2. Versions 1.1 (rev. 9, tag `v1.1-rev9`) and 1.0 (rev. 8, tag `rev8-published`) stay available unchanged. Between releases, `main` may carry corrections not yet released: cite a release, not `main`.
+> The current release is version 1.2 (reading edition rev. 10), tag `v1.2-rev10`, released 2026-09-28, with reference files 5.1.2. Versions 1.1 (rev. 9, tag `v1.1-rev9`) and 1.0 (rev. 8, tag `rev8-published`) stay available unchanged. Between releases, `main` may carry corrections not yet released: cite a release, not `main`.
 
 The published text is on the website. Its source and proposed corrections live here. Only a tagged release changes the Standard.
 
@@ -49,7 +49,7 @@ Licenses differ by folder. Text (`spec/`, `governance/`, and the other documenta
 
 ## Release notes
 
-### Version 1.2 (reading edition rev. 10), with reference files 5.1.2, released <RELEASE-DATE>
+### Version 1.2 (reading edition rev. 10), with reference files 5.1.2, released 2026-09-28
 
 **A minor release.** The Steward classifies version 1.2 as a minor release ([DR-2026-0013](governance/decisions/DR-2026-0013-v1.2-is-a-minor-release.md)). No record or Charter valid under v1.1 (rev. 9) becomes invalid, under either reading of Appendix G, and no field, allowed value or signal is renamed or removed.
 
@@ -99,6 +99,8 @@ We thank an outside reviewer whose observations led to several of these correcti
 **What stays as it was.** The published rev. 8 files, their download addresses and their checksums stay unchanged, and the tag `rev8-published` never moves. Reference release 5.1.0 stays recoverable at that tag.
 
 **Known issue.** Already true in rev. 8 and not changed in this release: the conformance test in §4.6.2, the `disclosure_metadata_pointer` row of §6.2.2 and the Level 2 criteria in §7.3.1 require the disclosure block, or a pointer to it, for every Mode 2 artifact or record. None of them repeats the exclusion for outputs that a Charter declares outside the disclosure requirement under §4.6.1. This will be addressed in a later release. (Addressed in version 1.2: DR-2026-0010.)
+
+**Found after release.** The v1.1 Markdown downloads link figures in a `diagrams/` folder that the release folder did not include; the figures, as released at tag `v1.1-rev9`, were added beside them on the website on 2026-09-28, with new checksum lines, and the v1.1 bundle is unchanged. The two links on the last page of the v1.1 Companion A PDF point at a local address used when it was printed; the PDF stays as released.
 
 **What this release publishes.** Text: version 1.1, reading edition rev. 9 (tag `v1.1-rev9`). Reference files: release 5.1.1. The repository commit is named in the GitHub release and on the website's downloads page, because a commit cannot contain its own id. SHA-256 digests: each document's Markdown in [`spec/editions.json`](spec/editions.json) under `releases`, and every downloadable file in the website's checksum list for this release.
 

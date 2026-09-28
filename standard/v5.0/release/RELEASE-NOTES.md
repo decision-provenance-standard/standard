@@ -6,7 +6,7 @@
 
 ---
 
-## Release 5.1.2 (<RELEASE-DATE>), with version 1.2 of the text (reading edition rev. 10)
+## Release 5.1.2 (2026-09-28), with version 1.2 of the text (reading edition rev. 10)
 
 A wording release with version 1.2 of the text. The reference files follow v1.2's clarifications.
 
