@@ -31,7 +31,7 @@
         "sha256": "10f634360b66ff574ceedd79407227a577d46aca3917e9740e0773eee7ca6f51",
         "bytes": 276948
       },
-      "current_sha256": "6d4a535060d37cdfc09982d0469eb10e7906b2578229014a97759a22cec6345a"
+      "current_sha256": "7b7b8e5209ad2257cedb399943ec551ac9b3c10a753fa87dda96faabb3fbc12e"
     },
     {
       "id": "companion-A",
@@ -76,7 +76,7 @@
         "sha256": "e53a2b4af11960d5fb6d677728ac5f8dd9bbd4fc8e0fa6e0d4eff155ccd20c3f",
         "bytes": 32582
       },
-      "current_sha256": "07b262e670751fb18ddd1bebc8913ce405a8a927f27f7286d90e50a9a12110f0"
+      "current_sha256": "933a2bb2f538aef8b670652d6ad902c0f508f737054be5303f711b2dd76f3a14"
     },
     {
       "id": "companion-D",
@@ -106,7 +106,7 @@
         "sha256": "6f88ff46532f3ab31fedd5300bd6c2a010d6b10b4ee9f3a1013fffe886d53fa2",
         "bytes": 65872
       },
-      "current_sha256": "aa483841d44761fa00580f63ef001516ba483d2c2627f7976331acbdb160968d"
+      "current_sha256": "2870bb355608ce3c0549578c5875fd707ba2081a981cd5c7208a6829f772c906"
     }
   ]
 }

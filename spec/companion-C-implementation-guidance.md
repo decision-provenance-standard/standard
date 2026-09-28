@@ -114,7 +114,7 @@ The structural mitigation is the sequencing rule in §C.2: one Charter in the fi
 
 The deployer authors a Charter without populating the `mode_declaration` field, or populates it ambiguously. The Charter cannot transit out of `open`. If the deployer overrides the lifecycle gate and dispatches decisions under an unmoded Charter, every decision record produced under it is structurally non-conformant — and the first decision that incorporates an AI-authored sub-output carries no disclosure metadata block.
 
-The structural mitigation is the Charter state model itself (Section 3): the `mode_declaration` field is required at any state past `open`, the field is enumerated (not free-text), and a conformant implementation's dispatch state machine refuses to dispatch decisions under an unmoded Charter. The deployer's task is to declare the mode honestly. Mode 1 is the default. Mode 2 is a deliberate choice with disclosure consequences.
+The structural mitigation is the Charter state model itself (Section 3): the `mode_declaration` field is required at any state past `open`, the field is enumerated (not free-text), and the dispatch state machine of a tool that implements the Standard refuses to dispatch decisions under an unmoded Charter. The deployer's task is to declare the mode honestly. Mode 1 is the default. Mode 2 is a deliberate choice with disclosure consequences.
 
 ### C.4.3 Silent Mode 1 → Mode 2 drift
 

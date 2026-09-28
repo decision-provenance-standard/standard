@@ -18,6 +18,7 @@ Every record under the Charter is listed here by id, type, state and date. Stand
 | [DR-2026-0003](decisions/DR-2026-0003-release-classification-is-the-stewards-call.md) | decision | drafted | 2026-09-28T04:23:16Z | Release classification is the Steward's call |
 | [DR-2026-0004](decisions/DR-2026-0004-mode-drift-layers-text-governs.md) | decision | drafted | 2026-09-28T04:23:35Z | The mode-drift layers: the text governs |
 | [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | drafted | 2026-09-28T05:18:01Z | v1.1 is a minor release |
+| [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | drafted | 2026-09-28T06:13:32Z | Products and tools implement the Standard |
 
 The Charter is in its first version. Any change to it is made by a Charter-amendment record listed here.
 
