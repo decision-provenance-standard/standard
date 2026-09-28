@@ -62,7 +62,7 @@ Licenses differ by folder. Text (`spec/`, `governance/`, and the other documenta
 | The §4.6.1 exclusion reaches every Level 2 disclosure check, including the Mode 1 edge case. Level 3's disclosure-review criterion accepts a disclosure-review record as proof of review, as well as `last_reviewed_at` | [DR-2026-0010](governance/decisions/DR-2026-0010-exclusion-in-the-level-checks-and-disclosure-review-evidence.md) |
 | Level 2 checks with nothing yet to check do not apply until there is something to check; "cannot be silently mutated" is judged from the records as they stand | [DR-2026-0011](governance/decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md) |
 | The declaration kit (`kit/`) is in the Steward's approval lane | [DR-2026-0012](governance/decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) |
-| Wording: PROV-AGENT is cited as the 2025 research paper it is; the block is called "the disclosure block"; role abbreviations are written out; the remaining sentences that stated what a law requires, who carries a legal duty, or that assumed counsel now say the matter is for the deployer to determine; a fourth mode or a disputed classification is raised as an issue or pull request | None needed for wording; the field descriptions that no longer assume counsel are recorded in [DR-2026-0008](governance/decisions/DR-2026-0008-appendix-g-is-informative-and-counsel-is-a-recommendation.md) |
+| Wording: PROV-AGENT is cited as the 2025 research paper it is; the block is called "the disclosure block"; role abbreviations are written out; sentences in the core and the Companions that assumed counsel or said who decides a legal matter now say it is for the deployer to determine; a fourth mode or a disputed classification is raised as an issue or pull request | None needed for wording; the field descriptions that no longer assume counsel are recorded in [DR-2026-0008](governance/decisions/DR-2026-0008-appendix-g-is-informative-and-counsel-is-a-recommendation.md) |
 | Figures D1, D2, D4, D5 and D7 follow the text | None needed: explanatory figures |
 | Reference files 5.1.2: wording only; the decision-record state machine's Mode 1 close states the Layer 2 route the text states, which 5.1.1 missed | See [`standard/v5.0/release/RELEASE-NOTES.md`](standard/v5.0/release/RELEASE-NOTES.md) |
 
@@ -118,7 +118,7 @@ See [`CITATION.cff`](CITATION.cff), or cite as:
 
 > Etsion, Yohay. *Decision Provenance Standard*, version 1.2 (rev. 10). 2026. https://decisionprovenancestandard.org. Licensed CC BY 4.0.
 
-To cite the earlier release, use version 1.0 (rev. 8) and the tag `rev8-published`.
+To cite an earlier release, use version 1.1 (rev. 9) and the tag `v1.1-rev9`, or version 1.0 (rev. 8) and the tag `rev8-published`.
 
 ## Stewardship
 

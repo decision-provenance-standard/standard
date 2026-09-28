@@ -1,6 +1,6 @@
 Companion to the Decision Provenance Standard v1.2; tracks core revision rev. 10.
 
-*The worked Charters below are self-contained illustrations of the Standard's Charter mechanism (Section 3) across common functional surfaces. They are illustrative, not normative, and not certifications.* This Companion's cross-references to the Standard's core sections (§1–§7) resolve against the core Reading Edition (rev. 9).
+*The worked Charters below are self-contained illustrations of the Standard's Charter mechanism (Section 3) across common functional surfaces. They are illustrative, not normative, and not certifications.* This Companion's cross-references to the Standard's core sections (§1–§7) resolve against the core Reading Edition (rev. 10).
 
 ---
 
