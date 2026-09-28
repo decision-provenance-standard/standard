@@ -73,7 +73,7 @@ The vocabulary is the locked enumeration the reporter API validates the `evidenc
 
 ## Directory Path Note
 
-The directory name is `v5.0/` and is kept unchanged so the Standard's `standard/v5.0/...` references resolve. The reference-files release label is v5.1.1 (see `release/RELEASE-NOTES.md`); the directory path stays `v5.0/`.
+The directory name is `v5.0/` and is kept unchanged so the Standard's `standard/v5.0/...` references resolve. The reference-files release label is v5.1.2 (see `release/RELEASE-NOTES.md`); the directory path stays `v5.0/`.
 
 ---
 

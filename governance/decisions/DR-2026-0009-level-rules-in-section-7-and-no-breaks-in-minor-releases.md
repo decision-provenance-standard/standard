@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-09-28T13:35:49Z |
 | `record_type` | decision |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-09-28T13:35:49Z |
 | `decision_statement` | Section 7.1 now points to sections that bar or grade a Level outside the §7 tables, naming §6.2.4 (a record missing a field required at its lifecycle state fails Level 1) and §6.5.2 (Level 3 reads the discoverability and retention rules of §6.4), both of which already bind as core text. Appendix G and §7.5 no longer let a minor release break a Conformance Level by listing the break: a change that would break a Level ships only in a major release, whose release notes list what it breaks (§G.7.7.1). This changes no grade the v1.1 text allowed and no rule for records or Charters, and no record or Charter valid under v1.1 (reading edition rev. 9) becomes invalid; it narrows only what the Steward's own releases may do. |
 | `context_at_decision` | • Several sections outside the §7 tables bar or grade a Level (for example §3.1, §6.2.3.1, §6.2.3.2, §6.2.4, §6.3.2 and §6.5.2), and §7 did not point to all of them; the rules in §6.2.4 and §6.4 already bound under v1.1, but the Steward's v1.1 declaration kit did not ask about them, so a Level declared with that kit may need to be checked again.<br>• v1.1's Appendix G let a minor release break a Level where Section 11 listed the break, but Section 11 lists no breaks, and a change that makes a previously valid record invalid is a major release.<br>• v1.1 listed no breaks, so no Charter relied on one. |
@@ -23,9 +23,15 @@
 | `review_log` | • reviewer: a fresh AI-drafted legal-claims review made for the Steward; reviewed_at: 2026-09-28T13:55:59Z; outcome: go with changes, with its findings folded into the pull request before the merge<br>• reviewer: a fresh AI-drafted compatibility review made for the Steward; reviewed_at: 2026-09-28T14:11:01Z; outcome: go with changes, with no record or Charter valid under v1.1 made invalid, and its findings folded into the pull request before the merge |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-09-28 |
+| `closed_at` | 2026-09-28T16:21:10Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-09-28T16:21:10Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue shows a grade changed by §7.1's paragraph, or a minor release that broke a Level; the Steward then corrects it in a patch or reclassifies the release.<br>Market evidence: an adopter or standards body asks for a published list of breaks, or for the Level rules to be moved into the §7 tables. |
 | `record_location` | `governance/decisions/DR-2026-0009-level-rules-in-section-7-and-no-breaks-in-minor-releases.md` and, once released, at tag `v1.2-rev10` |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005<br>• DR-2026-0006<br>• DR-2026-0007<br>• DR-2026-0008 |
+| `affirmation_record` | timestamp: 2026-09-28T16:21:10Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #15, which added this record to the repository (merge commit 9d39375dcc6cc591fc77c2152afd42000502b283) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-09-28T16:21:10Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | b3219445c6a3571e816118ebecc15d3395003dcfe1b7b2d27c89893a4b906745 |
 
 ## Disclosure block
 

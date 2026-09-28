@@ -6,13 +6,13 @@
     {
       "edition": "companion-D",
       "from": "# Decision Provenance Standard™ v1.0 — Companion D: Diagrams",
-      "to": "# Decision Provenance Standard™ v1.1 — Companion D: Diagrams"
+      "to": "# Decision Provenance Standard™ v1.2 — Companion D: Diagrams"
     }
   ],
   "editions": [
     {
       "id": "core",
-      "title": "Decision Provenance Standard, Core v1.1, Reading Edition rev. 9",
+      "title": "Decision Provenance Standard, Core v1.2, Reading Edition rev. 10",
       "published_name": "decision-provenance-standard-v1.0-rev8-core.md",
       "line_endings": "crlf",
       "parts": [
@@ -47,9 +47,18 @@
           "published_name": "decision-provenance-standard-v1.1-rev9-core.md",
           "page_name": "dps-v1.1-rev9-core.html",
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        },
+        {
+          "revision": "v1.2 rev. 10",
+          "tag": "v1.2-rev10",
+          "sha256": "276fd77047ae7a81fac7ad915b0d6f766a3e4b872784618019c02683af0f5c6f",
+          "bytes": 278377,
+          "published_name": "decision-provenance-standard-v1.2-rev10-core.md",
+          "page_name": "dps-v1.2-rev10-core.html",
+          "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "c08722fe8af1a3b6f0f79a2ac796de95f35098618aea4a78f4a5dbb27a5301a7"
+      "current_sha256": "276fd77047ae7a81fac7ad915b0d6f766a3e4b872784618019c02683af0f5c6f"
     },
     {
       "id": "companion-A",
@@ -73,9 +82,18 @@
           "published_name": "decision-provenance-standard-v1.1-rev9-companion-A-regulatory-cross-reference.md",
           "page_name": "dps-v1.1-rev9-companion-A.html",
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        },
+        {
+          "revision": "v1.2 rev. 10",
+          "tag": "v1.2-rev10",
+          "sha256": "676bd22cabf2ad14ff7bc05fe65538cc5f3208762d4e61d834d5e117dea64316",
+          "bytes": 84279,
+          "published_name": "decision-provenance-standard-v1.2-rev10-companion-A-regulatory-cross-reference.md",
+          "page_name": "dps-v1.2-rev10-companion-A.html",
+          "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "1de7daf0d7b98c2afbab7c965e4e7b012ce49377d611010ab1c0a2871216cc84"
+      "current_sha256": "676bd22cabf2ad14ff7bc05fe65538cc5f3208762d4e61d834d5e117dea64316"
     },
     {
       "id": "companion-B",
@@ -99,9 +117,18 @@
           "published_name": "decision-provenance-standard-v1.1-rev9-companion-B-worked-charter-library.md",
           "page_name": "dps-v1.1-rev9-companion-B.html",
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        },
+        {
+          "revision": "v1.2 rev. 10",
+          "tag": "v1.2-rev10",
+          "sha256": "237579e648e2e4eeefb55033be4d6756cebab305de8b92e78af1a01cbaa4547c",
+          "bytes": 61791,
+          "published_name": "decision-provenance-standard-v1.2-rev10-companion-B-worked-charter-library.md",
+          "page_name": "dps-v1.2-rev10-companion-B.html",
+          "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "f001239d8bb2608111b40af50d09d48b56f2f2223c90626f5f30a13933af165f"
+      "current_sha256": "237579e648e2e4eeefb55033be4d6756cebab305de8b92e78af1a01cbaa4547c"
     },
     {
       "id": "companion-C",
@@ -125,9 +152,18 @@
           "published_name": "decision-provenance-standard-v1.1-rev9-companion-C-implementation-guidance.md",
           "page_name": "dps-v1.1-rev9-companion-C.html",
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        },
+        {
+          "revision": "v1.2 rev. 10",
+          "tag": "v1.2-rev10",
+          "sha256": "034edc786bd025338a7f1f502fb19ad0714d2a6f00c49009e92dd0bae34a31c0",
+          "bytes": 31872,
+          "published_name": "decision-provenance-standard-v1.2-rev10-companion-C-implementation-guidance.md",
+          "page_name": "dps-v1.2-rev10-companion-C.html",
+          "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "a5d4fdcac36642145132d3e5884324ee7104c8c1a182d1e5b220a919d731d811"
+      "current_sha256": "034edc786bd025338a7f1f502fb19ad0714d2a6f00c49009e92dd0bae34a31c0"
     },
     {
       "id": "companion-D",
@@ -151,9 +187,18 @@
           "published_name": "decision-provenance-standard-v1.1-rev9-companion-D-diagrams.md",
           "page_name": "dps-v1.1-rev9-companion-D.html",
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        },
+        {
+          "revision": "v1.2 rev. 10",
+          "tag": "v1.2-rev10",
+          "sha256": "d4d238fd4e538996a37ca51f109c382fe9c2449947ccb8cd95c9e429b4172b27",
+          "bytes": 24681,
+          "published_name": "decision-provenance-standard-v1.2-rev10-companion-D-diagrams.md",
+          "page_name": "dps-v1.2-rev10-companion-D.html",
+          "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "2b0bf671f14355eaf74ebd89271be09370c2acb6ec0700b5d952f9471a112614"
+      "current_sha256": "d4d238fd4e538996a37ca51f109c382fe9c2449947ccb8cd95c9e429b4172b27"
     },
     {
       "id": "appendix-G",
@@ -177,9 +222,18 @@
           "published_name": "decision-provenance-standard-v1.1-rev9-appendix-G-governance-and-references.md",
           "page_name": "dps-v1.1-rev9-appendix-G.html",
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        },
+        {
+          "revision": "v1.2 rev. 10",
+          "tag": "v1.2-rev10",
+          "sha256": "3bdd6ba414c38f9014afc87fa3562bfee8b3c8d81e673268770a857f14e9c437",
+          "bytes": 56694,
+          "published_name": "decision-provenance-standard-v1.2-rev10-appendix-G-governance-and-references.md",
+          "page_name": "dps-v1.2-rev10-appendix-G.html",
+          "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "3a8962735dff7f388e3b2a674627daf638fdbcfa07302a5702b7417f6e7a688d"
+      "current_sha256": "3bdd6ba414c38f9014afc87fa3562bfee8b3c8d81e673268770a857f14e9c437"
     }
   ]
 }

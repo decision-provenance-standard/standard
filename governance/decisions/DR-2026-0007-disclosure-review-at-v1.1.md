@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-09-28T06:34:38Z |
 | `record_type` | disclosure_review |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-09-28T06:34:38Z |
 | `decision_statement` | The Founding Steward's disclosure review at the v1.1 release (reading edition rev. 9) finds the disclosure blocks of records DR-2026-0001 to DR-2026-0006, and the block in `governance/README.md` to which the Charter's `disclosure_metadata_pointer` points, accurate as written: each names Yohay Etsion, for Etsion Brands Ltd, as the declaring authority and Anthropic / Claude Opus 5.5 as the AI system that drafted the records, tags where the records are intended to be read and their content type, and, in each record, gives that record's own drafting time. No block is changed, and no correcting record is needed. |
 | `context_at_decision` | • The Charter is Mode 2, and its schedule of records commits to a disclosure-review record at each release, reviewing the disclosure block in `governance/README.md` (Standard §6.3.1 and §7.2.1).<br>• Records DR-2026-0001 to DR-2026-0005 were drafted with AI and affirmed by the Steward's merge of pull request #5 on 2026-09-28; DR-2026-0006 was drafted with AI on 2026-09-28 in a separate pull request.<br>• Each record repeats the block from `governance/README.md` with its own generation time, and names the AI system that drafted it in `drafting_authority`.<br>• This is the first disclosure-review record under the Charter, so there is no earlier review to compare with. |
@@ -22,9 +22,15 @@
 | `disclosure_metadata_pointer` | The disclosure block below (the same block as in `governance/README.md`) |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-09-28 |
+| `closed_at` | 2026-09-28T09:34:11Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-09-28T09:34:11Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue shows a reviewed block to be inaccurate; the Steward then records a correcting record that supersedes the affected record, and a new disclosure review.<br>Market evidence: the Steward starts drafting records with a different AI system or version, or a reader reports that the jurisdiction tag misdescribes where the records are read. |
 | `record_location` | `governance/decisions/DR-2026-0007-disclosure-review-at-v1.1.md`, first released at `drafted` with tag `v1.1-rev9`; once closed, at the tag of the release that closes it |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005<br>• DR-2026-0006 |
+| `affirmation_record` | timestamp: 2026-09-28T09:34:11Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #7, which added this record to the repository (merge commit ad00e522b7ce2aa8bbb07c5478bb72935cccc9c5) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-09-28T09:34:11Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | 0806d80b132ed3479960c8e3082ebe2045b9481a066e2537578318bd304efa8b |
 
 ## Disclosure block
 

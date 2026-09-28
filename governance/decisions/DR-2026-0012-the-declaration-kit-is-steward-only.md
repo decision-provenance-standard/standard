@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-09-28T13:35:52Z |
 | `record_type` | decision |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-09-28T13:35:52Z |
 | `decision_statement` | The declaration kit (`kit/`) is added to GOVERNANCE.md's Steward-only lane and to CODEOWNERS, because its criteria restate the Conformance Level rules and a change to it could drift from the text. This record is made under the Charter because it changes GOVERNANCE.md, which is root documentation; the Charter itself is unchanged. |
 | `context_at_decision` | • The kit's criteria restate the Level criteria of §7 and are built into a prompt and a coding-agent skill that organizations and product makers use to write their self-declarations.<br>• GOVERNANCE.md's Steward-only lane covers the text's rules, the reference files, the automated checks and the governance records, but not `kit/`.<br>• An automated check keeps the kit's generated files in sync with its own sources, not with the text. |
@@ -23,9 +23,15 @@
 | `review_log` | • reviewer: a fresh AI-drafted legal-claims review made for the Steward; reviewed_at: 2026-09-28T13:55:59Z; outcome: go with changes, with its findings folded into the pull request before the merge<br>• reviewer: a fresh AI-drafted compatibility review made for the Steward; reviewed_at: 2026-09-28T14:11:01Z; outcome: go with changes, with no record or Charter valid under v1.1 made invalid, and its findings folded into the pull request before the merge |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-09-28 |
+| `closed_at` | 2026-09-28T16:21:10Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-09-28T16:21:10Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue shows a kit criterion drifted from the text; the Steward then corrects the kit and reviews how kit changes are approved.<br>Market evidence: an outside contributor asks to maintain the kit, or the kit moves to its own repository. |
 | `record_location` | `governance/decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md` and, once released, at tag `v1.2-rev10` |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005<br>• DR-2026-0006<br>• DR-2026-0007<br>• DR-2026-0008<br>• DR-2026-0009<br>• DR-2026-0010<br>• DR-2026-0011 |
+| `affirmation_record` | timestamp: 2026-09-28T16:21:10Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #15, which added this record to the repository (merge commit 9d39375dcc6cc591fc77c2152afd42000502b283) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-09-28T16:21:10Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | 924c3407b090f2368c4e4903880dd06612c9ce830125a36c0e6b5d410afdcd8f |
 
 ## Disclosure block
 

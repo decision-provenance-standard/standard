@@ -1,4 +1,4 @@
-# Conformance Signal Vocabulary — v5.1.1
+# Conformance Signal Vocabulary — v5.1.2
 
 **Authority**: Standard §6
 **Status**: 1:1 binding to the `evidence_metric` enum in the reporter API. 23-signal vocabulary across Levels 1, 2, 3.
@@ -102,4 +102,4 @@ This vocabulary **records process**, **NOT** evidence. Writing about these signa
 
 ---
 
-*Signal vocabulary at v5.1.1 (23 signals: 6 Level 1, 11 Level 2, 6 Level 3). Amendments require steward review.*
+*Signal vocabulary at v5.1.2 (23 signals: 6 Level 1, 11 Level 2, 6 Level 3). Amendments require steward review.*

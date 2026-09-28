@@ -5,27 +5,28 @@ This folder holds the Standard's own use of itself by its Steward: a Charter for
 - [`charter.md`](charter.md) is the Charter `dps-text-authoring`, with every field of Standard §3.2. It declares a target of Level 1 only because the text requires every complete Charter to declare one.
 - [`decisions/`](decisions/) holds one file per record, with its fields in the order of Standard §6.2.
 
-**Which text these files follow.** The files are written against the Standard's text on `main` as corrected for v1.1 (reading edition rev. 9), which is tagged `v1.1-rev9` after the release pull request merges. Section numbers refer to that text.
+**Which text these files follow.** Each record is written against the Standard's text as released in the release its `record_location` names; section numbers refer to that release's text.
 
 ## Records index
 
 Every record under the Charter is listed here by id, type, state and date. Standard §6.4.1 requires the Charter's index to list its records so they can be found by record type and by date range; the findability rule of §6.3.2 requires any record to be found within 30 seconds by someone who was not in the room.
 
-| Record | Type | State | Dispatched (UTC) | Decision |
-|---|---|---|---|---|
-| [DR-2026-0001](decisions/DR-2026-0001-disclosure-block-is-the-standards-own-requirement.md) | decision | closed | 2026-09-28T04:22:41Z | The disclosure block is the Standard's own requirement |
-| [DR-2026-0002](decisions/DR-2026-0002-redaction-consent-and-privacy-wording.md) | decision | closed | 2026-09-28T04:22:58Z | Redaction, consent and privacy wording |
-| [DR-2026-0003](decisions/DR-2026-0003-release-classification-is-the-stewards-call.md) | decision | closed | 2026-09-28T04:23:16Z | Release classification is the Steward's call |
-| [DR-2026-0004](decisions/DR-2026-0004-mode-drift-layers-text-governs.md) | decision | closed | 2026-09-28T04:23:35Z | The mode-drift layers: the text governs |
-| [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | closed | 2026-09-28T05:18:01Z | v1.1 is a minor release |
-| [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | closed | 2026-09-28T06:13:32Z | Products and tools implement the Standard |
-| [DR-2026-0007](decisions/DR-2026-0007-disclosure-review-at-v1.1.md) | disclosure_review | drafted | 2026-09-28T06:34:38Z | Disclosure review at the v1.1 release |
-| [DR-2026-0008](decisions/DR-2026-0008-appendix-g-is-informative-and-counsel-is-a-recommendation.md) | decision | drafted | 2026-09-28T13:35:48Z | Appendix G is informative, and named counsel is a recommendation |
-| [DR-2026-0009](decisions/DR-2026-0009-level-rules-in-section-7-and-no-breaks-in-minor-releases.md) | decision | drafted | 2026-09-28T13:35:49Z | Level rules in Section 7, and no breaks in minor releases |
-| [DR-2026-0010](decisions/DR-2026-0010-exclusion-in-the-level-checks-and-disclosure-review-evidence.md) | decision | drafted | 2026-09-28T13:35:50Z | The exclusion in the Level checks, and disclosure-review evidence |
-| [DR-2026-0011](decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md) | decision | drafted | 2026-09-28T13:35:51Z | Level 2 checks with nothing to check |
-| [DR-2026-0012](decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) | decision | drafted | 2026-09-28T13:35:52Z | The declaration kit is Steward-only |
-| [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | drafted | 2026-09-28T13:35:53Z | v1.2 is a minor release |
+| Record | Type | State | Dispatched (UTC) | Decision | Sealed at tag |
+|---|---|---|---|---|---|
+| [DR-2026-0001](decisions/DR-2026-0001-disclosure-block-is-the-standards-own-requirement.md) | decision | closed | 2026-09-28T04:22:41Z | The disclosure block is the Standard's own requirement | `v1.1-rev9` |
+| [DR-2026-0002](decisions/DR-2026-0002-redaction-consent-and-privacy-wording.md) | decision | closed | 2026-09-28T04:22:58Z | Redaction, consent and privacy wording | `v1.1-rev9` |
+| [DR-2026-0003](decisions/DR-2026-0003-release-classification-is-the-stewards-call.md) | decision | closed | 2026-09-28T04:23:16Z | Release classification is the Steward's call | `v1.1-rev9` |
+| [DR-2026-0004](decisions/DR-2026-0004-mode-drift-layers-text-governs.md) | decision | closed | 2026-09-28T04:23:35Z | The mode-drift layers: the text governs | `v1.1-rev9` |
+| [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | closed | 2026-09-28T05:18:01Z | v1.1 is a minor release | `v1.1-rev9` |
+| [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | closed | 2026-09-28T06:13:32Z | Products and tools implement the Standard | `v1.1-rev9` |
+| [DR-2026-0007](decisions/DR-2026-0007-disclosure-review-at-v1.1.md) | disclosure_review | closed | 2026-09-28T06:34:38Z | Disclosure review at the v1.1 release | `v1.2-rev10` |
+| [DR-2026-0008](decisions/DR-2026-0008-appendix-g-is-informative-and-counsel-is-a-recommendation.md) | decision | closed | 2026-09-28T13:35:48Z | Appendix G is informative, and named counsel is a recommendation | `v1.2-rev10` |
+| [DR-2026-0009](decisions/DR-2026-0009-level-rules-in-section-7-and-no-breaks-in-minor-releases.md) | decision | closed | 2026-09-28T13:35:49Z | Level rules in Section 7, and no breaks in minor releases | `v1.2-rev10` |
+| [DR-2026-0010](decisions/DR-2026-0010-exclusion-in-the-level-checks-and-disclosure-review-evidence.md) | decision | closed | 2026-09-28T13:35:50Z | The exclusion in the Level checks, and disclosure-review evidence | `v1.2-rev10` |
+| [DR-2026-0011](decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md) | decision | closed | 2026-09-28T13:35:51Z | Level 2 checks with nothing to check | `v1.2-rev10` |
+| [DR-2026-0012](decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) | decision | closed | 2026-09-28T13:35:52Z | The declaration kit is Steward-only | `v1.2-rev10` |
+| [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | closed | 2026-09-28T13:35:53Z | v1.2 is a minor release | `v1.2-rev10` |
+| [DR-2026-0014](decisions/DR-2026-0014-disclosure-review-at-v1.2.md) | disclosure_review | drafted | 2026-09-28T14:23:25Z | Disclosure review at the v1.2 release |  |
 
 The Charter is in its first version. Any change to it is made by a Charter-amendment record listed here.
 
@@ -37,8 +38,10 @@ The Charter is in its first version. Any change to it is made by a Charter-amend
 - **Sealed.** The seal is computed in the release pull request, after the closing fields are written, over the complete closed record, closing fields included. It does not cover only the text as it stood before the merge. Standard §6.2 describes the seal as "computed at the affirmation moment"; here it is computed after the affirmation, not at that moment, because the affirmation is the Steward's merge and a file cannot contain its own merge.
 - **In between.** From the merge that affirms a record until the release pull request merges, the record on `main` is affirmed but still reads `drafted`, with no closing fields and no seal.
 - **After.** A closed record is never edited. It can only be superseded by a new record.
+- **Review log.** The text requires a `review_log` from the `reviewed` state onward (Standard §6.2.3). Records DR-2026-0001 to DR-2026-0007 were affirmed without one; affirmed records are never edited, so they stay as they are. Records from DR-2026-0008 on list the reviews made before the merge that affirms them. Because those seven records lack a field the text requires, the Charter does not meet the Level 1 field rule (§6.2.4) for them, and so does not reach its target Level 1.
+- **Checked on every pull request.** `python tools/check_governance.py` checks every record's fields against the text, each closed record's closing values against the merge that affirmed it, and each seal.
 
-**Success checks.** Each record has a check at release plus checks at 2, 6 and 12 months after the v1.1 release (T+2, T+6, T+12). They are the Steward's own targets, not forecasts.
+**Success checks.** Each record has a check at release plus checks at 2, 6 and 12 months after the release named in the record (T+2, T+6, T+12). They are the Steward's own targets, not forecasts.
 
 ## The seal
 
@@ -53,7 +56,7 @@ To check a seal, run this from a clone of the repository, with `FILE` replaced b
 git show v1.1-rev9:governance/decisions/FILE | sed -E '/^\| `seal_hash` \|/s/[0-9a-f]{64}/0000000000000000000000000000000000000000000000000000000000000000/' | sha256sum
 ```
 
-For a record closed at a later release, use the tag of the release that closed it in place of `v1.1-rev9`. Without a clone, replace `git show v1.1-rev9:governance/decisions/FILE` with `curl -s https://raw.githubusercontent.com/decision-provenance-standard/standard/v1.1-rev9/governance/decisions/FILE`. Where `sha256sum` is not installed, use `shasum -a 256`.
+For each record, use the tag in the index's "Sealed at tag" column in place of `v1.1-rev9`. Without a clone, replace `git show v1.1-rev9:governance/decisions/FILE` with `curl -s https://raw.githubusercontent.com/decision-provenance-standard/standard/v1.1-rev9/governance/decisions/FILE`. Where `sha256sum` is not installed, use `shasum -a 256`.
 
 ## Where the records follow the text over the reference files
 
@@ -78,7 +81,7 @@ The Charter's `disclosure_metadata_pointer` points here. Every record repeats th
 | `content-type-tag` | decision-summary |
 | `generation-timestamp` | In each record's copy: the time that record was drafted |
 
-The jurisdiction tag lists where the records are intended to be read. The Steward reviews this block at each release and records the review as a disclosure-review record, as the Charter's schedule of records commits. The first one, at the v1.1 release, is DR-2026-0007.
+The jurisdiction tag lists where the records are intended to be read. The Steward reviews this block at each release and records the review as a disclosure-review record, as the Charter's schedule of records commits. There is one at each release: DR-2026-0007 at v1.1, DR-2026-0014 at v1.2.
 
 Carried because this Standard requires it for AI-drafted records; this says nothing about whether any law applies.
 
