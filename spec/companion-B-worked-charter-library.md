@@ -197,7 +197,7 @@ The Customer-Outcome Charter binds the recurring decision class of **promise-to-
 ### Conformance signals
 
 - **Level 1** — Charter-conformant: 16 fields populated; `accountable_owner` carries the Charter's dual-co-owner protocol named on a single record (one of the two co-owners is named per record per Section 3 §3.2's "one and only one" rule, and the co-ownership protocol is recorded in `inside_decisions`); `mode_declaration = mode-1-with-embedded-mode-2-summary`; `disclosure_metadata_pointer` populated at `fields-completed` per Section 3 §3.4 and Section 6 §6.2.
-- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated cohort-trajectory reads carry the five required Article 50 metadata fields; the customer-promise register threads from the CPO-CRO interface into this Charter without version drift.
+- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated cohort-trajectory reads carry the five required disclosure-block fields; the customer-promise register threads from the CPO-CRO interface into this Charter without version drift.
 - **Level 3** — Continuously auditable: customer-outcome records findable in 30 seconds; promise-to-outcome gap by cohort published into the portfolio review on cadence; T+6 and T+12 checkpoints threaded to each bet's Business-Case artifact per Section 6's Required Artifact Set treatment.
 
 ### Disclosure block (Section 4 §4.6)
@@ -275,7 +275,7 @@ The Product Operations Decision Interface Charter binds the recurring decision c
 This Charter is the meta-Charter: it is the Charter that audits the schedule of records for every other Charter. Its own conformance signals are:
 
 - **Level 1** — Charter-conformant: 16 fields populated; `mode_declaration = mode-1-with-embedded-mode-2-summary`; `disclosure_metadata_pointer` populated at `fields-completed` per Section 3 §3.4 and Section 6 §6.2; the six input classes enumerated.
-- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated telemetry artifacts each carry the five required Article 50 metadata fields; the Layer 1 statistical detection rate is at the 30% rate for `mode-1-with-embedded-mode-2-summary`.
+- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated telemetry artifacts each carry the five required disclosure-block fields; the Layer 1 statistical detection rate is at the 30% rate for `mode-1-with-embedded-mode-2-summary`.
 - **Level 3** — Continuously auditable: this is the Charter's home altitude. Product Operations is the function that operates the Standard's findability rule across every Charter. The 30-second reconstruction test is Product-Operations-audited quarterly per Section 6 §6.3.2. The Product Operations Charter's own records satisfy the rule by construction: the Charter cannot pass Level 3 without findability, and the function whose Charter this is is the function that audits findability.
 
 ### Disclosure block (Section 4 §4.6)
@@ -314,7 +314,7 @@ This is one of the cases where the `mode-1-with-embedded-mode-2-summary` declara
 ### Conformance signals
 
 - **Level 1** — Charter-conformant: 16 fields populated; the CPO's `accountable_owner` assignment recorded; `mode_declaration = mode-1-with-embedded-mode-2-summary`; `disclosure_metadata_pointer` populated at `fields-completed` per Section 3 §3.4 and Section 6 §6.2; the CEO-co-signature recorded as a structural commitment without reaching for legal force (the Charter binds the organization to a mechanism, not the CEO to an individual obligation, per Section 3 §3.5's "binds the organization" framing).
-- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated portfolio-state summaries carry the five required Article 50 metadata fields; Layer 1 statistical detection runs at 30%; the Mode-Drift Composed Mitigation's Layer 4 Named Human-Attestation Fallback is triggered at every record close because of the Charter's high stakes (per Section 4 §4.8.1).
+- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated portfolio-state summaries carry the five required disclosure-block fields; Layer 1 statistical detection runs at 30%; the Mode-Drift Composed Mitigation's Layer 4 Named Human-Attestation Fallback is triggered at every record close because of the Charter's high stakes (per Section 4 §4.8.1).
 - **Level 3** — Continuously auditable: the CEO-CPO Charter and its records satisfy the Standard's findability rule; quarterly charter re-signing produces a Charter-amendment record per Section 6 §6.3.1; CEO archetype is named explicitly so the next CPO inheriting the seat reads which interface they inherit.
 
 ### Disclosure block (Section 4 §4.6)
@@ -357,7 +357,7 @@ This is the Charter where the schedule-of-records concept is most tightly bound 
 ### Conformance signals
 
 - **Level 1** — Charter-conformant: 16 fields populated; the three General Counsel extensions named in `inside_decisions`; the Charter's audit assignment to the General Counsel ("auditable by the General Counsel for IP and licensing posture") recorded; `mode_declaration = mode-1-with-embedded-mode-2-summary`; `disclosure_metadata_pointer` populated at `fields-completed` per Section 3 §3.4 and Section 6 §6.2.
-- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated regulatory-posture reads carry the five required Article 50 metadata fields; the Mode-Drift Composed Mitigation's Layer 4 Named Human-Attestation Fallback is triggered at every record close (per Section 4 §4.8.1); Layer 3 peer-review interrupt is also live because General Counsel interface records are the highest-stakes records in this slate.
+- **Level 2** — Mode-disambiguated: every record carries `dispatch_mode`; embedded AI-generated regulatory-posture reads carry the five required disclosure-block fields; the Mode-Drift Composed Mitigation's Layer 4 Named Human-Attestation Fallback is triggered at every record close (per Section 4 §4.8.1); Layer 3 peer-review interrupt is also live because General Counsel interface records are the highest-stakes records in this slate.
 - **Level 3** — Continuously auditable: the CPO-GC Charter and its records satisfy the Standard's findability rule; the regulatory-acceptance gate status thread runs from each bet's Business-Case artifact (per Section 6's Required Artifact Set treatment) into this Charter's records; the IP-and-licensing input-class records are linkable from the Charters that consume them; the privacy-as-metric-integrity-constraint records thread into the Data and Analytics Charter's metric-integrity audit log (Worked Example 9.4).
 
 ### Disclosure block (Section 4 §4.6)

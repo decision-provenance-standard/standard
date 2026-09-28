@@ -49,7 +49,7 @@
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
         }
       ],
-      "current_sha256": "9a1d434285fd0778743cb8b98d7acb17f03ac8af4acd3fb0eddd5cc6a2fab271"
+      "current_sha256": "c08722fe8af1a3b6f0f79a2ac796de95f35098618aea4a78f4a5dbb27a5301a7"
     },
     {
       "id": "companion-A",
@@ -75,7 +75,7 @@
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
         }
       ],
-      "current_sha256": "17f9ab3dfa1edfb6dcced1cc849595726459c6afa958b261bece6d7700fbb5b4"
+      "current_sha256": "1de7daf0d7b98c2afbab7c965e4e7b012ce49377d611010ab1c0a2871216cc84"
     },
     {
       "id": "companion-B",
@@ -101,7 +101,7 @@
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
         }
       ],
-      "current_sha256": "16bcc62d847b0bf82b293351d0cae13b4381a42bc572cd880874a08e6642c66b"
+      "current_sha256": "f001239d8bb2608111b40af50d09d48b56f2f2223c90626f5f30a13933af165f"
     },
     {
       "id": "companion-C",
@@ -179,7 +179,7 @@
           "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
         }
       ],
-      "current_sha256": "ca02f1d694bed8f3ed11c309d01168298883a5148374774bc0952806d79d03d1"
+      "current_sha256": "3a8962735dff7f388e3b2a674627daf638fdbcfa07302a5702b7417f6e7a688d"
     }
   ]
 }
