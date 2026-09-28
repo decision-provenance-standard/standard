@@ -78,13 +78,13 @@ Three grounds support the single-agent structure.
 
 **Second, the arbiter's call is auditable in the same surface as Charter `accountable_owner` calls.** Section 6 §6.2 specifies the decision-record schema. The arbiter's calls produce records under the schema, with the arbiter's identity in `accountable_owner`, the contested case in `decision_statement`, the rule application in `options_considered`, and the call's reasoning in the substantive content fields. A 3-of-6 sub-panel would produce records spanning six accountable-owner identities (or a single-named representative aggregating six positions). That is a structural mismatch with the rest of the Standard's `accountable_owner` discipline.
 
-**Third, the arbiter's call is reviewable.** Anyone who disputes an arbiter call may raise it through an issue or pull request under the Section 4 normative-text amendment process; the Steward decides the dispute and records the decision publicly.
+**Third, the arbiter's call is reviewable.** Anyone who disputes an arbiter call may raise it as an issue or pull request under GOVERNANCE.md; the Steward decides the dispute and records the decision publicly.
 
 #### G.7.7.2 Operating mechanics
 
 The arbiter operates against a fixed scope: contested cases of Section 11's break enumeration as applied to specific releases, the reading of §G.7.5's classifier-version disjointness exception, and contested cases of analogous rules elsewhere in the Standard's versioning policy. The arbiter does not opine on Charter-altitude conformance — the Charter's `accountable_owner` and the conformance-level reporter cover that altitude — and does not opine on substantive matters that fall to qualified personnel.
 
-Anyone may raise a classification question as an issue. The Steward aims to answer within 30 days of the issue being raised. No answer is not a ruling either way. The Steward records the call as a decision record per Section 6 §6.2. Anyone who disputes the call may route the dispute through the Section 4 normative-text amendment process.
+Anyone may raise a classification question as an issue. The Steward aims to answer within 30 days of the issue being raised. No answer is not a ruling either way. The Steward records the call as a decision record per Section 6 §6.2. Anyone who disputes the call may raise the dispute as an issue or pull request under GOVERNANCE.md.
 
 The arbiter's role is bounded. It is the resolution surface for classification ambiguity in versioning, not a general escalation surface. Substantive ambiguities about the Charter's decision class, regulatory framework applicability, or conformance-reporter implementation are out of scope; those route through the Charter's escalation rule, the deployer's own determination, and the implementer's own escalation surface respectively. The arbiter's authority is structural and narrow; the Section 7 normative text fixes the scope so the surface does not drift into general-purpose escalation work that other surfaces are designed for.
 
@@ -94,11 +94,11 @@ The arbiter's role is bounded. It is the resolution surface for classification a
 
 > *Back-pointer: this section is the relocated core §1.7 "Related Work." Core §1.3's navigation pointer to the section-to-audience Reading Guide resolves to core §1.8 (which stays in core), not to this section.*
 
-This Standard operates on a substrate of prior academic, standards-body, and authored work. The following are the named lineages this Standard converses with. Each entry is a citation with a one-to-two-sentence placement. Substantive engagement with the underlying doctrines is the territory of qualified personnel reading those works on their own terms.
+This Standard operates on a substrate of prior academic, industry, and authored work. The following are the named lineages this Standard converses with. Each entry is a citation with a one-to-two-sentence placement. Substantive engagement with the underlying doctrines is the territory of qualified personnel reading those works on their own terms.
 
 **Singh, J., Cobbe, J., and Norval, C. — "Decision Provenance: Harnessing Data Flow for Accountable Systems."** *IEEE Access*, 2018–2019. This is the academic root of the vocabulary the Standard operationalizes. The paper introduces "decision provenance" as a concept for accountable systems; this Standard formalizes the concept into a record format with an explicit lifecycle, a dispatch grammar, and a conformance grading layer at the executive-decision altitude. The structural innovations in this Standard — the sequential lifecycle gated on named human affirmation (§5), the intentional non-coverage of real-time telemetry (§5.3), and the conformance-level grading (§7) — operationalize what Singh, Cobbe, and Norval named conceptually.
 
-**W3C — PROV-AGENT working group output on agent provenance metadata** (2025). The W3C PROV-AGENT effort addresses provenance metadata for agent-mediated artifacts in distributed systems. This Standard's Article 50 disclosure metadata block (§4.6) carries a related metadata burden for AI-authored content reaching natural persons. The two efforts are at different altitudes — PROV-AGENT addresses machine-to-machine provenance traces; this Standard addresses human-judgment decision records — and the relationship is complementary, not derivative. Where a deployer's implementation surfaces both altitudes (a Mode 2 record whose underlying agent activity was traced under PROV-AGENT-conformant tooling), the trace can be referenced from the Decision Provenance Standard record under §6 as supporting evidence.
+**PROV-AGENT** (Souza et al., 2025). A research paper that proposes a provenance model, built on W3C PROV, for tracking the interactions of AI agents in automated workflows (§12.3.3). This Standard's disclosure block (§4.6) records related information about AI-drafted content. The two work at different altitudes — PROV-AGENT traces what agents did inside a workflow; this Standard records human-judgment decisions — and the relationship is complementary, not derivative. Where a deployer's implementation has both (a Mode 2 record whose underlying agent activity was traced with PROV-AGENT), the trace can be referenced from the Decision Provenance Standard record under §6.
 
 **AGENTSAFE framework for agentic AI safety** (arxiv, December 2025). AGENTSAFE addresses safety properties of agentic AI systems at the system-design altitude. This Standard addresses the human-judgment decision provenance altitude that sits above agent-system safety concerns. A deployer running agent-mediated workflows under AGENTSAFE-aware tooling produces decisions about that tooling at the executive altitude; those decisions are the Standard's territory. The two efforts are complementary at different altitudes.
 
@@ -296,12 +296,12 @@ The following citations support the Related Work paragraph at §G.1 (origin §1.
 - Pointer URL: `https://ieeexplore.ieee.org/document/8395145`
 - Neutral descriptor: Academic publication introducing "decision provenance" as a concept for accountable systems; the academic root of the vocabulary the Standard operationalizes.
 
-**W3C — PROV-AGENT working group output.**
-- Issuing body: World Wide Web Consortium (W3C)
-- Full title: PROV-AGENT — Provenance for Agent-Mediated Artifacts (working group output)
+**Souza et al. — "PROV-AGENT: Unified Provenance for Tracking AI Agent Interactions in Agentic Workflows."**
+- Authors: Renan Souza, Amal Gueroudji, Stephen DeWitt, Daniel Rosendo, Tirthankar Ghosal, Robert Ross, Prasanna Balaprakash, Rafael Ferreira da Silva
+- Publication: 2025 IEEE 21st International Conference on e-Science (accepted paper)
 - Year: 2025
-- Pointer URL: `https://www.w3.org/community/prov-agent/`
-- Neutral descriptor: W3C working group output on provenance metadata for agent-mediated artifacts in distributed systems.
+- Pointer URL: `https://arxiv.org/abs/2508.02866` (arXiv:2508.02866)
+- Neutral descriptor: Research paper proposing a provenance model, built on W3C PROV, for AI-agent interactions in workflows.
 
 **AGENTSAFE — framework for agentic AI safety.**
 - Publication: arxiv preprint

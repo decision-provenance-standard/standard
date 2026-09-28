@@ -133,7 +133,7 @@ Deployers operating in jurisdictions outside the named four — including but no
 
 ## 1.7 Related Work
 
-The Related Work section — the named academic, standards-body, and authored lineages this Standard converses with (Singh/Cobbe/Norval on decision provenance; W3C PROV-AGENT; AGENTSAFE; Trammell's *Chief Executive Operating System*; Gartner Bimodal IT) — is maintained in **Appendix G §G.1 (Related Work)**, with its supporting citations at Appendix G §12.3.3. The citations are placement, not contestation: the Standard occupies an altitude (open record format for human-judgment decisions at named executive accountability) that none of the cited works occupies, and claims no derivation from them.
+The Related Work section — the named academic, industry, and authored lineages this Standard converses with (Singh/Cobbe/Norval on decision provenance; PROV-AGENT; AGENTSAFE; Trammell's *Chief Executive Operating System*; Gartner Bimodal IT) — is maintained in **Appendix G §G.1 (Related Work)**, with its supporting citations at Appendix G §12.3.3. The citations are placement, not contestation: the Standard occupies an altitude (open record format for human-judgment decisions at named executive accountability) that none of the cited works occupies, and claims no derivation from them.
 
 
 ## 1.8 Reading Guide

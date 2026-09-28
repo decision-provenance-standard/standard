@@ -10,15 +10,15 @@
 
 ## 7.1 Purpose of Conformance-Level Grading
 
-Section 7 of the Decision Provenance Standard™ defines three named tiers — Conformance Level 1, Conformance Level 2, and Conformance Level 3 — at which a Charter satisfies the Standard's structural requirements. Each level is a structured fact about field population, lifecycle-state attainment, and emission cadence read off the substrates Sections 3, 4, 5, and 6 establish. A Charter's declared conformance level (per Section 3 §3.2 `conformance_level_declared`) is the deployer's commitment; the Section 7 conformance-level reporter assesses whether the structural facts at the Charter altitude, the decision-record altitude, the lifecycle altitude, and the schedule-of-records altitude bear out the declaration.
+Section 7 of the Decision Provenance Standard™ defines three named tiers — Conformance Level 1, Conformance Level 2, and Conformance Level 3 — at which a Charter satisfies the Standard's structural requirements. Each level is a structured fact about field population, lifecycle-state attainment, and emission cadence read off the fields Sections 3, 4, 5, and 6 define. A Charter's declared conformance level (per Section 3 §3.2 `conformance_level_declared`) is the deployer's commitment; the Section 7 conformance-level reporter assesses whether the structural facts at the Charter altitude, the decision-record altitude, the lifecycle altitude, and the schedule-of-records altitude bear out the declaration.
 
 The grading mechanism is structural. It reads named, machine-readable signals from the dispatch state machine (Section 4), the lifecycle state transitions (Section 5), and the conformance-signal vocabulary (Section 7), assembles them into a level grade, and reports the grade as a structured output. The reporter's output is a fact about field population and structural completeness; it is not a substantive judgment, a regulatory determination, or a certification.
 
-**Self-declaration mechanics (load-bearing per Appendix G §G.11.3 voluntary-adoption discipline).** A deployer's conformance-level reporter reads the Charter and decision-record fields the Standard's substrates expose, applies the criteria in §7.2, §7.3, and §7.4 below, and produces a level grade as a structured output stored in the deployer's own decision register. The grade is the deployer's self-declaration. The Standard's Steward (see §11.2) does not validate the self-declaration, does not maintain a central registry of self-declarations, does not issue grades on the deployer's behalf, and does not audit the underlying records. A third-party reader of the deployer's self-declaration (a counterparty performing diligence, a regulator forming an oversight view, an auditor preparing an attestation) reads the self-declaration as one input among others and forms their own judgment on its weight.
+**Self-declaration mechanics (self-declared, per Appendix G §G.11.3).** A deployer's conformance-level reporter reads the Charter and decision-record fields the Standard defines, applies the criteria in §7.2, §7.3, and §7.4 below, and produces a level grade as a structured output stored in the deployer's own decision register. The grade is the deployer's self-declaration. The Standard's Steward (see §11.2) does not validate the self-declaration, does not maintain a central registry of self-declarations, does not issue grades on the deployer's behalf, and does not audit the underlying records. A third-party reader of the deployer's self-declaration (a counterparty performing diligence, a regulator forming an oversight view, an auditor preparing an attestation) reads the self-declaration as one input among others and forms their own judgment on its weight.
 
 ### What Section 7 grades
 
-Section 7 grades five things, each at the altitude the substrate establishes:
+Section 7 grades five things, each at the altitude the Standard sets for it:
 
 The **Charter state-event surface** (Section 3 §3.3): whether the Charter has reached `fields-completed`, whether the required mode-declaration field is populated with one of the three enumerated values, whether the schedule of records is committed and non-empty, whether the `record_location` resolves, whether the `accountable_owner` is one named human, and whether the re-decision triggers meet the two-class minimum (one outcome-evidence + one market-evidence trigger).
 
@@ -69,7 +69,7 @@ Conformance Level 1 grades the Charter as a structurally complete artifact. A Ch
 
 A Charter grades at Level 1 when, and only when, every Level 1 criterion below is satisfied.
 
-| Criterion | Substrate | Source |
+| Criterion | Where defined | Source |
 |---|---|---|
 | Charter has reached the `fields-completed` lifecycle state | Section 3 §3.3 | All required-at-state fields populated through `fields-completed` |
 | `mode_declaration` populated with one of three enumerated values (`mode-1`, `mode-2`, `mode-1-with-embedded-mode-2-summary`) | Section 3 §3.4; Section 4 §4.4 | Required at any state past `open` |
@@ -114,7 +114,7 @@ The Level 2 grade is the load-bearing tier for the Standard's regulatory cross-r
 
 A Charter grades at Level 2 when, and only when, every Level 1 criterion is satisfied and every Level 2 criterion below is satisfied.
 
-| Criterion | Substrate | Source |
+| Criterion | Where defined | Source |
 |---|---|---|
 | Every decision record under the Charter carries its `dispatch_mode` field | Section 6 §6.2.1 | Required at the `dispatched` lifecycle state; cannot be silently mutated |
 | Every Mode 2 record carries a complete disclosure block (the five fields of §4.6.2) | Section 4 §4.6; Section 6 §6.2.2; §4.6.2 | The five required disclosure-block fields populated; declaring authority named; AI-system identity recorded |
@@ -171,7 +171,7 @@ The Level 3 grade is the continuous-audit tier. It depends on the Charter's stru
 
 A Charter grades at Level 3 when, and only when, every Level 1 and Level 2 criterion is satisfied and every Level 3 criterion below is satisfied.
 
-| Criterion | Substrate | Source |
+| Criterion | Where defined | Source |
 |---|---|---|
 | Re-decision triggers fire and produce records on the Charter's declared cadence | Section 3 §3.2; Section 6 §6.3.1 | The Charter's `re_decision_triggers` produce Re-decision records on the cadence the Charter declares; missed firings are findings against this criterion |
 | Escalation rule produces records when invoked | Section 3 §3.2; Section 6 §6.3.1 | The Charter's `escalation_rule` produces Escalation records when the rule fires; the named outcome and the escalation owner's call are recorded |

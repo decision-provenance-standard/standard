@@ -37,7 +37,7 @@ These fields are required by the time a decision-record reaches the `drafted` li
 | `required_inputs_used` | structured | Who provided what; version or date of each input. Threads the record back to the Charter's required-inputs list. |
 | `assumptions_depended_on` | structured (2–4 entries) | The 2–4 assumptions whose invalidation would force a reopen. Threads to the Charter's re-decision triggers. |
 | `success_criteria` | structured | T+2 / T+6 / T+12 indicators with named metric definitions, not just metric names. |
-| `disclosure_metadata_pointer` | reference (nullable) | Required when `dispatch_mode` is `mode-2` or `mode-1-with-embedded-mode-2-summary`. Points to the Article 50 disclosure metadata block (Section 4 §4.6.2). The disclosure block is an attached structure, not an inlined field, because the disclosure decision is itself a decision and carries its own provenance. |
+| `disclosure_metadata_pointer` | reference (nullable) | Required when `dispatch_mode` is `mode-2` or `mode-1-with-embedded-mode-2-summary`. Points to the disclosure block (Section 4 §4.6.2). The disclosure block is an attached structure, not an inlined field, because the disclosure decision is itself a decision and carries its own provenance. |
 
 ### 6.2.3 Required at decision-record state `closed`
 
@@ -76,7 +76,7 @@ A conformant Charter's schedule includes, at minimum, the following record-types
 | **Re-decision record** | Each time a Charter re-decision trigger fires (outcome-evidence or market-evidence per the Charter's `re_decision_triggers` field). | On trigger fire; the re-decision record carries a back-pointer to the prior decision record. |
 | **Escalation record** | Each time the Charter's escalation rule is invoked. | On invocation; the escalation record carries the escalation owner's call and the named outcome. |
 | **Charter-amendment record** | Each amendment to the Charter (mode change, decision-class boundary change, accountable-owner change, schedule-of-records change). | On amendment; amendments are decisions and produce decision records of their own. As Section 3 §3.3 specifies, the Charter-amendment decision dispatches under the Charter's declared `mode_declaration`; the amendment record carries the Charter's mode at the time of amendment. |
-| **Disclosure-review record** | Each scheduled re-review of an Article 50 disclosure metadata block (when applicable per §7.2.1). | On the cadence the Charter declares for disclosure review (per the disclosure block's `last_reviewed_at` field, Section 4 §4.6). |
+| **Disclosure-review record** | Each scheduled re-review of a disclosure block (when applicable per §7.2.1). | On the cadence the Charter declares for disclosure review (per the disclosure block's `last_reviewed_at` field, Section 4 §4.6). |
 
 ### 6.3.2 Findability — the 30-second hygiene rule
 

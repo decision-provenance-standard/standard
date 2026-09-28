@@ -16,16 +16,16 @@ LICENSING (by folder)
 - Code (tools/, tests/, .github/) and any folder of reference files or tooling
   added later: the Apache License, Version 2.0. See LICENSES/Apache-2.0.txt.
 
-- Contributions are accepted under the licence of the folder they change
+- Contributions are accepted under the license of the folder they change
   (inbound = outbound), with a Developer Certificate of Origin 1.1 sign-off on
   every commit. See CONTRIBUTING.md.
 
 MARK
 ----
 Etsion Brands Ltd claims "Decision Provenance Standard" as an unregistered
-trademark (™). The licences in this repository cover the text and files, not
+trademark (™). The licenses in this repository cover the text and files, not
 the name. Permitted uses of the name are set out in Standard §11.1. None of
-these licences grants any right to use the name or mark.
+these licenses grants any right to use the name or mark.
 Self-declared, non-certified use of the Standard does not imply
 endorsement, certification, or approval by the Steward. Contributing to this
 repository gives no rights in the name or mark.

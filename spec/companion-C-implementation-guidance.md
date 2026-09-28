@@ -46,7 +46,7 @@ This distinction is load-bearing. **The Standard structures the install; counsel
 
 ### C.2.3 Migration narrative — Mode 1 to Mode 2
 
-When a deployer installs the Standard, the first Charters are typically authored as Mode 1 — Human-Led, AI-Enforced. The human author writes the decision; the AI worker checks the human's work against the Charter's required fields. As the deployer's organization grows confident in the discipline of the Standard's mode-declaration mechanism (Section 3) and the Article 50 disclosure metadata schema (Section 4), some Charters may be re-declared to Mode 2 — AI-Led, Human-Reviewed, where the AI worker authors the decision and a named human reviewer reviews before action.
+When a deployer installs the Standard, the first Charters are typically authored as Mode 1 — Human-Led, AI-Enforced. The human author writes the decision; the AI worker checks the human's work against the Charter's required fields. As the deployer's organization grows confident in the discipline of the Standard's mode-declaration mechanism (Section 3) and the disclosure-block schema (Section 4), some Charters may be re-declared to Mode 2 — AI-Led, Human-Reviewed, where the AI worker authors the decision and a named human reviewer reviews before action.
 
 The Standard does not prescribe when this migration should happen. The migration narrative the Standard adopts is the following:
 
@@ -96,7 +96,7 @@ At sub-Series-C scale the schedule-of-records maintainer is often the same perso
 
 ### C.3.4 Engagement cadence
 
-The three roles engage on the cadence the Charter declares. The accountable owner runs the Charter's standing forum on the declared cadence (weekly, monthly, quarterly, or on-trigger). The declaring authority reviews and reaffirms the Article 50 disclosure metadata block on the cadence the Charter declares for disclosure review (the `last_reviewed_at` field per Section 4). The schedule-of-records maintainer runs the conformance-level reporter on the cadence the Charter declares for conformance reporting. The three cadences may be the same or different; the Charter declares each one.
+The three roles engage on the cadence the Charter declares. The accountable owner runs the Charter's standing forum on the declared cadence (weekly, monthly, quarterly, or on-trigger). The declaring authority reviews and reaffirms the disclosure block on the cadence the Charter declares for disclosure review (the `last_reviewed_at` field per Section 4). The schedule-of-records maintainer runs the conformance-level reporter on the cadence the Charter declares for conformance reporting. The three cadences may be the same or different; the Charter declares each one.
 
 ---
 
@@ -168,7 +168,7 @@ Whoever leads the deployer's install, whether staff or an outside adviser, is tr
 
 ### C.6.2 Tooling minimums
 
-The Standard does not prescribe a tool stack. The deployer is free to use any combination of document storage, decision-record tooling, conformance-level reporter implementation, and schedule-of-records exporter that satisfies Section 6's structural commitments. The minimum is the following: the schedule of records is queryable within 30 seconds by a person not in the room when the decision was made; the conformance-level reporter can read the schedule and emit a conformance-level grade per Section 7; the Article 50 disclosure metadata block (when applicable) is attached to the Charter or decision record per Section 4 and is reviewable by the declaring authority on the Charter's declared review cadence.
+The Standard does not prescribe a tool stack. The deployer is free to use any combination of document storage, decision-record tooling, conformance-level reporter implementation, and schedule-of-records exporter that satisfies Section 6's structural commitments. The minimum is the following: the schedule of records is queryable within 30 seconds by a person not in the room when the decision was made; the conformance-level reporter can read the schedule and emit a conformance-level grade per Section 7; the disclosure block (when applicable) is attached to the Charter or decision record per Section 4 and is reviewable by the declaring authority on the Charter's declared review cadence.
 
 Many implementations of these tooling minimums are possible. The Standard does not certify any tool implementation; it specifies the structural requirements an implementation must satisfy for a Charter or decision record to reach a given conformance level.
 

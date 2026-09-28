@@ -11,7 +11,7 @@ Thank you for helping improve the Standard. This page explains how to take part,
 
 ### 1. Sign off every commit (DCO 1.1)
 
-- Every commit must carry a sign-off line, which certifies the [Developer Certificate of Origin, version 1.1](https://developercertificate.org/). In short, it says you wrote the contribution, or otherwise have the right to submit it under the licence of the files you change.
+- Every commit must carry a sign-off line, which certifies the [Developer Certificate of Origin, version 1.1](https://developercertificate.org/). In short, it says you wrote the contribution, or otherwise have the right to submit it under the license of the files you change.
 - `git commit -s` adds the line for you:
 
   ```
@@ -24,13 +24,13 @@ Thank you for helping improve the Standard. This page explains how to take part,
   - `git rebase --signoff <base>` fixes several
   - then force-push your branch
 
-### 2. Contributions come in under the same licence they go out under
+### 2. Contributions come in under the same license they go out under
 
-There is no separate agreement to sign. By contributing, you license your contribution under the licence of the folder you change:
+There is no separate agreement to sign. By contributing, you license your contribution under the license of the folder you change:
 
 | You change | Your contribution is licensed under |
 |---|---|
-| Text (`spec/`, `governance/`, and the Markdown documentation at the repository root) | Creative Commons Attribution 4.0 (CC BY 4.0) |
+| Text (`spec/`, `governance/`, and the other documentation files at the repository root, including `CITATION.cff` and `NOTICE`) | Creative Commons Attribution 4.0 (CC BY 4.0) |
 | `standard/v5.0/`, including its Markdown files (all of 5.x, including corrections) | MIT |
 | Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later | Apache License 2.0 |
 
@@ -75,7 +75,8 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
 - **The leak guard** looks only at what your pull request adds, and fails if it finds a private record number, a local folder path or an internal name from its list. Text already in the repository never fails it. A four-digit record number passes only if that record is in `governance/decisions/`.
 - **The governance check** reads the Charter and the records in `governance/`: every field the text requires, the closing fields of each closed record against the merge that affirmed it, and each seal. It needs a full clone with its tags (`git fetch --tags`), because it reads merge commits and release tags.
 - **Changing a checker.** The text split, the leak guard and the governance check each run the copy already on `main`, so your change to one of them takes effect only after it is merged (your own copy must pass too). If a change to `spec/`, `governance/` or the schemas in `standard/` needs a change to the checker that judges it, send the checker change first, in its own pull request. A new release's digests are added to the text-split checker after the release is tagged.
-- **Waiting checks are normal.** For contributors from outside the organisation, GitHub waits for a maintainer to approve running the checks on each pull request. We approve them; you don't need to do anything.
+- **Waiting checks are normal.** For contributors from outside the organization, GitHub waits for a maintainer to approve running the checks on each pull request. We approve them; you don't need to do anything.
+)
 
 ## What we can't accept
 

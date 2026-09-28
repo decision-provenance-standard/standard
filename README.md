@@ -12,7 +12,7 @@ The published text is on the website. Its source and proposed corrections live h
 
 > The records are input, not evidence. The Standard informs frameworks without satisfying them. Conformance is self-declared; no body certifies it. It is not legal advice and not a regulatory substitute.
 
-These limits are deliberate. A record produced under the Standard is structured input to the people who judge it — counsel, auditors, internal-controls officers, board fiduciaries — not, by its existence, legal evidence, certification, or attestation. The Standard's primitives map as an input substrate to regulatory and control frameworks; they inform that work without satisfying, replacing, or discharging any framework's obligations, which remain the deployer's.
+These limits are deliberate. A record produced under the Standard is structured input to the people who judge it — counsel, auditors, internal-controls officers, board fiduciaries — not, by its existence, legal evidence, certification, or attestation. The Standard's primitives map as an input substrate to regulatory and control frameworks; they inform that work without satisfying, replacing or discharging any framework's obligations.
 
 ## What is in this repository
 
@@ -25,7 +25,7 @@ These limits are deliberate. A record produced under the Standard is structured 
 | `kit/` | A prompt and a coding-agent skill that help an organization or a product write its self-declaration (Apache-2.0) |
 | `tools/`, `tests/`, `.github/` | The automated checks that run on every pull request, and the Steward's tool for closing records |
 
-Licences differ by folder. Text (`spec/`, `governance/`, and the Markdown documentation at the repository root): CC BY 4.0. `standard/v5.0/`, including its Markdown files: MIT for all of 5.x. Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later: Apache-2.0. [NOTICE](NOTICE) has the details.
+Licenses differ by folder. Text (`spec/`, `governance/`, and the other documentation files at the repository root, including `CITATION.cff` and `NOTICE`): CC BY 4.0. `standard/v5.0/`, including its Markdown files: MIT for all of 5.x. Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later: Apache-2.0. [NOTICE](NOTICE) has the details.
 
 ## The text here is the text that was published
 
@@ -76,9 +76,9 @@ We thank an outside reviewer whose observations led to several of these correcti
 
 ## Contributing
 
-Issues and pull requests are welcome. Every commit carries a Developer Certificate of Origin sign-off (`git commit -s`), and contributions come in under the same licence as the folder they change. See [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md).
+Issues and pull requests are welcome. Every commit carries a Developer Certificate of Origin sign-off (`git commit -s`), and contributions come in under the same license as the folder they change. See [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md).
 
-The licences in this repository cover the text and files, not the name "Decision Provenance Standard" or its mark. Permitted uses of the name are set out in Standard §11.1. See [NOTICE](NOTICE).
+The licenses in this repository cover the text and files, not the name "Decision Provenance Standard" or its mark. Permitted uses of the name are set out in Standard §11.1. See [NOTICE](NOTICE).
 
 ## How to cite
 

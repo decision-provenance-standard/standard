@@ -146,7 +146,7 @@ The Data and Analytics Decision Interface Charter binds the recurring decision c
 
 ### Mode declaration
 
-**`mode-1-with-embedded-mode-2-summary`** — Mode 1 with the embedded-Mode-2-summary edge case. The Data Science Lead is the author of record for the canonical metric definitions, the cohort floors and boundaries, the metric-integrity audit log against the five conditions, and the gating call on whether a measurement is powered for the decision it informs. The embedded-Mode-2-summary edge case is engaged for a reason. Most modern analytics environments produce AI-generated experiment summaries, AI-generated cohort-trajectory reads, and AI-generated metric-drift detections that dispatch into a consuming Charter as decision-aid content. Each embedded AI-generated artifact attaches Article 50 disclosure metadata at the embed point per Section 4 §4.7.
+**`mode-1-with-embedded-mode-2-summary`** — Mode 1 with the embedded-Mode-2-summary edge case. The Data Science Lead is the author of record for the canonical metric definitions, the cohort floors and boundaries, the metric-integrity audit log against the five conditions, and the gating call on whether a measurement is powered for the decision it informs. The embedded-Mode-2-summary edge case is engaged for a reason. Most modern analytics environments produce AI-generated experiment summaries, AI-generated cohort-trajectory reads, and AI-generated metric-drift detections that dispatch into a consuming Charter as decision-aid content. Each embedded AI-generated artifact attaches a disclosure block at the embed point per Section 4 §4.7.
 
 ### Schedule of records
 
@@ -220,7 +220,7 @@ The Business Development Decision Interface Charter binds the recurring decision
 
 ### Mode declaration
 
-**`mode-1`** — Mode 1, Human-Led, AI-Enforced. The Business Development Leader is the author of record for the partnership-architecture map, the make-buy-partner TCO-over-three-years read, the negotiated economics (co-decided with the CFO), the platform-dependency risk register, and the partner-mediated GTM motion call. The AI worker enforces Charter discipline. It checks that the architecture artifact precedes the bet commit, that the six input classes are populated, and that the outside-decisions boundary is honored: deal-level pursuit stays with the CRO, product scope on committed bets stays with the PM-Director, and the margin floor stays with the CFO as a gating input. The AI worker does not author substantive partnership content.
+**`mode-1`** — Mode 1, Human-Led, AI-Enforced. The Business Development Leader is the author of record for the partnership-architecture map, the make-buy-partner TCO-over-three-years read, the negotiated economics (co-decided with the CFO), the platform-dependency risk register, and the partner-mediated GTM motion call. The AI worker enforces Charter discipline. It checks that the architecture artifact precedes the bet commit, that the six input classes are populated, and that the outside-decisions boundary is honored: deal-level pursuit stays with the CRO, product scope on committed bets stays with the Director of Product Management, and the margin floor stays with the CFO as a gating input. The AI worker does not author substantive partnership content.
 
 ### Schedule of records
 
@@ -232,7 +232,7 @@ The Business Development Decision Interface Charter binds the recurring decision
 
 ### Conformance signals
 
-- **Level 1** — Charter-conformant: 16 fields populated; the joint-decision pairing with the CFO recorded in `inside_decisions`; the CRO and PM-Director interfaces recorded in `outside_decisions`.
+- **Level 1** — Charter-conformant: 16 fields populated; the joint-decision pairing with the CFO recorded in `inside_decisions`; the Chief Revenue Officer and Director of Product Management interfaces recorded in `outside_decisions`.
 - **Level 2** — Mode-disambiguated: every record carries `dispatch_mode = mode-1`; Layer 2 Substantive-Authorship Challenge fires at close; the negotiated-economics record threads from CFO sign-off without version drift.
 - **Level 3** — Continuously auditable: the Partnership Architecture artifact resolves to a durable, linkable surface; per-bet Partner-Dependency Reads thread to Launch Readiness records; charter-amendment records preserve the Charter's pre-amendment archetype classification.
 
@@ -246,7 +246,7 @@ The Business Development Decision Interface Charter binds the recurring decision
 
 ---
 
-## B.8 ProdOps Decision Interface Charter — Cadence Integrity and the Live-or-Die Forum Call
+## B.8 Product Operations Decision Interface Charter — Cadence Integrity and the Live-or-Die Forum Call
 
 **Worked Example 9.7 — Product Operations Decision Interface Charter.**
 
@@ -266,7 +266,7 @@ The Product Operations Decision Interface Charter binds the recurring decision c
 - **Decision-record archive** — the index of all decision records produced under those Charters.
 - **Machinery-signal telemetry dashboard** — the five-signal observability layer (decision latency, commitment drift, charter decay, re-decision integrity, cadence adherence).
 - **Re-decision records** — fired on three evidence types. Outcome-evidence is a cadence-adherence or charter-decay signal that breaches its floor across two consecutive cycles. Market-evidence is a scale-transition that invalidates an existing configuration, or AI-acceleration that shortens the cycle inside which machinery failures compound. Counterparty-specific evidence is a Business Operations handoff that degrades, or the metric-definition contract drifting.
-- **Escalation records** — fired when cadence and ritual spec are overridden by executive calendar accommodation without a re-decision trigger firing; the withdrawal returns the decision to the CPO-Dir ProdOps interface.
+- **Escalation records** — fired when cadence and ritual spec are overridden by executive calendar accommodation without a re-decision trigger firing; the withdrawal returns the decision to the interface between the Chief Product Officer and the Director of Product Operations.
 - **Disclosure-review records** — for embedded AI-generated telemetry classifications and charter-decay signal detections.
 - **Charter-amendment records** — fired on configuration archetype reclassification (embedded-per-product → federated hybrid as scale shifts).
 
@@ -341,7 +341,7 @@ This worked example carries a recursive cross-reference back into the Standard's
 
 **`mode-1-with-embedded-mode-2-summary`** — Mode 1 with the embedded-Mode-2-summary edge case. The canonical decisions at the CPO-GC interface are Mode 1 by structural design. The General Counsel review register is the load-bearing mechanism by which substantive legal posture decisions are made, and counsel's substantive review is precisely the kind of authorship the Standard's not-legal-advice notice keeps with counsel. The CPO is the author of record for the bring-classes: regulatory-acceptance gate status on bets, IP and licensing input classes attached to Charters, and privacy-as-metric-integrity-constraint commitments threaded into the metric-integrity contract. The General Counsel is the reviewer-of-record for the legal posture each Charter takes.
 
-The embedded-summary edge case is engaged for AI-generated regulatory-posture reads dispatched into the General Counsel interface. These include AI-generated jurisdictional-applicability classifications across a portfolio of bets, AI-generated IP-exposure scans against patent landscapes, and AI-generated privacy-impact synthesis from a metric-integrity contract draft. Each embedded sub-output attaches Article 50 disclosure metadata at the embed point per Section 4 §4.7. The structural handling is precisely what Section 4 §4.4 names: a Charter where most decisions are human-authored (and counsel-reviewed) but specific decisions incorporate AI-generated sub-outputs declares the third enumerated value at the Charter altitude.
+The embedded-summary edge case is engaged for AI-generated regulatory-posture reads dispatched into the General Counsel interface. These include AI-generated jurisdictional-applicability classifications across a portfolio of bets, AI-generated IP-exposure scans against patent landscapes, and AI-generated privacy-impact synthesis from a metric-integrity contract draft. Each embedded sub-output attaches a disclosure block at the embed point per Section 4 §4.7. The structural handling is precisely what Section 4 §4.4 names: a Charter where most decisions are human-authored (and counsel-reviewed) but specific decisions incorporate AI-generated sub-outputs declares the third enumerated value at the Charter altitude.
 
 ### Schedule of records
 
@@ -376,6 +376,6 @@ A note on the Layer 4 attestation per Section 4 §4.8.1. The CPO-GC interface is
 
 The nine worked examples above are not exhaustive of the Charter mechanism's reach. The mechanism applies to any function-specific decision interface, where the seven director-altitude surfaces illustrated here are a representative set, not a closed list. It applies to any executive-altitude interface the CPO operates: the CEO-CPO and CPO-GC interfaces are illustrated here, and the CPO-CTO, CPO-CRO, CPO-CFO, CPO-Board, CPO-COO, CPO-CMO, and CPO-Chief People Officer interfaces follow the same pattern. It also applies to the install-order Charters a smaller organization files at sub-Series-C scale. Companion B surfaces nine of these as the worked-example slate that demonstrates the Standard's primitives operating across director, executive, and board altitudes. A deployer whose decision class falls outside the nine instances above operates the Charter mechanism per Section 3 directly. Section 3's primitives do not depend on Companion B instantiation.
 
-The Mode declarations across the nine examples cluster into two groups. Three are pure Mode 1 Charters (PMM, Design, BD), where the canonical decision content is human-authored at director altitude with the AI worker as Charter-conformance enforcement. Six are `mode-1-with-embedded-mode-2-summary` Charters (Engineering, Data and Analytics, CS-VR, ProdOps, CEO-CPO, CPO-GC), where the canonical decision content is human-authored but specific sub-outputs are AI-generated and dispatched into the record at embed points carrying Article 50 disclosure metadata. No worked example in this slate carries a pure Mode 2 declaration. This is consistent with the Charter mechanism being authored from director-and-above seats, where the substantive decision content is human-authored as a default. A future expansion of this Companion could surface decision classes that dispatch under pure Mode 2: for example, a deployer-authored Charter binding AI-generated draft messaging variants in the demand-gen-led PMM archetype, or an AI-authored synthesis dispatched into a sub-Charter in the embedded-data-team archetype. Such an expansion would extend the slate, and the Standard's primitives accommodate it without modification.
+The Mode declarations across the nine examples cluster into two groups. Three are pure Mode 1 Charters (PMM, Design, Business Development), where the canonical decision content is human-authored at director altitude with the AI worker as Charter-conformance enforcement. Six are `mode-1-with-embedded-mode-2-summary` Charters (Engineering, Data and Analytics, Customer Success and Value Realization, Product Operations, CEO-CPO, CPO-GC), where the canonical decision content is human-authored but specific sub-outputs are AI-generated and dispatched into the record at embed points carrying disclosure blocks. No worked example in this slate carries a pure Mode 2 declaration. This is consistent with the Charter mechanism being authored from director-and-above seats, where the substantive decision content is human-authored as a default. A future expansion of this Companion could surface decision classes that dispatch under pure Mode 2: for example, a deployer-authored Charter binding AI-generated draft messaging variants in the demand-gen-led PMM archetype, or an AI-authored synthesis dispatched into a sub-Charter in the embedded-data-team archetype. Such an expansion would extend the slate, and the Standard's primitives accommodate it without modification.
 
 ---
