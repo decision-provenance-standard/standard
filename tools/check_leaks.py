@@ -291,7 +291,9 @@ def main(argv):
     findings = report(items, salt, names, allow)
     print(f"checked {len(items)} added line(s), path(s) and message line(s) in {what}")
     for where, kind, hit in findings:
-        print(f"  {where}  {kind}: {hit!r}")
+        # A caught name is not printed: CI logs are public, and printing it would publish it.
+        shown = "(not shown)" if kind == KIND_NAME else repr(hit)
+        print(f"  {where}  {kind}: {shown}")
     if findings:
         print(f"\nFAIL: {len(findings)} finding(s). Remove them from the change.")
         print("If one is deliberate, the Steward adds the line's value (--hash-line) to "
