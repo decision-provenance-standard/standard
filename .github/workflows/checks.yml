@@ -24,12 +24,69 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0   # the baseline tag is needed to compare against the published text
+          fetch-depth: 0   # the baseline and release tags, and main, are needed
           persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
-      - run: python tools/check_split.py
+      # A change must not be able to weaken the check it is judged by. The deciding checker is main's
+      # copy as fetched now (pull request or manual run), or the copy main had just before the push
+      # (push to main). It finds the repository from its own location, so it goes in a fresh folder at
+      # the top of the checkout. Every step that uses it runs before any code from the change.
+      # A change to the checker therefore takes effect once merged. Its own copy must also pass, and
+      # both copies must fail a planted one-byte change, so a checker broken either way is caught.
+      - name: Take the deciding checker from main
+        env:
+          BASE: ${{ github.event_name == 'push' && github.event.before || 'origin/main' }}
+        run: |
+          rm -rf .base-checker && mkdir .base-checker
+          if [ -n "$BASE" ] && git cat-file -e "$BASE:tools/check_split.py" 2>/dev/null; then
+            git show "$BASE:tools/check_split.py" > .base-checker/check_split.py
+            echo "Deciding checker: tools/check_split.py at $BASE, commit $(git rev-parse "$BASE^{commit}")"
+          elif [ "$GITHUB_EVENT_NAME" = push ]; then
+            cp tools/check_split.py .base-checker/check_split.py
+            echo "::warning::No checker at $BASE, the commit before the push; the pushed copy decides."
+          else
+            echo "::error::No checker at $BASE; there is nothing trusted to decide with."
+            exit 1
+          fi
+      - name: Plant one changed byte in a throwaway copy
+        run: |
+          T="$RUNNER_TEMP/planted"
+          rm -rf "$T" && cp -a . "$T"
+          set -- spec/*.md
+          python -I -c 'import sys; p = sys.argv[1]; b = bytearray(open(p, "rb").read()); i = len(b) // 2; b[i] = 88 if b[i] != 88 else 89; open(p, "wb").write(b)' "$T/$1"
+          n=$(cmp -l "$1" "$T/$1" | wc -l || true)
+          [ "$n" -eq 1 ] || { echo "::error::The planted copy should differ by one byte; it differs by $n."; exit 1; }
+          echo "Planted: one byte changed in the copy of $1 (the checkout is untouched)."
+      - name: "Deciding checker: passes this change, fails the planted copy"
+        env:
+          CHECKER: .base-checker/check_split.py
+        run: |
+          python "$CHECKER"
+          rc=0; out=$(python "$RUNNER_TEMP/planted/$CHECKER" 2>&1) || rc=$?
+          if [ "$rc" -eq 1 ] && grep -qx FAIL <<<"$out"; then
+            echo "Self-test: $CHECKER reports FAIL on the planted copy, as it must:"
+            grep -A1 -x FAIL <<<"$out" | tail -n 1
+          else
+            echo "$out"
+            echo "::error::$CHECKER did not report FAIL on the planted copy (exit $rc)."
+            exit 1
+          fi
+      - name: "This change's own checker: passes too, fails the planted copy"
+        env:
+          CHECKER: tools/check_split.py
+        run: |
+          python "$CHECKER"
+          rc=0; out=$(python "$RUNNER_TEMP/planted/$CHECKER" 2>&1) || rc=$?
+          if [ "$rc" -eq 1 ] && grep -qx FAIL <<<"$out"; then
+            echo "Self-test: $CHECKER reports FAIL on the planted copy, as it must:"
+            grep -A1 -x FAIL <<<"$out" | tail -n 1
+          else
+            echo "$out"
+            echo "::error::$CHECKER did not report FAIL on the planted copy (exit $rc)."
+            exit 1
+          fi
 
   reference-files:
     name: Reference files are well-formed

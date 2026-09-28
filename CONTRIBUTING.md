@@ -72,6 +72,7 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
   python kit/declaration/build.py --check --kit-only
   ```
 - **The leak guard** looks only at what your pull request adds, and fails if it finds a private record number, a local folder path or an internal name from its list. Text already in the repository never fails it.
+- **Changing `tools/check_split.py`.** The check runs the copy already on `main`, so your change to it takes effect only after it is merged (your own copy must pass too). If a change to `spec/` needs a change to the checker, send the checker change first, in its own pull request. A new release's digests are added to the checker after the release is tagged.
 - **Waiting checks are normal.** For contributors from outside the organisation, GitHub waits for a maintainer to approve running the checks on each pull request. We approve them; you don't need to do anything.
 
 ## What we can't accept

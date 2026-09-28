@@ -30,12 +30,20 @@ This check FAILS when:
       * only the newest release of an edition may be untagged, and a release tag reachable from
         the commit being checked must be listed for every edition (a release is never dropped
         from the record);
+  - a release whose values are fixed in this file (RELEASED: v1.1 rev. 9) is missing from an
+    edition's releases, or its entry's revision, sha256 or bytes differ from the values fixed
+    here; this holds whether or not the release tag is available;
   - the text differs from the published release and the baseline tag is not available to
     prove the split is still lossless.
 
 It prints "identical to published" only when the joined bytes equal the published digest
 fixed in this file, and it says that order, headings and line endings are preserved only
 after every check has passed.
+
+On GitHub the deciding run uses main's copy of this file (on a push to main, the copy main had
+just before the push), so a pull request cannot weaken the check it is judged by. A change to
+this file, such as adding the next release's values to RELEASED, therefore takes effect once it
+is merged. The workflow also requires each copy to fail on a planted one-byte change.
 
 Usage:  python tools/check_split.py [--write-joined DIR]
   --write-joined DIR   after every check passes, write each edition's joined text to DIR,
@@ -82,6 +90,23 @@ PUBLISHED_NAME = {
 }
 PUBLISHED_LINE_ENDINGS = {"core": "crlf", "companion-A": "lf", "companion-B": "lf",
                           "companion-C": "lf", "companion-D": "lf", "appendix-G": "lf"}
+# Each later release, fixed here once its tag exists: its label and, per edition, the SHA-256 and
+# size of the joined text, as recorded in spec/editions.json at the release tag. Like the rev. 8
+# values, these are facts about a past release; they never change. The next release's values are
+# added here in a pull request of their own, after its tag exists.
+RELEASED = {
+    "v1.1-rev9": {   # spec/editions.json at tag v1.1-rev9 (commit ad00e52)
+        "revision": "v1.1 rev. 9",
+        "editions": {
+            "core": ("a93212765fdfd71d40735cad02d1d5249831884d3aec18a7d6220bf476130190", 275468),
+            "companion-A": ("feef8cd1d74be5bdb3298aac789eff2637172a27ba1e0d44f9ca9eec8af8d607", 85681),
+            "companion-B": ("befc2cfb9398f6cf8070cab1e89632f57dd30e2cd255a20b408aefd3ead3bd8b", 61620),
+            "companion-C": ("a8e8be4c78295b33f3c28b8e3097abcced55e35277f9983234c9b3bc7ac82ec8", 31914),
+            "companion-D": ("1b1cdbf2fb3b3a49a24a707889bef0dc710528e92415329d0c47cb22a32cd438", 24393),
+            "appendix-G": ("88b96b05bf7db950a3103f309488a99ef03190a67df0c7abbe0c257d9c08aeb2", 60346),
+        },
+    },
+}
 TAG_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 RELEASE_TAG = re.compile(r"^v(\d+)\.(\d+)-rev(\d+)$")
 FILE_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
@@ -403,6 +428,24 @@ def main(argv=None):
                 problems.append(f"{eid}: release tag {tag} exists but is not listed in its releases "
                                 "(a release is never dropped from the record)")
 
+    # 7. releases fixed in this file: listed, with the same values, whether or not the tag is here
+    for tag, fixed in RELEASED.items():
+        for eid, (digest, size) in fixed["editions"].items():
+            if eid not in editions:
+                if eid not in PUBLISHED:   # a missing published edition is reported in step 1
+                    problems.append(f"edition {eid!r}, released in {fixed['revision']}, is missing from editions.json")
+                continue
+            rels = editions[eid].get("releases")
+            found = [r for r in rels if isinstance(r, dict) and r.get("tag") == tag] if isinstance(rels, list) else []
+            if not found:
+                problems.append(f"{eid}: release {fixed['revision']} (tag {tag}) is not listed in its releases; "
+                                "its values are fixed in this checker (a release is never dropped from the record)")
+            for r in found:
+                for key, want in (("revision", fixed["revision"]), ("sha256", digest), ("bytes", size)):
+                    if r.get(key) != want:
+                        problems.append(f"{eid}: release {fixed['revision']} (tag {tag}): {key} is {r.get(key)!r}, "
+                                        f"but this checker fixes it as {want!r} (a released digest never changes)")
+
     # report: facts first; "preserved" and "verified" only when every check passed
     for e in identical:
         print(f"[identical] {e['id']}: {len(e['parts'])} part(s), {len(joined_now[e['id']])} bytes, identical to published rev. 8")
@@ -415,6 +458,7 @@ def main(argv=None):
     if not problems:
         for tag, rows in by_tag.items():
             how = sorted({h for _, h in release_status.get(tag, [])})
+            how.append("values fixed in this checker" if tag in RELEASED else "values not yet fixed in this checker")
             print(f"[release]   {release_label(tag)} (tag {tag}): {len(rows)} edition digest(s) verified, {'; '.join(how)}")
     for n in notes:
         print("note:", n)
