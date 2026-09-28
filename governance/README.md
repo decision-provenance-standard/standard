@@ -5,7 +5,7 @@ This folder holds the Standard's own use of itself by its Steward: a Charter for
 - [`charter.md`](charter.md) is the Charter `dps-text-authoring`, with every field of Standard §3.2. It declares a target of Level 1 only because the text requires every complete Charter to declare one.
 - [`decisions/`](decisions/) holds one file per record, with its fields in the order of Standard §6.2.
 
-**Which text these files follow.** The files are written against the Standard's text on `main` as corrected for v1.1 (reading edition rev. 9), which the release pull request tags as `v1.1-rev9`. Section numbers refer to that text.
+**Which text these files follow.** The files are written against the Standard's text on `main` as corrected for v1.1 (reading edition rev. 9), which is tagged `v1.1-rev9` after the release pull request merges. Section numbers refer to that text.
 
 ## Records index
 
@@ -13,12 +13,13 @@ Every record under the Charter is listed here by id, type, state and date. Stand
 
 | Record | Type | State | Dispatched (UTC) | Decision |
 |---|---|---|---|---|
-| [DR-2026-0001](decisions/DR-2026-0001-disclosure-block-is-the-standards-own-requirement.md) | decision | drafted | 2026-09-28T04:22:41Z | The disclosure block is the Standard's own requirement |
-| [DR-2026-0002](decisions/DR-2026-0002-redaction-consent-and-privacy-wording.md) | decision | drafted | 2026-09-28T04:22:58Z | Redaction, consent and privacy wording |
-| [DR-2026-0003](decisions/DR-2026-0003-release-classification-is-the-stewards-call.md) | decision | drafted | 2026-09-28T04:23:16Z | Release classification is the Steward's call |
-| [DR-2026-0004](decisions/DR-2026-0004-mode-drift-layers-text-governs.md) | decision | drafted | 2026-09-28T04:23:35Z | The mode-drift layers: the text governs |
-| [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | drafted | 2026-09-28T05:18:01Z | v1.1 is a minor release |
-| [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | drafted | 2026-09-28T06:13:32Z | Products and tools implement the Standard |
+| [DR-2026-0001](decisions/DR-2026-0001-disclosure-block-is-the-standards-own-requirement.md) | decision | closed | 2026-09-28T04:22:41Z | The disclosure block is the Standard's own requirement |
+| [DR-2026-0002](decisions/DR-2026-0002-redaction-consent-and-privacy-wording.md) | decision | closed | 2026-09-28T04:22:58Z | Redaction, consent and privacy wording |
+| [DR-2026-0003](decisions/DR-2026-0003-release-classification-is-the-stewards-call.md) | decision | closed | 2026-09-28T04:23:16Z | Release classification is the Steward's call |
+| [DR-2026-0004](decisions/DR-2026-0004-mode-drift-layers-text-governs.md) | decision | closed | 2026-09-28T04:23:35Z | The mode-drift layers: the text governs |
+| [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | closed | 2026-09-28T05:18:01Z | v1.1 is a minor release |
+| [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | closed | 2026-09-28T06:13:32Z | Products and tools implement the Standard |
+| [DR-2026-0007](decisions/DR-2026-0007-disclosure-review-at-v1.1.md) | disclosure_review | drafted | 2026-09-28T06:34:38Z | Disclosure review at the v1.1 release |
 
 The Charter is in its first version. Any change to it is made by a Charter-amendment record listed here.
 
@@ -46,7 +47,7 @@ To check a seal, run this from a clone of the repository, with `FILE` replaced b
 git show v1.1-rev9:governance/decisions/FILE | sed -E '/^\| `seal_hash` \|/s/[0-9a-f]{64}/0000000000000000000000000000000000000000000000000000000000000000/' | sha256sum
 ```
 
-Without a clone, replace `git show v1.1-rev9:governance/decisions/FILE` with `curl -s https://raw.githubusercontent.com/decision-provenance-standard/standard/v1.1-rev9/governance/decisions/FILE`. Where `sha256sum` is not installed, use `shasum -a 256`.
+For a record closed at a later release, use the tag of the release that closed it in place of `v1.1-rev9`. Without a clone, replace `git show v1.1-rev9:governance/decisions/FILE` with `curl -s https://raw.githubusercontent.com/decision-provenance-standard/standard/v1.1-rev9/governance/decisions/FILE`. Where `sha256sum` is not installed, use `shasum -a 256`.
 
 ## Where the records follow the text over the reference files
 
@@ -71,7 +72,7 @@ The Charter's `disclosure_metadata_pointer` points here. Every record repeats th
 | `content-type-tag` | decision-summary |
 | `generation-timestamp` | In each record's copy: the time that record was drafted |
 
-The jurisdiction tag lists where the records are intended to be read. The Steward reviews this block at each release and records the review as a disclosure-review record, as the Charter's schedule of records commits. The first one is added at the v1.1 release.
+The jurisdiction tag lists where the records are intended to be read. The Steward reviews this block at each release and records the review as a disclosure-review record, as the Charter's schedule of records commits. The first one, at the v1.1 release, is DR-2026-0007.
 
 Carried because this Standard requires it for AI-drafted records; this says nothing about whether any law applies.
 

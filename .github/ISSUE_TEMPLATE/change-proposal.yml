@@ -11,7 +11,7 @@ body:
     id: release
     attributes:
       label: Which release did you read?
-      description: Text revision and reference-files release, for example "Core v1.0 rev. 8, files 5.1.0".
+      description: Text revision and reference-files release, for example "Core v1.1 rev. 9, files 5.1.1".
     validations:
       required: true
   - type: textarea

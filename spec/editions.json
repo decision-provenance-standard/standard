@@ -1,11 +1,18 @@
 {
-  "format": "dps-spec-editions/2",
+  "format": "dps-spec-editions/3",
   "baseline_tag": "rev8-published",
-  "note": "Each edition is the plain byte concatenation of its parts, in order. 'published' is the SHA-256 of the Markdown file in the md/ folder of the published rev. 8 release bundle and never changes. 'current_sha256' is the SHA-256 of the joined parts as they stand in this commit; a pull request that changes the text updates it. 'line_endings' is the line-ending convention the edition was published with.",
+  "note": "Each edition is the plain byte concatenation of its parts, in order. 'published' is the SHA-256 of the Markdown file in the md/ folder of the published rev. 8 release bundle and never changes. 'releases' lists each later release of the edition: its tag, and the SHA-256 and size of the joined parts at that tag, with the names under which it is published; once the tag exists, the entry never changes. 'current_sha256' is the SHA-256 of the joined parts as they stand in this commit; a pull request that changes the text updates it. 'line_endings' is the line-ending convention the edition was published with. 'heading_renames' lists the only top-level headings allowed to differ from the rev. 8 baseline.",
+  "heading_renames": [
+    {
+      "edition": "companion-D",
+      "from": "# Decision Provenance Standard™ v1.0 — Companion D: Diagrams",
+      "to": "# Decision Provenance Standard™ v1.1 — Companion D: Diagrams"
+    }
+  ],
   "editions": [
     {
       "id": "core",
-      "title": "Decision Provenance Standard, Core v1.0, Reading Edition rev. 8",
+      "title": "Decision Provenance Standard, Core v1.1, Reading Edition rev. 9",
       "published_name": "decision-provenance-standard-v1.0-rev8-core.md",
       "line_endings": "crlf",
       "parts": [
@@ -31,7 +38,18 @@
         "sha256": "10f634360b66ff574ceedd79407227a577d46aca3917e9740e0773eee7ca6f51",
         "bytes": 276948
       },
-      "current_sha256": "7b7b8e5209ad2257cedb399943ec551ac9b3c10a753fa87dda96faabb3fbc12e"
+      "releases": [
+        {
+          "revision": "v1.1 rev. 9",
+          "tag": "v1.1-rev9",
+          "sha256": "a93212765fdfd71d40735cad02d1d5249831884d3aec18a7d6220bf476130190",
+          "bytes": 275468,
+          "published_name": "decision-provenance-standard-v1.1-rev9-core.md",
+          "page_name": "dps-v1.1-rev9-core.html",
+          "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        }
+      ],
+      "current_sha256": "a93212765fdfd71d40735cad02d1d5249831884d3aec18a7d6220bf476130190"
     },
     {
       "id": "companion-A",
@@ -46,7 +64,18 @@
         "sha256": "e372984adc607a519c18d6e91d9f20f024168a5c80c72459ca2a521855a0bfaf",
         "bytes": 90809
       },
-      "current_sha256": "07b8b1682b46d8f6ec10eaaa60ccf13ae00c29929a5634275a5817fb8ceebc0d"
+      "releases": [
+        {
+          "revision": "v1.1 rev. 9",
+          "tag": "v1.1-rev9",
+          "sha256": "feef8cd1d74be5bdb3298aac789eff2637172a27ba1e0d44f9ca9eec8af8d607",
+          "bytes": 85681,
+          "published_name": "decision-provenance-standard-v1.1-rev9-companion-A-regulatory-cross-reference.md",
+          "page_name": "dps-v1.1-rev9-companion-A.html",
+          "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        }
+      ],
+      "current_sha256": "feef8cd1d74be5bdb3298aac789eff2637172a27ba1e0d44f9ca9eec8af8d607"
     },
     {
       "id": "companion-B",
@@ -61,7 +90,18 @@
         "sha256": "9f1f8b38161696512058db294eefecd0fb28303d74f93ef1700ccb0386b181f9",
         "bytes": 61721
       },
-      "current_sha256": "4af6b512e7ba6b38b3c67ba952ebb9313954ad966d693dc58f8fa14f947b1225"
+      "releases": [
+        {
+          "revision": "v1.1 rev. 9",
+          "tag": "v1.1-rev9",
+          "sha256": "befc2cfb9398f6cf8070cab1e89632f57dd30e2cd255a20b408aefd3ead3bd8b",
+          "bytes": 61620,
+          "published_name": "decision-provenance-standard-v1.1-rev9-companion-B-worked-charter-library.md",
+          "page_name": "dps-v1.1-rev9-companion-B.html",
+          "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        }
+      ],
+      "current_sha256": "befc2cfb9398f6cf8070cab1e89632f57dd30e2cd255a20b408aefd3ead3bd8b"
     },
     {
       "id": "companion-C",
@@ -76,7 +116,18 @@
         "sha256": "e53a2b4af11960d5fb6d677728ac5f8dd9bbd4fc8e0fa6e0d4eff155ccd20c3f",
         "bytes": 32582
       },
-      "current_sha256": "933a2bb2f538aef8b670652d6ad902c0f508f737054be5303f711b2dd76f3a14"
+      "releases": [
+        {
+          "revision": "v1.1 rev. 9",
+          "tag": "v1.1-rev9",
+          "sha256": "a8e8be4c78295b33f3c28b8e3097abcced55e35277f9983234c9b3bc7ac82ec8",
+          "bytes": 31914,
+          "published_name": "decision-provenance-standard-v1.1-rev9-companion-C-implementation-guidance.md",
+          "page_name": "dps-v1.1-rev9-companion-C.html",
+          "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        }
+      ],
+      "current_sha256": "a8e8be4c78295b33f3c28b8e3097abcced55e35277f9983234c9b3bc7ac82ec8"
     },
     {
       "id": "companion-D",
@@ -91,7 +142,18 @@
         "sha256": "3e2945136d995df97afdb3756555434f1c01db83e913ff4f5b964fe175f6fc64",
         "bytes": 24634
       },
-      "current_sha256": "646b078f871988ba794317b176b7237b5dd45f8dadf9531234580ccca96e5f60"
+      "releases": [
+        {
+          "revision": "v1.1 rev. 9",
+          "tag": "v1.1-rev9",
+          "sha256": "1b1cdbf2fb3b3a49a24a707889bef0dc710528e92415329d0c47cb22a32cd438",
+          "bytes": 24393,
+          "published_name": "decision-provenance-standard-v1.1-rev9-companion-D-diagrams.md",
+          "page_name": "dps-v1.1-rev9-companion-D.html",
+          "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        }
+      ],
+      "current_sha256": "1b1cdbf2fb3b3a49a24a707889bef0dc710528e92415329d0c47cb22a32cd438"
     },
     {
       "id": "appendix-G",
@@ -106,7 +168,18 @@
         "sha256": "6f88ff46532f3ab31fedd5300bd6c2a010d6b10b4ee9f3a1013fffe886d53fa2",
         "bytes": 65872
       },
-      "current_sha256": "2870bb355608ce3c0549578c5875fd707ba2081a981cd5c7208a6829f772c906"
+      "releases": [
+        {
+          "revision": "v1.1 rev. 9",
+          "tag": "v1.1-rev9",
+          "sha256": "88b96b05bf7db950a3103f309488a99ef03190a67df0c7abbe0c257d9c08aeb2",
+          "bytes": 60346,
+          "published_name": "decision-provenance-standard-v1.1-rev9-appendix-G-governance-and-references.md",
+          "page_name": "dps-v1.1-rev9-appendix-G.html",
+          "bundle_name": "decision-provenance-standard-v1.1-rev9-bundle.zip"
+        }
+      ],
+      "current_sha256": "88b96b05bf7db950a3103f309488a99ef03190a67df0c7abbe0c257d9c08aeb2"
     }
   ]
 }
