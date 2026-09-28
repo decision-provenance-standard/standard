@@ -40,7 +40,7 @@ The signal vocabulary is the named, machine-readable surface that Section 6 read
 | `every_affirmed_record_carries_affirmation_event` | Decision-record state machine | Per-record (at `affirmed`) | Validation: `affirmation_record` populated with timestamp + actor identity + method per §5.1(3) |
 | `every_affirmed_record_carries_seal_hash` | Decision-record state machine | Per-record (at `affirmed`) | Validation: `seal_hash` populated per §5.1(3) |
 | `no_passive_promotion_to_affirmed_in_sample` | **Layer 3 / sample-audit primitive** | Sample-level per the §4.8.2 emission cadence | Audits a sample of `affirmed` records for compliance with §5.2 affirmation-is-an-affirmative-human-act requirement |
-| `every_redaction_event_carries_operational_store_deletion_attestation` | Decision-record state machine / sample-audit | Sample-level per the §4.8.2 emission cadence | Reads field population of `operational_store_deletion_attestation` (4 sub-fields); substantive correctness is deployer's qualified personnel's territory |
+| `every_redaction_event_carries_operational_store_deletion_attestation` | Decision-record state machine / sample-audit | Sample-level per the §4.8.2 emission cadence | Reads field population of `operational_store_deletion_attestation` (4 sub-fields); substantive correctness is for the deployer to determine |
 | `every_mode_2_record_carries_drafting_authority` | Decision-record state machine | Per-record (at `affirmed`, Mode 2) | Validation: `drafting_authority.deployer_role_pointer` populated per §6.2.3 |
 | `altitude_to_consent_posture_binding_enforced` | Access-policy layer / sample-audit | Sample-level | Audits `altitude: individual-professional` records for consent-posture binding per §6.2.3.1 |
 

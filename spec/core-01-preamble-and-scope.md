@@ -119,7 +119,7 @@ The Standard is authored against an explicit primary jurisdiction with named sec
 A deployer operating exclusively within one of the named jurisdictions reads Section 8's cross-references as pointers to frameworks cited for those jurisdictions. A deployer operating in any other jurisdiction reads the Standard as a hypothesis to verify with local counsel, with two implications:
 
 1. The vocabulary, dispatch grammar, and conformance-signal architecture remain stable across jurisdictions — they are structural, not jurisdictional
-2. The regulatory cross-references in Section 8, the audit-framework alignments, and the litigation-framing assumptions in §1.4.2 are jurisdictionally bounded to the named four; in any other jurisdiction, they require local-counsel verification
+2. The regulatory cross-references in Section 8, the audit-framework alignments, and the litigation-framing assumptions in §1.4.2 are jurisdictionally bounded to the named four; in any other jurisdiction, they are hypotheses to verify with local counsel
 
 ### 1.6.1 Disclosure Block Scope (Pointer to §4.6)
 

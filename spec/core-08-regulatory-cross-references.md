@@ -24,7 +24,7 @@
 | SOC 2 Type II — AICPA Trust Services Criteria | §A.9 |
 | HR-side framework cross-references | §A.11 |
 
-Counsel and auditors convert the audit-ready decision provenance the Standard structures into the evidence, certifications, or attestations the frameworks above require; the Standard's primitives are the input substrate, not the satisfaction of any framework's obligation.
+Counsel and auditors convert the audit-ready decision provenance the Standard structures into whatever evidence, certifications, or attestations the deployer determines the frameworks above call for; the Standard's primitives are the input substrate, not the satisfaction of any framework's obligation.
 
 ---
 
