@@ -23,7 +23,7 @@ These limits are deliberate. A record produced under the Standard is structured 
 | `standard/v5.0/` | Reference files, **release 5.1.1**: JSON schemas, state machines, the conformance-signal list, the reporter contract and the test plan. Same path as on the website. |
 | `governance/` | The Steward's Charter for authoring the Standard, and the decision records made under it |
 | `kit/` | A prompt and a coding-agent skill that help an organization or a product write its self-declaration (Apache-2.0) |
-| `tools/`, `tests/`, `.github/` | The automated checks that run on every pull request |
+| `tools/`, `tests/`, `.github/` | The automated checks that run on every pull request, and the Steward's tool for closing records |
 
 Licences differ by folder. Text (`spec/`, `governance/`, and the Markdown documentation at the repository root): CC BY 4.0. `standard/v5.0/`, including its Markdown files: MIT for all of 5.x. Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later: Apache-2.0. [NOTICE](NOTICE) has the details.
 
