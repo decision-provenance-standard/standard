@@ -54,7 +54,7 @@ These fields are required at the moment the record archives to the schedule of r
 
 ### 6.2.4 Field discipline
 
-Field names are binding; type names are illustrative. A conformant decision-record formatter may serialize as JSON, YAML, or a typed object so long as field names match Section 6 verbatim. A field that is required at a lifecycle state but absent at that state is a Charter conformance failure at Level 1 (per Section 7). Fields that are nullable at a state are not "optional" in the marketing sense — they are not required at that state and may be required at a later state, in which case absence at the later state is a Level-1 conformance failure.
+Field names are binding; type names are illustrative. A decision-record formatter that implements the Standard may serialize as JSON, YAML, or a typed object so long as field names match Section 6 verbatim. A field that is required at a lifecycle state but absent at that state is a Charter conformance failure at Level 1 (per Section 7). Fields that are nullable at a state are not "optional" in the marketing sense — they are not required at that state and may be required at a later state, in which case absence at the later state is a Level-1 conformance failure.
 
 Verb discipline matters at the field-naming level. Field names use process verbs (`populated`, `committed`, `resolvable`, `archived`); they do not use regulatory verbs (`satisfies`, `ensures`, `certifies`). A field named `mode_declaration` records which mode the Charter declared; it does not certify that the decision met any regulatory requirement under that mode. The same constraint applies to derived signals downstream in Section 7; signals are facts about field population, not regulatory claims.
 
@@ -62,7 +62,7 @@ Verb discipline matters at the field-naming level. Field names use process verbs
 
 ## 6.3 The Schedule of Records
 
-The schedule of records is the enumerated set of decision records a Charter commits to maintain. The schedule is the contract a Charter makes with its consumers — accountable owners, reviewers, counsel, auditors, and a conformant schedule-of-records exporter — about what records will exist and where they will be findable.
+The schedule of records is the enumerated set of decision records a Charter commits to maintain. The schedule is the contract a Charter makes with its consumers — accountable owners, reviewers, counsel, auditors, and a schedule-of-records exporter that implements the Standard — about what records will exist and where they will be findable.
 
 The schedule is committed at the Charter `fields-completed` lifecycle state (per Section 3 §3.3). A Charter that has not enumerated its schedule cannot reach `fields-completed` and cannot grade against any conformance level under Section 7. The schedule is enumerated by **record-type**, not by individual record; the Charter commits to producing records of declared types as decisions arise, on the cadence the Charter declares.
 
@@ -100,7 +100,7 @@ Discoverability and retention are the operational surfaces that make the schedul
 
 A conformant Charter's schedule satisfies the following discoverability requirements **of the Standard**:
 
-1. **Resolvable Charter index.** The Charter's `record_location` resolves to a surface (URL, path, document, query interface) that enumerates the schedule of records. The index is queryable by record-type and by date range at minimum. A conformant schedule-of-records exporter binds to this surface.
+1. **Resolvable Charter index.** The Charter's `record_location` resolves to a surface (URL, path, document, query interface) that enumerates the schedule of records. The index is queryable by record-type and by date range at minimum. A schedule-of-records exporter that implements the Standard binds to this surface.
 2. **Resolvable record location.** Each individual record's `record_location` resolves to a canonical instance of the record, accessible to the parties named in the Charter's distribution rule. "Resolvable" here means a reader with the appropriate access can retrieve the record; it does not impose a public-disclosure requirement.
 3. **Stable identifiers.** The `decision_id` and `charter_id` fields are stable across ownership changes, surface migrations, and renamings. A record whose identifier mutates between dispatch and audit is a record that has lost its provenance chain.
 4. **Versioning of the Charter the record dispatched under.** Each record references the Charter version at time of dispatch. A Charter amended after a decision was made does not retroactively re-Charter the prior decision; the prior record reads against the Charter version current at its `dispatched_at` timestamp.

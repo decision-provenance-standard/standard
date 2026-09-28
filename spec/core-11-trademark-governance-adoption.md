@@ -24,7 +24,7 @@ The trademark on the name is **separate from the CC-BY 4.0 license on the text**
 
 - To **cite** the Standard by name in academic work, regulatory submissions, audit work papers, internal governance documents, vendor RFPs, and other work product where the Standard is the subject of the citation
 - To **identify** a deployer's installation as having adopted the Standard ("Our decision register conforms to the Decision Provenance Standard™ at Conformance Level 2, self-declared")
-- To **identify** a vendor's product as Standard-aware or Standard-conformant tooling ("Our decision-record tool is conformant with the Decision Provenance Standard™")
+- To **identify** a vendor's product as Standard-aware tooling or as tooling that implements the Standard ("Our decision-record tool implements the Decision Provenance Standard™"). A product claims no Conformance Level and is not described as conformant, because Levels belong to an organization's Charters (§7).
 - To **identify** a derivative or extended work that points back to this Standard with appropriate attribution and divergence statement per §1.5.1
 
 **Prohibited trademark uses.** The trademark MAY NOT be used:
