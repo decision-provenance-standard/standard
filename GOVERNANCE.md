@@ -10,7 +10,7 @@
 
 | Lane | Covers | Who approves |
 |---|---|---|
-| **Steward only** | §5 (Record Lifecycle); §6, including the decision-record schema, §6.2.3.1 and §6.2.3.2; §7 (Conformance Levels); §11; Appendix G; Companion A; every "what this is not" passage, including §1.4 and the non-claim sections; `spec/editions.json`; `NOTICE`; the license files; the reference files under `standard/`; the Steward's own Charter and decision records (`governance/`); the automated checks (`tools/`, `tests/`, `.github/`); this file; `CODEOWNERS`; release tags | The Steward |
+| **Steward only** | §5 (Record Lifecycle); §6, including the decision-record schema, §6.2.3.1 and §6.2.3.2; §7 (Conformance Levels); §11; Appendix G; Companion A; every "what this is not" passage, including §1.4 and the non-claim sections; `spec/editions.json`; `NOTICE`; the license files; the reference files under `standard/`; the Steward's own Charter and decision records (`governance/`); the automated checks (`tools/`, `tests/`, `.github/`); the declaration kit (`kit/`); this file; `CODEOWNERS`; release tags | The Steward |
 | **Maintainer** (no maintainers yet; the Steward meanwhile) | Wording fixes that don't change meaning, broken links, Companion B, C and D examples, diagram text alternatives, translations | A named maintainer |
 | **Anyone** | Opening issues and pull requests on anything | No approval needed to open one |
 

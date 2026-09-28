@@ -26,6 +26,9 @@
 /.github/                                           @yohayetsion
 /.gitattributes                                     @yohayetsion
 
+# The declaration kit: its criteria restate the Conformance Level rules.
+/kit/                                               @yohayetsion
+
 # Licensing and governance files.
 /LICENSE                                            @yohayetsion
 /LICENSES/                                          @yohayetsion
