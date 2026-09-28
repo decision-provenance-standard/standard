@@ -30,7 +30,7 @@ This check FAILS when:
       * only the newest release of an edition may be untagged, and a release tag reachable from
         the commit being checked must be listed for every edition (a release is never dropped
         from the record);
-  - a release whose values are fixed in this file (RELEASED: v1.1 rev. 9) is missing from an
+  - a release whose values are fixed in this file (RELEASED: v1.1 rev. 9 and v1.2 rev. 10) is missing from an
     edition's releases, or its entry's revision, sha256 or bytes differ from the values fixed
     here; this holds whether or not the release tag is available;
   - the text differs from the published release and the baseline tag is not available to
@@ -104,6 +104,17 @@ RELEASED = {
             "companion-C": ("a8e8be4c78295b33f3c28b8e3097abcced55e35277f9983234c9b3bc7ac82ec8", 31914),
             "companion-D": ("1b1cdbf2fb3b3a49a24a707889bef0dc710528e92415329d0c47cb22a32cd438", 24393),
             "appendix-G": ("88b96b05bf7db950a3103f309488a99ef03190a67df0c7abbe0c257d9c08aeb2", 60346),
+        },
+    },
+    "v1.2-rev10": {   # spec/editions.json at tag v1.2-rev10 (commit 60a938f)
+        "revision": "v1.2 rev. 10",
+        "editions": {
+            "core": ("276fd77047ae7a81fac7ad915b0d6f766a3e4b872784618019c02683af0f5c6f", 278377),
+            "companion-A": ("676bd22cabf2ad14ff7bc05fe65538cc5f3208762d4e61d834d5e117dea64316", 84279),
+            "companion-B": ("237579e648e2e4eeefb55033be4d6756cebab305de8b92e78af1a01cbaa4547c", 61791),
+            "companion-C": ("034edc786bd025338a7f1f502fb19ad0714d2a6f00c49009e92dd0bae34a31c0", 31872),
+            "companion-D": ("d4d238fd4e538996a37ca51f109c382fe9c2449947ccb8cd95c9e429b4172b27", 24681),
+            "appendix-G": ("3bdd6ba414c38f9014afc87fa3562bfee8b3c8d81e673268770a857f14e9c437", 56694),
         },
     },
 }
