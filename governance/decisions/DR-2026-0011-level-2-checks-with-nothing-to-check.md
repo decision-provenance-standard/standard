@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-09-28T13:35:51Z |
 | `record_type` | decision |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-09-28T13:35:51Z |
 | `decision_statement` | A Level 2 criterion or signal that reads records of a kind the Charter does not yet have (affirmed records, Mode 1 records to sample, Mode 1 records with embedded AI-drafted content, redaction-event records, or records at individual-professional altitude) has nothing to check until the Charter has one, and until then it does not apply and does not prevent a Level 2 grade. The dispatch-mode criterion's "cannot be silently mutated" is judged from the records as they stand: a change of mode appears as a new, re-dispatched record (§4.5, §6.2.1), so no history of past values is required. These state how the v1.1 criteria read, so no Charter loses a Level and no record or Charter valid under v1.1 (reading edition rev. 9) becomes invalid. |
 | `context_at_decision` | • A new Charter has no affirmed records and no Mode 1 records to sample, and often no redaction events, so several Level 2 criteria had nothing to read.<br>• v1.1 did not say whether such a criterion passes, fails or does not apply; the declaration kit already reads them as applying only once there is something to check.<br>• A record's `dispatch_mode` is set at dispatch, and a change of mode is made by re-dispatching a new record. |
@@ -23,9 +23,15 @@
 | `review_log` | • reviewer: a fresh AI-drafted legal-claims review made for the Steward; reviewed_at: 2026-09-28T13:55:59Z; outcome: go with changes, with its findings folded into the pull request before the merge<br>• reviewer: a fresh AI-drafted compatibility review made for the Steward; reviewed_at: 2026-09-28T14:11:01Z; outcome: go with changes, with no record or Charter valid under v1.1 made invalid, and its findings folded into the pull request before the merge |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-09-28 |
+| `closed_at` | 2026-09-28T16:21:10Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-09-28T16:21:10Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue shows a Charter losing a Level because of these statements; the Steward then corrects it in a patch.<br>Market evidence: an adopter asks for a minimum number of records before a Level 2 grade, or the declaration kit reads a criterion differently from the text. |
 | `record_location` | `governance/decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md` and, once released, at tag `v1.2-rev10` |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005<br>• DR-2026-0006<br>• DR-2026-0007<br>• DR-2026-0008<br>• DR-2026-0009<br>• DR-2026-0010 |
+| `affirmation_record` | timestamp: 2026-09-28T16:21:10Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #15, which added this record to the repository (merge commit 9d39375dcc6cc591fc77c2152afd42000502b283) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-09-28T16:21:10Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | e3dd19e0559d021a6d1624a53c3474cfb59f90890c5008a3424ee2b5a0c5f95a |
 
 ## Disclosure block
 

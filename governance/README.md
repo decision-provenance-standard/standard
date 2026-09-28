@@ -11,22 +11,22 @@ This folder holds the Standard's own use of itself by its Steward: a Charter for
 
 Every record under the Charter is listed here by id, type, state and date. Standard §6.4.1 requires the Charter's index to list its records so they can be found by record type and by date range; the findability rule of §6.3.2 requires any record to be found within 30 seconds by someone who was not in the room.
 
-| Record | Type | State | Dispatched (UTC) | Decision |
-|---|---|---|---|---|
-| [DR-2026-0001](decisions/DR-2026-0001-disclosure-block-is-the-standards-own-requirement.md) | decision | closed | 2026-09-28T04:22:41Z | The disclosure block is the Standard's own requirement |
-| [DR-2026-0002](decisions/DR-2026-0002-redaction-consent-and-privacy-wording.md) | decision | closed | 2026-09-28T04:22:58Z | Redaction, consent and privacy wording |
-| [DR-2026-0003](decisions/DR-2026-0003-release-classification-is-the-stewards-call.md) | decision | closed | 2026-09-28T04:23:16Z | Release classification is the Steward's call |
-| [DR-2026-0004](decisions/DR-2026-0004-mode-drift-layers-text-governs.md) | decision | closed | 2026-09-28T04:23:35Z | The mode-drift layers: the text governs |
-| [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | closed | 2026-09-28T05:18:01Z | v1.1 is a minor release |
-| [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | closed | 2026-09-28T06:13:32Z | Products and tools implement the Standard |
-| [DR-2026-0007](decisions/DR-2026-0007-disclosure-review-at-v1.1.md) | disclosure_review | drafted | 2026-09-28T06:34:38Z | Disclosure review at the v1.1 release |
-| [DR-2026-0008](decisions/DR-2026-0008-appendix-g-is-informative-and-counsel-is-a-recommendation.md) | decision | drafted | 2026-09-28T13:35:48Z | Appendix G is informative, and named counsel is a recommendation |
-| [DR-2026-0009](decisions/DR-2026-0009-level-rules-in-section-7-and-no-breaks-in-minor-releases.md) | decision | drafted | 2026-09-28T13:35:49Z | Level rules in Section 7, and no breaks in minor releases |
-| [DR-2026-0010](decisions/DR-2026-0010-exclusion-in-the-level-checks-and-disclosure-review-evidence.md) | decision | drafted | 2026-09-28T13:35:50Z | The exclusion in the Level checks, and disclosure-review evidence |
-| [DR-2026-0011](decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md) | decision | drafted | 2026-09-28T13:35:51Z | Level 2 checks with nothing to check |
-| [DR-2026-0012](decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) | decision | drafted | 2026-09-28T13:35:52Z | The declaration kit is Steward-only |
-| [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | drafted | 2026-09-28T13:35:53Z | v1.2 is a minor release |
-| [DR-2026-0014](decisions/DR-2026-0014-disclosure-review-at-v1.2.md) | disclosure_review | drafted | 2026-09-28T14:23:25Z | Disclosure review at the v1.2 release |
+| Record | Type | State | Dispatched (UTC) | Decision | Sealed at tag |
+|---|---|---|---|---|---|
+| [DR-2026-0001](decisions/DR-2026-0001-disclosure-block-is-the-standards-own-requirement.md) | decision | closed | 2026-09-28T04:22:41Z | The disclosure block is the Standard's own requirement | `v1.1-rev9` |
+| [DR-2026-0002](decisions/DR-2026-0002-redaction-consent-and-privacy-wording.md) | decision | closed | 2026-09-28T04:22:58Z | Redaction, consent and privacy wording | `v1.1-rev9` |
+| [DR-2026-0003](decisions/DR-2026-0003-release-classification-is-the-stewards-call.md) | decision | closed | 2026-09-28T04:23:16Z | Release classification is the Steward's call | `v1.1-rev9` |
+| [DR-2026-0004](decisions/DR-2026-0004-mode-drift-layers-text-governs.md) | decision | closed | 2026-09-28T04:23:35Z | The mode-drift layers: the text governs | `v1.1-rev9` |
+| [DR-2026-0005](decisions/DR-2026-0005-v1.1-is-a-minor-release.md) | decision | closed | 2026-09-28T05:18:01Z | v1.1 is a minor release | `v1.1-rev9` |
+| [DR-2026-0006](decisions/DR-2026-0006-products-implement-the-standard.md) | decision | closed | 2026-09-28T06:13:32Z | Products and tools implement the Standard | `v1.1-rev9` |
+| [DR-2026-0007](decisions/DR-2026-0007-disclosure-review-at-v1.1.md) | disclosure_review | closed | 2026-09-28T06:34:38Z | Disclosure review at the v1.1 release | `v1.2-rev10` |
+| [DR-2026-0008](decisions/DR-2026-0008-appendix-g-is-informative-and-counsel-is-a-recommendation.md) | decision | closed | 2026-09-28T13:35:48Z | Appendix G is informative, and named counsel is a recommendation | `v1.2-rev10` |
+| [DR-2026-0009](decisions/DR-2026-0009-level-rules-in-section-7-and-no-breaks-in-minor-releases.md) | decision | closed | 2026-09-28T13:35:49Z | Level rules in Section 7, and no breaks in minor releases | `v1.2-rev10` |
+| [DR-2026-0010](decisions/DR-2026-0010-exclusion-in-the-level-checks-and-disclosure-review-evidence.md) | decision | closed | 2026-09-28T13:35:50Z | The exclusion in the Level checks, and disclosure-review evidence | `v1.2-rev10` |
+| [DR-2026-0011](decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md) | decision | closed | 2026-09-28T13:35:51Z | Level 2 checks with nothing to check | `v1.2-rev10` |
+| [DR-2026-0012](decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) | decision | closed | 2026-09-28T13:35:52Z | The declaration kit is Steward-only | `v1.2-rev10` |
+| [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | closed | 2026-09-28T13:35:53Z | v1.2 is a minor release | `v1.2-rev10` |
+| [DR-2026-0014](decisions/DR-2026-0014-disclosure-review-at-v1.2.md) | disclosure_review | drafted | 2026-09-28T14:23:25Z | Disclosure review at the v1.2 release |  |
 
 The Charter is in its first version. Any change to it is made by a Charter-amendment record listed here.
 
