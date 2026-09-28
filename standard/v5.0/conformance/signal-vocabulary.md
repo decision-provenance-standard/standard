@@ -33,9 +33,9 @@ The signal vocabulary is the named, machine-readable surface that Section 6 read
 | Signal | Firing authority | Cadence | When emitted |
 |---|---|---|---|
 | `every_record_carries_mode_declaration` | Decision-record state machine | Per-record | Transition into `closed` (validation: `dispatch_mode` populated) |
-| `every_mode_2_record_has_disclosure_block` | Decision-record state machine | Per-record (Mode 2) | Transition into `closed` |
-| `every_mode_1_edge_case_record_has_disclosure_block` | Decision-record state machine | Per-record (Mode 1 + edge case) | Transition into `closed` |
-| `disclosure_block_required_fields_populated` | Decision-record state machine | Per-record | Validation: 5 required Article 50 disclosure fields all populated |
+| `every_mode_2_record_has_disclosure_block` | Decision-record state machine | Per-record (Mode 2, within the §4.6 requirement) | Transition into `closed` |
+| `every_mode_1_edge_case_record_has_disclosure_block` | Decision-record state machine | Per-record (Mode 1 + edge case, within the §4.6 requirement) | Transition into `closed` |
+| `disclosure_block_required_fields_populated` | Decision-record state machine | Per-record | Validation: the five disclosure-block fields (Standard §4.6.2) all populated |
 | `no_silent_mode_drift_in_sample` | **Layer 3 Mode-Confirmation Audit primitive** | Sample-level (NOT per-record) | Per the §4.8.2 emission cadence — Layer 3 audit cadence (15% rolling, with first-100 + edge-case overrides) |
 | `every_affirmed_record_carries_affirmation_event` | Decision-record state machine | Per-record (at `affirmed`) | Validation: `affirmation_record` populated with timestamp + actor identity + method per §5.1(3) |
 | `every_affirmed_record_carries_seal_hash` | Decision-record state machine | Per-record (at `affirmed`) | Validation: `seal_hash` populated per §5.1(3) |
@@ -44,12 +44,14 @@ The signal vocabulary is the named, machine-readable surface that Section 6 read
 | `every_mode_2_record_carries_drafting_authority` | Decision-record state machine | Per-record (at `affirmed`, Mode 2) | Validation: `drafting_authority.deployer_role_pointer` populated per §6.2.3 |
 | `altitude_to_consent_posture_binding_enforced` | Access-policy layer / sample-audit | Sample-level | Audits `altitude: individual-professional` records for consent-posture binding per §6.2.3.1 |
 
+A Level 2 signal that reads records of a kind the Charter does not yet have does not apply until the Charter has one (Standard §7.3, "When there is nothing yet to check").
+
 ## Level 3 Signals (Continuously Auditable)
 
 | Signal | Firing authority | Cadence | When emitted |
 |---|---|---|---|
 | `escalation_rule_records_present_when_invoked` | Decision-record state machine | On-demand | When Charter `escalation_rule` fires AND a corresponding decision record exists |
-| `disclosure_review_cadence_current` | Disclosure metadata state machine | Per-Charter (Mode 2) | When `last_reviewed_at` within the re-review cadence the Charter declares, per Section 4 |
+| `disclosure_review_cadence_current` | Disclosure metadata state machine | Per-Charter (Mode 2) | When each disclosure block was reviewed within the cadence the Charter declares: a current `last_reviewed_at`, or a disclosure-review record naming the record (Standard §7.4.1) |
 | `schedule_of_records_queryable` | Conformance reporter | On-demand | When schedule export endpoint returns 200 OK with valid response |
 | `conformance_level_reporter_output_recent` | Conformance reporter | On-demand | When most-recent reporter output within freshness threshold |
 | `re_decision_triggers_firing_on_schedule` | Charter state machine | Every state transition + scheduled reporter run | When re-decision trigger evaluation runs per Charter cadence (Level 3 per §7.4.2) |
