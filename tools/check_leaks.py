@@ -5,7 +5,8 @@ Scans only what a change ADDS: the added lines of every text file, the paths of 
 it adds or renames, and the messages of its commits. Text already on the base branch
 never fails. Three kinds of finding:
 
-  internal record id              ids from the Steward's private decision register
+  internal record id              ids from the Steward's private decision register, and any
+                                  four-digit record id with no public record of that id
   private path or session trace   local folder paths and AI-session links
   internal name                   names on a hashed list (tools/leak-guard-names.txt)
 
@@ -17,9 +18,13 @@ guesses a name from testing it.
 Deliberate exceptions: tools/leak-guard-allow.txt holds the SHA-256 of an exact added
 line. `python tools/check_leaks.py --hash-line "the line"` prints that value.
 
+Public decision records have four-digit ids (such as the Steward's first record, number
+0001 of 2026). A four-digit id passes only if its record file exists in
+governance/decisions/ of the checked-out tree; any other four-digit id is treated as private.
+
 The rules (name list and exceptions) are read from the BASE commit when it has them, so
-a change cannot allow its own findings. The workflow likewise runs the base commit's
-copy of this script when one exists.
+a change cannot allow its own findings. The workflow runs main's copy of this script
+(the copy main had just before a push), so a change cannot weaken its own guard.
 
 Which change is checked (from the GitHub event):
   pull_request                  base.sha...head.sha (only what the pull request adds)
@@ -49,10 +54,14 @@ ID_PATTERNS = [
     # such as the record ids in tests/known-defects/cases.json.
     re.compile(r"(?<![A-Za-z0-9])(?:DR|FB|SB|DOC)-20[2-8]\d-\d{3}(?!\d)"),
     re.compile(r"(?<![A-Za-z0-9])IX-20[2-8]\d-\d+"),
+    # Four or more digits: never public for these kinds.
+    re.compile(r"(?<![A-Za-z0-9])(?:FB|SB|DOC)-20[2-8]\d-\d{4,}(?!\d)"),
     # Learning and assumption ids: L or A, a hyphen, three or more digits. Not when followed
     # by a number, as in SVG path data, and not inside a longer token.
     re.compile(r"(?<![A-Za-z0-9.\-])[LA]-\d{3,}(?!\d)(?!\.\d)(?!\s*,?\s*-?\d)"),
 ]
+# A decision-record id with four or more digits is public only if its record is in governance/decisions/.
+LONG_RECORD_ID = re.compile(r"(?<![A-Za-z0-9])DR-20[2-8]\d-\d{4,}(?!\d)")
 PATH_PATTERNS = [
     re.compile(r"(?i)\b[A-Z]:[\\/]+(?:My Driv[e]|de[v]\b)"),
     re.compile(r"(?i)\b[A-Z]:[\\/]+User[s][\\/]"),
@@ -124,11 +133,26 @@ def line_hash(line):
     return hashlib.sha256(line.encode("utf-8")).hexdigest()
 
 
+_PUBLIC_RECORDS = None
+
+
+def public_records():
+    """The ids of the decision records in governance/decisions/ of the checked-out tree."""
+    global _PUBLIC_RECORDS
+    if _PUBLIC_RECORDS is None:
+        r = subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True)
+        folder = os.path.join(r.stdout.strip() if r.returncode == 0 else ".", "governance", "decisions")
+        names = os.listdir(folder) if os.path.isdir(folder) else []
+        _PUBLIC_RECORDS = {m.group(1) for n in names if (m := re.match(r"(DR-\d{4}-\d{4,})-.*\.md$", n))}
+    return _PUBLIC_RECORDS
+
+
 def find(line, salt, names):
     """Findings on one line: (kind, the text as it appears in the line)."""
     out = []
     for pat in ID_PATTERNS:
         out += [(KIND_ID, m.group(0)) for m in pat.finditer(line)]
+    out += [(KIND_ID, m.group(0)) for m in LONG_RECORD_ID.finditer(line) if m.group(0) not in public_records()]
     for pat in PATH_PATTERNS:
         out += [(KIND_PATH, m.group(0)) for m in pat.finditer(line)]
     if salt and names:
@@ -183,7 +207,7 @@ def range_from_event():
         return payload["pull_request"]["base"]["sha"], payload["pull_request"]["head"]["sha"]
     if os.environ.get("GITHUB_REF") == "refs/heads/main" and event == "push":
         return payload.get("before", ZERO), payload.get("after") or "HEAD"
-    return ("origin/main" if has_ref("origin/main") else ZERO), "HEAD"
+    return ("refs/remotes/origin/main" if has_ref("refs/remotes/origin/main") else ZERO), "HEAD"
 
 
 def report(items, salt, names, allow):
@@ -197,20 +221,27 @@ def report(items, salt, names, allow):
 
 
 def self_test(salt, names):
-    planted = {
-        KIND_ID: "See " + "DR-" + "2089-999" + " for the reason.",
-        KIND_PATH: "Saved in " + "G:" + "/My Drive/example" + " last week.",
-        KIND_NAME: "Tested with " + "zz" + "leak" + "canary" + " today.",
-    }
+    planted = [
+        (KIND_ID, "See " + "DR-" + "2089-999" + " for the reason."),
+        (KIND_ID + ", four digits, no public record", "See " + "DR-" + "2026-1234" + " for the reason."),
+        (KIND_PATH, "Saved in " + "G:" + "/My Drive/example" + " last week."),
+        (KIND_NAME, "Tested with " + "zz" + "leak" + "canary" + " today."),
+    ]
     ok = True
-    for kind, text in planted.items():
+    for label, text in planted:
         found = {k for k, _ in find(text, salt, names)}
-        print(f"  {'found  ' if kind in found else 'MISSED '} {kind}")
+        kind = label.split(",")[0]
+        print(f"  {'found  ' if kind in found else 'MISSED '} {label}")
         ok &= kind in found
+    public = sorted(public_records())
+    if not public:
+        print("  MISSED  no public record found in governance/decisions/ to test the four-digit rule with")
+        return False
     clean = ("Conformance Level 2 applies. See §7.3.1, Companion A, record " + "DR-" + "2099-001"
-             + " and path L112 -85.5 L-112 85.5.")
+             + ", public record " + public[0] + " and path L112 -85.5 L-112 85.5.")
     extra = find(clean, salt, names)
-    print(f"  {'clean  ' if not extra else 'FALSE  '} ordinary text ({len(extra)} finding(s))")
+    print(f"  {'clean  ' if not extra else 'FALSE  '} ordinary text, with public record {public[0]} "
+          f"({len(extra)} finding(s))")
     return ok and not extra
 
 

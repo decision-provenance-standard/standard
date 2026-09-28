@@ -37,7 +37,7 @@ jobs:
       # both copies must fail a planted one-byte change, so a checker broken either way is caught.
       - name: Take the deciding checker from main
         env:
-          BASE: ${{ github.event_name == 'push' && github.event.before || 'origin/main' }}
+          BASE: ${{ github.event_name == 'push' && github.event.before || 'refs/remotes/origin/main' }}
         run: |
           rm -rf .base-checker && mkdir .base-checker
           if [ -n "$BASE" ] && git cat-file -e "$BASE:tools/check_split.py" 2>/dev/null; then
@@ -142,18 +142,163 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
-      # A change must not be able to weaken its own guard: run the base branch's copy when it has one.
-      - name: Take the guard from the base commit
+      # A change must not be able to weaken its own guard. As for the text split, the deciding copy is
+      # main's as fetched now (pull request or manual run), or the copy main had just before the push.
+      - name: Take the guard from main
         env:
-          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          BASE: ${{ github.event_name == 'push' && github.event.before || 'refs/remotes/origin/main' }}
         run: |
           if [ -n "$BASE" ] && git cat-file -e "$BASE:tools/check_leaks.py" 2>/dev/null; then
             git show "$BASE:tools/check_leaks.py" > "$RUNNER_TEMP/check_leaks.py"
-          else
+            echo "Deciding guard: tools/check_leaks.py at $BASE, commit $(git rev-parse "$BASE^{commit}")"
+          elif [ "$GITHUB_EVENT_NAME" = push ]; then
             cp tools/check_leaks.py "$RUNNER_TEMP/check_leaks.py"
+            echo "::warning::No guard at $BASE, the commit before the push; the pushed copy decides."
+          else
+            echo "::error::No guard at $BASE; there is nothing trusted to decide with."
+            exit 1
           fi
-      - run: python "$RUNNER_TEMP/check_leaks.py" --self-test
-      - run: python "$RUNNER_TEMP/check_leaks.py"
+      - name: "Deciding guard: self-test, then this change"
+        run: |
+          python "$RUNNER_TEMP/check_leaks.py" --self-test
+          python "$RUNNER_TEMP/check_leaks.py"
+      # The change's own copy must pass too, so a guard broken by a change cannot merge and then fail
+      # every later change (including its fix).
+      - name: "This change's own guard: self-test, then this change"
+        run: |
+          python tools/check_leaks.py --self-test
+          python tools/check_leaks.py
+
+  governance:
+    name: Governance records are well-formed
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0   # each closed record is compared with the merge that affirmed it and its release tag
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      # As for the text split: the deciding checker, and the pinned packages it runs with, are main's
+      # (pull request or manual run) or those main had just before the push. They run before anything
+      # the change brings. Only the change that first adds the checker is judged by its own copy.
+      - name: Take the deciding checker from main
+        env:
+          BASE: ${{ github.event_name == 'push' && github.event.before || 'refs/remotes/origin/main' }}
+        run: |
+          rm -rf .base-checker && mkdir .base-checker
+          if [ -n "$BASE" ] && git cat-file -e "$BASE:tools/check_governance.py" 2>/dev/null; then
+            git show "$BASE:tools/check_governance.py" > .base-checker/check_governance.py
+            git show "$BASE:tools/requirements.txt" > .base-checker/requirements.txt
+            echo "Deciding checker: tools/check_governance.py at $BASE, commit $(git rev-parse "$BASE^{commit}")"
+          else
+            cp tools/check_governance.py tools/requirements.txt .base-checker/
+            echo "::warning::No governance checker at $BASE yet; this change adds it, so its own copy decides."
+          fi
+          pip install -r .base-checker/requirements.txt
+      - name: Plant four breaks in throwaway copies
+        run: |
+          for k in a b c d; do rm -rf "$RUNNER_TEMP/planted-$k" && cp -a . "$RUNNER_TEMP/planted-$k"; done
+          python -I - "$RUNNER_TEMP" <<'EOF'
+          import pathlib, sys
+          tmp = pathlib.Path(sys.argv[1])
+          recs = sorted(pathlib.Path("governance/decisions").glob("DR-*.md"))
+          drafted = [p for p in recs if "| `record_state` | drafted |" in p.read_text(encoding="utf-8")]
+          closed = [p for p in recs if "| `record_state` | closed |" in p.read_text(encoding="utf-8")]
+          a = tmp / "planted-a" / (drafted or recs)[0]
+          lines = a.read_text(encoding="utf-8").splitlines(keepends=True)
+          kept = [l for l in lines if not l.startswith("| `decision_statement` |")]
+          assert len(kept) == len(lines) - 1
+          a.write_text("".join(kept), encoding="utf-8", newline="")
+          print(f"Planted a: the decision_statement row removed from the copy of {a.name}")
+          b = tmp / "planted-b" / closed[0]
+          data = bytearray(b.read_bytes())
+          i = data.index(b"| `decision_statement` |") + 30
+          data[i] = 88 if data[i] != 88 else 89
+          b.write_bytes(bytes(data))
+          print(f"Planted b: one byte changed in the copy of {b.name}, a closed record")
+          # c: the same kind of edit, re-sealed, with the index's "Sealed at tag" cell moved to a tag that does
+          # not exist, which must not switch off the "never edited" check.
+          import hashlib, re
+          c = tmp / "planted-c" / closed[0]
+          data = bytearray(c.read_bytes())
+          i = data.index(b"| `decision_statement` |") + 30
+          data[i] = 88 if data[i] != 88 else 89
+          seal = re.compile(rb"^(\| `seal_hash` \| )([0-9a-f]{64})( \|)$", re.M)
+          zeroed = seal.sub(lambda m: m.group(1) + b"0" * 64 + m.group(3), bytes(data))
+          digest = hashlib.sha256(zeroed).hexdigest().encode()
+          c.write_bytes(seal.sub(lambda m: m.group(1) + digest + m.group(3), zeroed))
+          readme = tmp / "planted-c" / "governance/README.md"
+          rid = closed[0].name[:12]
+          out, cols = [], None
+          for line in readme.read_text(encoding="utf-8").split("\n"):
+              cells = line.strip().strip("|").split("|") if line.startswith("|") else None
+              if cells and cells[0].strip() == "Record":
+                  cols = [x.strip() for x in cells]
+                  if "Sealed at tag" not in cols:
+                      line += " Sealed at tag |"
+              elif cols and line.startswith("|---") and "Sealed at tag" not in cols:
+                  line += "---|"
+              elif cols and line.startswith("| [DR-"):
+                  if "Sealed at tag" in cols:
+                      k = cols.index("Sealed at tag")
+                      cells[k] = " `v9.9-rev99` " if line.startswith(f"| [{rid}]") else cells[k]
+                      line = "|" + "|".join(cells) + "|"
+                  else:
+                      line += " `v9.9-rev99` |" if line.startswith(f"| [{rid}]") else "  |"
+              out.append(line)
+          readme.write_text("\n".join(out), encoding="utf-8", newline="")
+          print(f"Planted c: {c.name} edited and re-sealed, its index cell moved to a tag that does not exist")
+          # d: one byte of a released record that is still drafted; only the release comparison can see it.
+          import json, subprocess
+          tags = [r["tag"] for e in json.load(open("spec/editions.json", encoding="utf-8"))["editions"] for r in e["releases"]]
+          target = None
+          for tag in dict.fromkeys(reversed(tags)):
+              if subprocess.run(["git", "rev-parse", "-q", "--verify", f"refs/tags/{tag}"], capture_output=True).returncode:
+                  continue
+              for p in drafted:
+                  if subprocess.run(["git", "cat-file", "-e", f"{tag}:{p.as_posix()}"], capture_output=True).returncode == 0:
+                      target = p
+                      break
+              if target:
+                  break
+          d = tmp / "planted-d" / (target or closed[0])
+          data = bytearray(d.read_bytes())
+          i = data.index(b"| `decision_statement` |") + 30
+          data[i] = 88 if data[i] != 88 else 89
+          d.write_bytes(bytes(data))
+          print(f"Planted d: one byte changed in the copy of {d.name}"
+                + (", a drafted record already in a release" if target else " (no drafted record is in a release yet)"))
+          EOF
+      - name: "Deciding checker: passes this change, fails every planted copy"
+        env:
+          CHECKER: .base-checker/check_governance.py
+        run: |
+          python -I "$CHECKER" .
+          for k in a b c d; do
+            rc=0; out=$(python -I "$CHECKER" "$RUNNER_TEMP/planted-$k" 2>&1) || rc=$?
+            if [ "$rc" -eq 1 ] && [ "$(tail -n 1 <<<"$out")" = FAIL ]; then
+              echo "Self-test: $CHECKER reports FAIL on planted copy $k, as it must."
+            else
+              echo "$out"; echo "::error::$CHECKER did not report FAIL on planted copy $k (exit $rc)."; exit 1
+            fi
+          done
+      - name: "This change's own checker: passes too, fails every planted copy"
+        env:
+          CHECKER: tools/check_governance.py
+        run: |
+          pip install -r tools/requirements.txt
+          python -I "$CHECKER" .
+          for k in a b c d; do
+            rc=0; out=$(python -I "$CHECKER" "$RUNNER_TEMP/planted-$k" 2>&1) || rc=$?
+            if [ "$rc" -eq 1 ] && [ "$(tail -n 1 <<<"$out")" = FAIL ]; then
+              echo "Self-test: $CHECKER reports FAIL on planted copy $k, as it must."
+            else
+              echo "$out"; echo "::error::$CHECKER did not report FAIL on planted copy $k (exit $rc)."; exit 1
+            fi
+          done
 
   declaration-kit:
     name: Declaration kit is in sync

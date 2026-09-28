@@ -60,7 +60,7 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
 - **Text and reference files must agree.** If your change affects both, change both in the same pull request.
 - **Fixing a known defect.** The differences between the text and reference release 5.1.1 are listed in `tests/known-defects/cases.json`. If your pull request fixes one, set that defect's `status` to `fixed` in the same pull request, so the fix is protected from then on.
 - **Compatibility.** When renaming an allowed value, keep the old value accepted and mark it deprecated. Old values are removed only in a major release.
-- **The checks** run on every pull request: the text split, the reference files, the known-defects report, the DCO sign-off, the leak guard, and whether the declaration kit in `kit/` (Apache-2.0) is in sync with its sources. To run them locally:
+- **The checks** run on every pull request: the text split, the reference files, the known-defects report, the DCO sign-off, the leak guard, the governance records, and whether the declaration kit in `kit/` (Apache-2.0) is in sync with its sources. To run them locally:
 
   ```
   pip install -r tools/requirements.txt
@@ -69,10 +69,12 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
   python tests/known-defects/run_checks.py
   python tools/check_dco.py origin/main..HEAD
   python tools/check_leaks.py --base origin/main
+  python tools/check_governance.py
   python kit/declaration/build.py --check --kit-only
   ```
-- **The leak guard** looks only at what your pull request adds, and fails if it finds a private record number, a local folder path or an internal name from its list. Text already in the repository never fails it.
-- **Changing `tools/check_split.py`.** The check runs the copy already on `main`, so your change to it takes effect only after it is merged (your own copy must pass too). If a change to `spec/` needs a change to the checker, send the checker change first, in its own pull request. A new release's digests are added to the checker after the release is tagged.
+- **The leak guard** looks only at what your pull request adds, and fails if it finds a private record number, a local folder path or an internal name from its list. Text already in the repository never fails it. A four-digit record number passes only if that record is in `governance/decisions/`.
+- **The governance check** reads the Charter and the records in `governance/`: every field the text requires, the closing fields of each closed record against the merge that affirmed it, and each seal. It needs a full clone with its tags (`git fetch --tags`), because it reads merge commits and release tags.
+- **Changing a checker.** The text split, the leak guard and the governance check each run the copy already on `main`, so your change to one of them takes effect only after it is merged (your own copy must pass too). If a change to `spec/`, `governance/` or the schemas in `standard/` needs a change to the checker that judges it, send the checker change first, in its own pull request. A new release's digests are added to the text-split checker after the release is tagged.
 - **Waiting checks are normal.** For contributors from outside the organisation, GitHub waits for a maintainer to approve running the checks on each pull request. We approve them; you don't need to do anything.
 
 ## What we can't accept
