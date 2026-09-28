@@ -1,6 +1,6 @@
-Companion to the Decision Provenance Standard v1.0; tracks core revision rev. 8.
+Companion to the Decision Provenance Standard v1.1; tracks core revision rev. 9.
 
-*This Companion cross-references the Standard's core sections (§1–§7, §11) against named regulatory and control frameworks. Its cross-references to the core sections resolve against the core Reading Edition (rev. 8); its references to other Companions (B, C) and to Appendix G resolve against those documents.*
+*This Companion cross-references the Standard's core sections (§1–§7, §11) against named regulatory and control frameworks. Its cross-references to the core sections resolve against the core Reading Edition (rev. 9); its references to other Companions (B, C) and to Appendix G resolve against those documents.*
 
 ---
 

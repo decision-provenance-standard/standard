@@ -19,7 +19,7 @@ This directory holds the machine-readable reference files the Standard's normati
 - Two **state machines** (Charter lifecycle, decision-record lifecycle).
 - A **cross-stream conformance test apparatus** plus a synthetic Charter library.
 
-The reference files describe how process is recorded. They do not certify, ensure, or substitute for any regulator or auditor review. Conformance to the Standard is self-declared by the implementer; no body certifies it.
+The reference files describe how process is recorded. They do not certify, ensure, or substitute for any regulator or auditor review. Conformance to the Standard is self-declared by the adopting organization; no body certifies it.
 
 ---
 
@@ -73,7 +73,7 @@ The vocabulary is the locked enumeration the reporter API validates the `evidenc
 
 ## Directory Path Note
 
-The directory name is `v5.0/` and is kept unchanged so the Standard's `standard/v5.0/...` references resolve. The reference-files release label is v5.1.0 (see `release/RELEASE-NOTES.md`); the directory path stays `v5.0/`.
+The directory name is `v5.0/` and is kept unchanged so the Standard's `standard/v5.0/...` references resolve. The reference-files release label is v5.1.1 (see `release/RELEASE-NOTES.md`); the directory path stays `v5.0/`.
 
 ---
 

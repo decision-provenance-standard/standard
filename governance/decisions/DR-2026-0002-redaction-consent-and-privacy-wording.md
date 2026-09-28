@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-09-28T04:22:58Z |
 | `record_type` | decision |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-09-28T04:22:58Z |
 | `decision_statement` | A redaction-event record records the deployer's statement that the named fields have been removed from operational use; the record does not by itself remove or erase anything, whether the removal meets any erasure right is for the deployer to determine, and the same wording is used in §5.5, the §6.2.3.2 reader notice, and Companion A §A.2.bis and §A.bis. The consent gate for records about individuals stays unchanged as the Standard's own voluntary gate, makes no claim about the legal basis for processing, and records a consent withdrawal as a new affirmed record, without the undefined field name `consent_withdrawal_event`. Appendix G §G.11.3 points to whatever law applies to the deployer instead of describing it and keeps every SHALL in it and the list of works-council regimes it cites; Companion A §A.11 leaves to the deployer, for each law it cites, whether the law applies, what it requires and who carries any duty under it; and §A.bis's SHOULD for a deployer under both UK and EU GDPR now applies where the deployer determines that both apply, against whichever the deployer determines is more demanding. |
 | `context_at_decision` | • Rev. 8 §5.5 and the `redacted_fields` description said the named fields are "legally erased".<br>• Rev. 8 Appendix G §G.11.3 said the redaction pattern "operationalizes the erasure", and Companion A §A.2.bis said the named fields "are erased from the operational data store, operationalizing the deployer's Article 17 erasure obligation".<br>• Rev. 8's §6.2.3.2 read-time notice told a reader that "the named fields are erased from operational use".<br>• §G.11.3 described what GDPR, CCPA, Israeli, German, French and U.S. law require, and attributed numbers to regulators.<br>• §G.11.3 referred to a field, `consent_withdrawal_event`, that §6.2.3 never defines. |
@@ -22,9 +22,15 @@
 | `disclosure_metadata_pointer` | The disclosure block below (the same block as in `governance/README.md`) |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-09-28 |
+| `closed_at` | 2026-09-28T05:48:09Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-09-28T05:48:09Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue of a kind the success criteria count.<br>Market evidence: a data-protection authority publishes guidance on provenance or audit records and erasure that the §5.5 wording conflicts with. |
 | `record_location` | `governance/decisions/DR-2026-0002-redaction-consent-and-privacy-wording.md` and, once released, at tag `v1.1-rev9` |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005 |
+| `affirmation_record` | timestamp: 2026-09-28T05:48:09Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #5, which added this record to the repository (merge commit 78bc2a9d4d258a54b88445d9fb060cd1b5d8bba6) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-09-28T05:48:09Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | 90ddd5e6e07c4ab15c4ff0b12729142eefc4afe76bdcb90045a70210ab258a0b |
 
 ## Disclosure block
 

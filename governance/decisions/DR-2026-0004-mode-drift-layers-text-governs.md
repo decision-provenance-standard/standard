@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-09-28T04:23:35Z |
 | `record_type` | decision |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-09-28T04:23:35Z |
 | `decision_statement` | Sections 4.8.1 to 4.8.3 are the normative statement of the mode-drift safety net; the files in `standard/v5.0/mode-drift/` describe them, the text governs where they differ, and no sentence points normatively at an unpublished document. A Mode 1 record now routes to Layer 3 when the declaring authority answers Yes or Uncertain to any of Q1-Q3, answers anything but Yes to Q4, or declines to answer, or when Layer 1 and Layer 2 disagree; this sends one answer pattern, Yes to all four questions, to review where rev. 8's core sentence closed it, and records that closed before v1.1 (reading edition rev. 9) keep the route recorded with them (`routing_decision`, with the `challenge_prompt_version` they were shown). The Layer 4 attestation records who signed and in what capacity; the Standard makes no claim about how that capacity, or any indemnity a deployer offers, affects anyone's personal liability. |
 | `context_at_decision` | • Rev. 8 pointed at a private document, which it called the sub-spec, in 43 lines, including Level 2 criteria, and said it was "referenced normatively"; nobody outside could read it.<br>• Rev. 8's core Layer 2 sentence ("any non-Yes answer" routes the record to Layer 3) contradicted its own questions, so every clean Mode 1 record, which answers No to Q1-Q3, would go to peer review. Rev. 8's Layer 2 reference file carried both routes: its summary line and the attestation text signers read used the core sentence's route, and only its routing table used the corrected one.<br>• Under rev. 8's core sentence, a record answered Yes to all four questions closed as Mode 1. Yes to Q1-Q3 means its author says AI shaped its framing, recommendation or prose, so its Mode 1 label was already wrong.<br>• Rev. 8 said the attestation "cabins personal liability to the employer", and the Layer 4 reference file supplied legal wording for signers in several jurisdictions. |
@@ -22,9 +22,15 @@
 | `disclosure_metadata_pointer` | The disclosure block below (the same block as in `governance/README.md`) |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-09-28 |
+| `closed_at` | 2026-09-28T05:48:09Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-09-28T05:48:09Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue of a kind the success criteria count.<br>Market evidence: a deployer reports that its own attestation practice needs wording the Standard no longer supplies. |
 | `record_location` | `governance/decisions/DR-2026-0004-mode-drift-layers-text-governs.md` and, once released, at tag `v1.1-rev9` |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0005 |
+| `affirmation_record` | timestamp: 2026-09-28T05:48:09Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #5, which added this record to the repository (merge commit 78bc2a9d4d258a54b88445d9fb060cd1b5d8bba6) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-09-28T05:48:09Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | 614316259eb09b4fe2e8c0f9eec6e73087a733cbb5d6e64344aa9d9fea9b90ce |
 
 ## Disclosure block
 

@@ -1,6 +1,6 @@
-Companion to the Decision Provenance Standard v1.0; tracks core revision rev. 8.
+Companion to the Decision Provenance Standard v1.1; tracks core revision rev. 9.
 
-*This Companion provides the Standard's own operational guidance for installing the Standard: the install sequence, the Charter-authoring role pattern, the common implementation pitfalls, and the compressed pattern for smaller organizations. It is self-contained: a reader with only the Standard and its companions can install the Standard end-to-end. This Companion's cross-references to the Standard's core sections (§1–§7, §10.7, §11) resolve against the core Reading Edition (rev. 8); its references to Companion A and Appendix G resolve against those documents.*
+*This Companion provides the Standard's own operational guidance for installing the Standard: the install sequence, the Charter-authoring role pattern, the common implementation pitfalls, and the compressed pattern for smaller organizations. It is self-contained: a reader with only the Standard and its companions can install the Standard end-to-end. This Companion's cross-references to the Standard's core sections (§1–§7, §10.7, §11) resolve against the core Reading Edition (rev. 9); its references to Companion A and Appendix G resolve against those documents.*
 
 > **Note on the install-≠-compliance non-claim.** The §10.7 "Explicit non-claim" (install does not constitute compliance) is **retained in the core Standard**, not in this Companion. The §C.7 anchor is reserved and unused; references to the install-≠-compliance non-claim resolve to core §10.7.
 
