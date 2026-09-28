@@ -61,7 +61,7 @@ The figures are explanatory aids, not normative. Each is collected with its full
 |---|---|---|
 | Figure 3-1 | Charter Lifecycle State Machine | §3.3 |
 | Figure 3-2 | Mode Dispatch Grammar and the Embedded-Mode-2 Edge Case | §3.4 |
-| Figure 4-1 | Article 50 Disclosure-Metadata Flow | §4.6.2 |
+| Figure 4-1 | Disclosure Block Flow | §4.6.2 |
 | Figure 4-2 | Mode-Drift Four-Layer Composed Mitigation | §4.8.1 |
 | Figure 4-3 | Emission-Cadence by Semantic Class | §4.8.2 |
 | Figure 5-1 | Decision-Record State Machine: Two Distinct State Families | §5.1 / §6.2 |

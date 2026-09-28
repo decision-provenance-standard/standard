@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="d6title d6desc">
   <title id="d6title">Figure 6-1 — Artifact-Set Relationship Map</title>
-  <desc id="d6desc">An entity-relationship orientation map showing how the standard's artifacts compose: Charter, Schedule of Records, Decision Record, Article 50 Disclosure Block, Conformance Signals, and Conformance Levels, plus a one-way dashed pointer to the deploying organization's methodology.</desc>
+  <desc id="d6desc">An entity-relationship orientation map showing how the standard's artifacts compose: Charter, Schedule of Records, Decision Record, Disclosure Block, Conformance Signals, and Conformance Levels, plus a one-way dashed pointer to the deploying organization's methodology.</desc>
 
   <style>
     .ttl   { font-size: 17px; font-weight: bold; fill: #1A1A1A; }
@@ -63,20 +63,19 @@
     <text x="380" y="316" class="attr">carries <tspan class="mono">dispatch_mode</tspan></text>
     <text x="380" y="334" class="attr">transits the lifecycle <tspan class="ref">(&#8594; Fig 5-1)</tspan></text>
     <text x="380" y="352" class="attr">conditionally attaches an</text>
-    <text x="380" y="368" class="attr">Article 50 Disclosure Block <tspan class="ref">(&#8594; Fig 4-1)</tspan></text>
+    <text x="380" y="368" class="attr">Disclosure Block <tspan class="ref">(&#8594; Fig 4-1)</tspan></text>
   </g>
 
-  <!-- ARTICLE 50 DISCLOSURE BLOCK (right) -->
+  <!-- DISCLOSURE BLOCK (right) -->
   <g>
     <rect x="680" y="250" width="240" height="150" class="boxw"/>
-    <text x="690" y="272" class="ent">Article 50</text>
-    <text x="690" y="290" class="ent">Disclosure Block</text>
-    <line x1="680" y1="298" x2="920" y2="298" class="dash"/>
-    <text x="690" y="316" class="attr">5 required fields</text>
-    <text x="690" y="334" class="attr">4-of-5 anonymization rule</text>
-    <text x="690" y="352" class="attr">attached to Mode 2 +</text>
-    <text x="690" y="368" class="attr">Mode-1 edge-case records</text>
-    <text x="690" y="386" class="ref">(&#8594; Fig 4-1)</text>
+    <text x="690" y="272" class="ent">Disclosure Block</text>
+    <line x1="680" y1="280" x2="920" y2="280" class="dash"/>
+    <text x="690" y="298" class="attr">5 required fields</text>
+    <text x="690" y="316" class="attr">4-of-5 anonymization rule</text>
+    <text x="690" y="334" class="attr">attached to Mode 2 +</text>
+    <text x="690" y="352" class="attr">Mode-1 edge-case records</text>
+    <text x="690" y="370" class="ref">(&#8594; Fig 4-1)</text>
   </g>
 
   <!-- CONFORMANCE SIGNALS (lower center-left) -->
@@ -116,7 +115,7 @@
   <text x="500" y="222" class="rel">dispatches</text>
   <!-- Schedule -> Decision Record (enumerates) -->
   <path d="M330,330 L368,330" class="line" marker-end="url(#ah6)"/>
-  <!-- Decision Record -> Article 50 -->
+  <!-- Decision Record -> Disclosure Block -->
   <path d="M640,330 L678,330" class="line" marker-end="url(#ah6)"/>
   <text x="642" y="322" class="rel">attaches</text>
   <!-- Charter/record/lifecycle/schedule -> Signals -->

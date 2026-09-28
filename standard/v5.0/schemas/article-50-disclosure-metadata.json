@@ -25,7 +25,7 @@
         "employer": {"type": "string", "description": "Legal entity employing the declaring authority"},
         "capacity": {"type": "string", "enum": ["employee", "contractor", "officer", "director"]}
       },
-      "description": "The named human declaring authority for this disclosure block (Standard §2.2.12). Not the AI system; not the Charter; not the organization at large."
+      "description": "The person who prepares the disclosure and the organization they act for (Standard §2.2.12, §4.6.2). Not the AI system; not the Charter."
     },
     "ai_system_identity": {
       "type": "object",

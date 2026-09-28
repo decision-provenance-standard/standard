@@ -49,7 +49,7 @@ Per `../schemas/decision-record.schema.json`:
 - `dispatch_mode` (`mode-1` | `mode-2` | `mode-1-with-embedded-mode-2-summary`; inherited from Charter `mode_declaration` at `dispatched`; may differ post-migration)
 - `disclosure_metadata_pointer` (required when `dispatch_mode` ∈ {`mode-2`, `mode-1-with-embedded-mode-2-summary`} OR per-record edge case fires)
 - `mode_classification_attestation` (Layer 4 structured object — required at `closed`; see `../mode-drift/layer-4-attestation.schema.json`)
-- `layer_2_audit_trail` (the 10 fields per Layer 2 sub-spec)
+- `layer_2_audit_trail` (the 10 fields described in `../mode-drift/layer-2-audit-hook.md`)
 - `peer_reviewer_disposition` (required when `review-required` was traversed)
 
 ---
