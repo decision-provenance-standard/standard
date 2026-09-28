@@ -1,10 +1,12 @@
 # Decision Provenance Standard&trade;
 
-An open standard for audit-ready provenance of consequential decisions made by humans and AI systems together. The Standard defines a Charter object, a decision-record lifecycle, an Article 50-style disclosure block, and a self-declared conformance ladder, so that an organization can show how a decision was reached, who was accountable, and how the record was produced.
+An open standard for audit-ready provenance of consequential decisions made by humans and AI systems together. The Standard defines a Charter object, a decision-record lifecycle, a disclosure block for AI-drafted content, and a self-declared conformance ladder, so that an organization can show how a decision was reached, who was accountable, and how the record was produced.
 
 **Website:** https://decisionprovenancestandard.org
 
-This repository holds the Standard's official text and its machine-readable reference files. Corrections and proposals are made here, in the open.
+> `main` carries corrections not yet released. The last release is v1.0 rev. 8 (tag `rev8-published`), whose files match the published ones byte for byte. Cite a release, not `main`.
+
+The published text is on the website. Its source and proposed corrections live here. Only a tagged release changes the Standard.
 
 ## What the Standard is not
 
@@ -21,7 +23,7 @@ These limits are deliberate. A record produced under the Standard is structured 
 | `standard/v5.0/` | Reference files, **release 5.1.0**: JSON schemas, state machines, the conformance-signal list, the reporter contract and the test plan. Same path as on the website. |
 | `tools/`, `tests/`, `.github/` | The automated checks that run on every pull request |
 
-Licences differ by folder. [NOTICE](NOTICE) says which licence applies where.
+Licences differ by folder. Text (`spec/`, `governance/`, and the Markdown documentation at the repository root): CC BY 4.0. `standard/v5.0/`, including its Markdown files: MIT for all of 5.x. Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later: Apache-2.0. [NOTICE](NOTICE) has the details.
 
 ## The text here is the text that was published
 
@@ -43,7 +45,7 @@ Licences differ by folder. [NOTICE](NOTICE) says which licence applies where.
 
 Issues and pull requests are welcome. Every commit carries a Developer Certificate of Origin sign-off (`git commit -s`), and contributions come in under the same licence as the folder they change. See [CONTRIBUTING.md](CONTRIBUTING.md) and [GOVERNANCE.md](GOVERNANCE.md).
 
-The name "Decision Provenance Standard" and its mark are not licensed by any of the licences in this repository. See [NOTICE](NOTICE).
+The licences in this repository cover the text and files, not the name "Decision Provenance Standard" or its mark. Permitted uses of the name are set out in Standard §11.1. See [NOTICE](NOTICE).
 
 ## How to cite
 

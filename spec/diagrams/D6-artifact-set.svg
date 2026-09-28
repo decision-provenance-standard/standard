@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="d6title d6desc">
   <title id="d6title">Figure 6-1 — Artifact-Set Relationship Map</title>
-  <desc id="d6desc">An entity-relationship orientation map showing how the standard's artifacts compose: Charter, Schedule of Records, Decision Record, Article 50 Disclosure Block, Conformance Signals, and Conformance Levels, plus a one-way dashed pointer to the deploying organization's methodology. Faithful to substrate v5.1.0.</desc>
+  <desc id="d6desc">An entity-relationship orientation map showing how the standard's artifacts compose: Charter, Schedule of Records, Decision Record, Article 50 Disclosure Block, Conformance Signals, and Conformance Levels, plus a one-way dashed pointer to the deploying organization's methodology.</desc>
 
   <style>
     .ttl   { font-size: 17px; font-weight: bold; fill: #1A1A1A; }
@@ -129,6 +129,6 @@
   <path d="M610,118 L678,114" class="dash" marker-end="url(#ah6g)"/>
   <text x="616" y="105" class="rel">points to (one-way)</text>
 
-  <!-- Faithful-to-substrate stamp -->
-  <text x="20" y="640" class="sub">Explanatory figure (non-normative) — faithful to substrate v5.1.0. The standard points one-way to the deploying organization's methodology; it does not depend on any named methodology.</text>
+  <!-- Non-normative stamp -->
+  <text x="20" y="640" class="sub">Explanatory figure (non-normative). The standard points one-way to the deploying organization's methodology; it does not depend on any named methodology.</text>
 </svg>

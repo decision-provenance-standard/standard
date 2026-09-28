@@ -1,6 +1,6 @@
 # Section 1 — Preamble + Scope
 
-> ⚠️ **Not legal advice.** See the disclaimer block at the top of this document for the load-bearing UPL firewall language and Jurisdiction Assumed. This Section inherits both.
+> ⚠️ **Not legal advice.** See the disclaimer block at the top of this document for the not-legal-advice notice and Jurisdiction Assumed. This Section inherits both.
 
 ---
 
@@ -48,7 +48,7 @@ The locked one-line definition of the term — load-bearing across every section
 
 > **Audit-ready decision provenance is a structured record of how a decision was made — inputs, reviewers, dispatch mode, sign-offs — that counsel and auditors can use as input when preparing evidence, certifications, or attestations; the provenance itself is not evidence, certification, or attestation.**
 
-The "is not evidence, certification, or attestation" clause is the Standard's load-bearing UPL firewall and is non-negotiable on every surface where the term is introduced. **Counsel and auditors convert audit-ready decision provenance into evidence, certifications, or attestations as their professional judgment requires; the artifacts produced under this Standard do not.**
+The "is not evidence, certification, or attestation" clause is the Standard's core non-claim and is non-negotiable on every surface where the term is introduced. **Counsel and auditors convert audit-ready decision provenance into evidence, certifications, or attestations as their professional judgment requires; the artifacts produced under this Standard do not.**
 
 ### 1.4.2 What This Standard Does Not Claim
 
@@ -95,7 +95,7 @@ The CC-BY 4.0 license is permissive on use; it does not authorize misuse. The fo
 
 - **Misrepresenting the Standard as certified, attested, or regulator-endorsed.** No certification track exists. No attestation body has reviewed the Standard. No regulator has endorsed it. Any party representing the Standard, or an installation grounded in the Standard, as carrying any of the foregoing forms of external validation is making a false claim, not a CC-BY 4.0 use.
 - **Misrepresenting derivative or extended work as authored or endorsed by the principal author.** Forks, extensions, and downstream installations are downstream work. The CC-BY 4.0 attribution requirement protects the upstream author from misattribution; downstream authors are responsible for their own work and must mark their work as their own.
-- **Removing the load-bearing UPL firewall language.** The "is not evidence, certification, or attestation" tail on §1.4's locked one-line definition, and the equivalent language at every first use of "audit-ready decision provenance" in derivative or extended work, is part of the Standard's structural integrity. A derivative that strips the firewall language to make stronger claims has departed from the Standard and must mark itself as such.
+- **Removing the "is not evidence" clause.** The "is not evidence, certification, or attestation" tail on §1.4's locked one-line definition, and the equivalent language at every first use of "audit-ready decision provenance" in derivative or extended work, is part of the Standard's structural integrity. A derivative that strips the firewall language to make stronger claims has departed from the Standard and must mark itself as such.
 - **Using the Standard's name to substitute for counsel review.** No reading, citing, adopting, extending, or forking of the Standard substitutes for counsel review of a deployer's specific installation, regulatory posture, contractual exposure, or litigation risk.
 - **Misusing the trademark.** The trademark on "Decision Provenance Standard" is separate from the license on the text. Using the trademark to certify, accredit, audit, grade, or otherwise stamp a deployer organization, a tool vendor's customer organization, or any third party as "Standard-compliant" or "certified by the Standard" is a misuse and is not authorized by either the trademark or the CC-BY 4.0 license. See §11 for the trademark, Steward governance, and voluntary-adoption discipline.
 
@@ -107,7 +107,7 @@ Where a reader encounters a use of the Standard that appears to misrepresent its
 2. Request from the misusing party the citation in the Standard that supports the claim — there is none, by design, and the request will surface the gap
 3. If the misuse is in a regulated context (an audit work paper, a regulatory submission, a contractual representation), bring it to the attention of qualified personnel for handling
 
-The principal author does not police downstream uses. The CC-BY 4.0 license does not authorize the principal author to do so. The structural protection is the firewall language and the verb discipline, both of which travel with the Standard wherever the Standard goes.
+Use of the text is governed by CC BY 4.0. The Steward does not monitor how the text is used. Permitted uses of the name are set out in §11.1. The structural protection is the firewall language and the verb discipline, both of which travel with the Standard wherever the Standard goes.
 
 ## 1.6 Jurisdiction Assumed
 

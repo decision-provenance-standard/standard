@@ -13,7 +13,7 @@ The install-≠-compliance non-claim is retained in the core Standard immediatel
 
 **Installing the Standard produces a Standard-conformant Charter at the conformance level Section 7 grades; it does not produce compliance with SOX 404, EU AI Act, GDPR, HIPAA, NIST AI RMF, ISO/IEC 42001, or any other framework (see §1.4.2 and Section 8).** Counsel and auditors convert audit-ready decision provenance into evidence; the artifacts the Standard produces are not themselves evidence, certification, or attestation, and counsel and auditors operating on behalf of the deployer make the substantive determination of compliance against the deployer's actual implementation. A deployer reading Section 10 as a path to compliance is reading the wrong section; read correctly, Section 10 is the operational arc by which the structural requirements of Sections 2 through 7 land in the organization.
 
-For the artifact-scoped "Use of the Standard" notice, see Section 1 (Preamble). For the surface-scoped "Use of the Platform" disclaimer that governs any launch surface presenting the Standard alongside companion materials, see the launch surface itself.
+For the artifact-scoped "Use of the Standard" notice, see Section 1 (Preamble).
 
 ---
 
