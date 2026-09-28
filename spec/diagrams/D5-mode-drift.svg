@@ -71,11 +71,11 @@
     <text x="210" y="210" class="cell">original declaring</text>
     <text x="210" y="225" class="cell">authority</text>
     <text x="410" y="210" class="cell">record-close hard gate</text>
-    <text x="630" y="208" class="cell">100% of Mode-1 records</text>
-    <text x="630" y="223" class="cell">(4-question Substantive-</text>
-    <text x="630" y="238" class="cell">Authorship Challenge Q1-Q4;</text>
-    <text x="630" y="253" class="cell">any non-Yes routes to Layer 3</text>
-    <text x="630" y="268" class="cell">and blocks <tspan class="mono">closed</tspan>)</text>
+    <text x="630" y="208" class="cell">100% of Mode-1 records (4-question</text>
+    <text x="630" y="223" class="cell">Substantive-Authorship Challenge Q1-Q4;</text>
+    <text x="630" y="238" class="cell">Yes or Uncertain on Q1-Q3, not Yes on Q4,</text>
+    <text x="630" y="253" class="cell">declined, or a Layer 1 / Layer 2 mismatch</text>
+    <text x="630" y="268" class="cell">routes to Layer 3 and blocks <tspan class="mono">closed</tspan>)</text>
   </g>
 
   <!-- Row 3: Layer 3 Mode-Confirmation Audit primitive (accent: only layer with authority to change Mode) -->
