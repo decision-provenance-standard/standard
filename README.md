@@ -76,7 +76,7 @@ Licenses differ by folder. Text (`spec/`, `governance/`, and the other documenta
 
 **What this release publishes.** Text: version 1.2, reading edition rev. 10 (tag `v1.2-rev10`). Reference files: release 5.1.2 (tag `ref-5.1.2`). The repository commit is named in the GitHub release and on the website's downloads page. SHA-256 digests: each document's Markdown in [`spec/editions.json`](spec/editions.json) under `releases`, and every downloadable file in the website's checksum list for this release.
 
-We thank an outside reviewer whose observations led to several of these corrections.
+We thank Laurent Lemonnier, iSoluce (laurent@isoluce.net), whose observations led to several of these corrections.
 
 ### Version 1.1 (reading edition rev. 9), with reference files 5.1.1, released 2026-09-28
 
@@ -104,7 +104,7 @@ We thank an outside reviewer whose observations led to several of these correcti
 
 **What this release publishes.** Text: version 1.1, reading edition rev. 9 (tag `v1.1-rev9`). Reference files: release 5.1.1. The repository commit is named in the GitHub release and on the website's downloads page, because a commit cannot contain its own id. SHA-256 digests: each document's Markdown in [`spec/editions.json`](spec/editions.json) under `releases`, and every downloadable file in the website's checksum list for this release.
 
-We thank an outside reviewer whose observations led to several of these corrections.
+We thank Laurent Lemonnier, iSoluce (laurent@isoluce.net), whose observations led to several of these corrections.
 
 ## Contributing
 
