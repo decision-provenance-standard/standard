@@ -11,7 +11,7 @@
     },
     "KD-03": {
       "summary": "Redaction fields: the allowed values of redaction_basis and the sub-fields of redaction_authority and operational_store_deletion_attestation differ from the Section 6.2.3 table, so a redaction record written as the text describes is rejected.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-04": {
       "summary": "Section 6.2.2 requires disclosure_metadata_pointer from drafted for mode-1-with-embedded-mode-2-summary records within the §4.6 requirement; the schema does not enforce it.",
@@ -807,6 +807,156 @@
             "last_attestation_date": "2026-09-01"
           }
         ]
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C15",
+      "kind": "control",
+      "defect": null,
+      "description": "regulatory-order redaction basis requires non-empty detail",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "deployer_initiated_under_regulatory_order",
+        "redaction_authority": {
+          "authorizing_actor": "data subject request ref. PRV-TEST-1",
+          "request_record_pointer": "PRV-TEST-1",
+          "legal_basis_review_pointer": null
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attesting_actor": "Test Person",
+          "attestation_timestamp": "2026-09-25T11:30:00Z",
+          "deletion_method": "field_purge",
+          "verification_method": "manual_inspection"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)"
+      },
+      "expected": "fail",
+      "must_not_mention": null
+    },
+    {
+      "id": "C16",
+      "kind": "control",
+      "defect": null,
+      "description": "regulatory-order redaction basis with detail is valid",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "deployer_initiated_under_regulatory_order",
+        "redaction_authority": {
+          "authorizing_actor": "data subject request ref. PRV-TEST-1",
+          "request_record_pointer": "PRV-TEST-1",
+          "legal_basis_review_pointer": null
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attesting_actor": "Test Person",
+          "attestation_timestamp": "2026-09-25T11:30:00Z",
+          "deletion_method": "field_purge",
+          "verification_method": "manual_inspection"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)",
+        "redaction_basis_detail": "Named regulatory order TEST-1"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C17",
+      "kind": "control",
+      "defect": null,
+      "description": "text-shape redaction with ccpa_right_to_delete and no detail: detail is optional for every basis except the two that require it",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "ccpa_right_to_delete",
+        "redaction_authority": {
+          "authorizing_actor": "data subject request ref. PRV-TEST-1",
+          "request_record_pointer": "PRV-TEST-1",
+          "legal_basis_review_pointer": null
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attesting_actor": "Test Person",
+          "attestation_timestamp": "2026-09-25T11:30:00Z",
+          "deletion_method": "field_purge",
+          "verification_method": "manual_inspection"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)"
+      },
+      "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "C18",
+      "kind": "control",
+      "defect": null,
+      "description": "text-shape redaction with gdpr_article_17 and a null detail",
+      "schema": "standard/v5.0/schemas/decision-record.schema.json",
+      "instance": {
+        "decision_id": "DR-2099-001",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "redaction_event",
+        "altitude": "executive",
+        "target_record_hash": "abababababababababababababababababababababababababababababababab",
+        "target_decision_id": "DR-2099-000",
+        "redacted_fields": [
+          "context_at_decision.bullet_3"
+        ],
+        "redaction_basis": "gdpr_article_17",
+        "redaction_basis_detail": null,
+        "redaction_authority": {
+          "authorizing_actor": "data subject request ref. PRV-TEST-1",
+          "request_record_pointer": "PRV-TEST-1",
+          "legal_basis_review_pointer": null
+        },
+        "redaction_timestamp": "2026-09-25T11:00:00Z",
+        "operational_store_deletion_attestation": {
+          "attesting_actor": "Test Person",
+          "attestation_timestamp": "2026-09-25T11:30:00Z",
+          "deletion_method": "field_purge",
+          "verification_method": "manual_inspection"
+        },
+        "archival_record_retention_basis": "retention basis recorded by the deployer (test)"
       },
       "expected": "pass",
       "must_not_mention": null
