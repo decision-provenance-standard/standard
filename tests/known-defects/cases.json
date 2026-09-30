@@ -27,7 +27,7 @@
     },
     "KD-07": {
       "summary": "For mode-2 records the schema requires disclosure_metadata_pointer already at dispatched; the text requires it from drafted, and only for records within the §4.6 requirement.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-08": {
       "summary": "Sections 4.6.2 and 2.2.12 accept a declaring authority that names only the person or only the organization; the disclosure schema's declaring_authority object requires a person's full_name, role_title and capacity and the employer, so a value that names only one of them is rejected.",
@@ -39,7 +39,7 @@
     },
     "KD-10": {
       "summary": "For outputs a Charter places outside the disclosure requirement (§4.6.1), the text requires no disclosure_metadata_pointer; the schema requires it on every mode-2 record, and cannot see the Charter's declaration.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-11": {
       "summary": "Section 3.1 recommends (SHOULD) the named_employment_counsel_of_record Charter field; the Charter schema allows no properties beyond its list and rejects a Charter that carries it.",

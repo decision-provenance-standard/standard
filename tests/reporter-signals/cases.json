@@ -289,6 +289,48 @@
         "outcome": "met",
         "charter_reference": "Charter CH-EXAMPLE-1, first version"
       }
+    },
+    {
+      "id": "R12",
+      "description": "mode-2 closed record without pointer, within the requirement",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-112",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "closed",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        },
+        "mode_classification_attestation": {
+          "attestor_full_name": "Test Person",
+          "attestor_role_title": "Head of Test",
+          "attestor_employer": "Example Ltd",
+          "attestation_timestamp": "2026-09-25T12:00:00Z",
+          "jurisdiction": "UK",
+          "attestation_language_version": "v1.0",
+          "attestation_text_signed": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "attestor_capacity": "employee"
+        },
+        "accountable_owner_signoff": {
+          "signed_by": "Test Person",
+          "signed_at": "2026-09-25T12:00:00Z"
+        },
+        "re_decision_trigger": "t",
+        "record_location": "register://1"
+      },
+      "expected": {
+        "outcome": "finding",
+        "charter_reference": "Charter CH-EXAMPLE-1, first version"
+      }
     }
   ]
 }

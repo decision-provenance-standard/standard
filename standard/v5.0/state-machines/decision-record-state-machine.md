@@ -47,7 +47,7 @@ Per `../schemas/decision-record.schema.json`:
 - `decision_id` (stable identifier, format `DR-YYYY-NNN`; renamed from `record_id` in v5.1.0 reconciliation)
 - `charter_id` (back-reference)
 - `dispatch_mode` (`mode-1` | `mode-2` | `mode-1-with-embedded-mode-2-summary`; inherited from Charter `mode_declaration` at `dispatched`; may differ post-migration)
-- `disclosure_metadata_pointer` (required when `dispatch_mode` ∈ {`mode-2`, `mode-1-with-embedded-mode-2-summary`} OR per-record edge case fires)
+- `disclosure_metadata_pointer` (required by Standard §6.2.2 from `drafted` when `dispatch_mode` ∈ {`mode-2`, `mode-1-with-embedded-mode-2-summary`} OR per-record edge case fires, for outputs within the §4.6 requirement (§4.6.1); the schema does not require it, and the reporter signal `every_mode_2_record_carries_disclosure_pointer` checks it)
 - `mode_classification_attestation` (Layer 4 structured object — required at `closed`; see `../mode-drift/layer-4-attestation.schema.json`)
 - `layer_2_audit_trail` (the 10 fields described in `../mode-drift/layer-2-audit-hook.md`)
 - `peer_reviewer_disposition` (required when `review-required` was traversed)
