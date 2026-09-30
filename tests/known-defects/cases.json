@@ -7,7 +7,7 @@
     },
     "KD-02": {
       "summary": "A record that omits record_type is treated as a redaction event. The text says an omitted record_type means decision.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-03": {
       "summary": "Redaction fields: the allowed values of redaction_basis and the sub-fields of redaction_authority and operational_store_deletion_attestation differ from the Section 6.2.3 table, so a redaction record written as the text describes is rejected.",
@@ -19,7 +19,7 @@
     },
     "KD-05": {
       "summary": "The text requires altitude from the drafted state; the schema never requires it, and a missing altitude surfaces as an unrelated consent_posture error.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-06": {
       "summary": "Disclosure block: the text requires 5 fields, the schema 7; the text's jurisdiction and content-type spellings (including other:<...>) are rejected.",
