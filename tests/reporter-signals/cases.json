@@ -1,0 +1,294 @@
+{
+  "about": "Test vectors for the reporter signal every_mode_2_record_carries_disclosure_pointer (standard/v5.0/conformance/signal-vocabulary.md). The schema cannot see a Charter, so this check belongs to the reporter. Each case gives the Charter facts the reporter reads and one record. 'outcome' is what the signal records: 'met', 'finding', 'outside_requirement' (the Charter places the output outside the §4.6 requirement under §4.6.1, so no pointer is needed and its absence is not a finding), or 'not_applicable' (a Mode 1 record, or a record before drafted). Except for 'not_applicable', each outcome names the Charter reference the reporter relied on. The Charter facts are test inputs, not Charter fields.",
+  "signal": "every_mode_2_record_carries_disclosure_pointer",
+  "cases": [
+    {
+      "id": "R1",
+      "description": "mode-2 draft with pointer, within the requirement",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-101",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        },
+        "disclosure_metadata_pointer": "a50://1"
+      },
+      "expected": {
+        "outcome": "met",
+        "charter_reference": "Charter CH-EXAMPLE-1, first version"
+      }
+    },
+    {
+      "id": "R2",
+      "description": "mode-2 draft without pointer, within the requirement",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-102",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": {
+        "outcome": "finding",
+        "charter_reference": "Charter CH-EXAMPLE-1, first version"
+      }
+    },
+    {
+      "id": "R3",
+      "description": "embedded-summary draft without pointer, within the requirement (the KD-04 situation)",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-103",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1-with-embedded-mode-2-summary",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": {
+        "outcome": "finding",
+        "charter_reference": "Charter CH-EXAMPLE-1, first version"
+      }
+    },
+    {
+      "id": "R4",
+      "description": "embedded-summary draft with pointer, within the requirement",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-104",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1-with-embedded-mode-2-summary",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        },
+        "disclosure_metadata_pointer": "a50://1"
+      },
+      "expected": {
+        "outcome": "met",
+        "charter_reference": "Charter CH-EXAMPLE-1, first version"
+      }
+    },
+    {
+      "id": "R5",
+      "description": "mode-2 draft without pointer, Charter declares its outputs outside the requirement (the KD-10 situation)",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-EXCLUDED",
+        "reference": "Charter CH-EXAMPLE-EXCLUDED, first version: outputs declared outside the §4.6 requirement (§4.6.1)",
+        "outside_4_6_declared": true,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-105",
+        "charter_id": "CH-EXAMPLE-EXCLUDED",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": {
+        "outcome": "outside_requirement",
+        "charter_reference": "Charter CH-EXAMPLE-EXCLUDED, first version: outputs declared outside the §4.6 requirement (§4.6.1)"
+      }
+    },
+    {
+      "id": "R6",
+      "description": "embedded-summary record in review without pointer, Charter declares its outputs outside the requirement",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-EXCLUDED",
+        "reference": "Charter CH-EXAMPLE-EXCLUDED, first version: outputs declared outside the §4.6 requirement (§4.6.1)",
+        "outside_4_6_declared": true,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-106",
+        "charter_id": "CH-EXAMPLE-EXCLUDED",
+        "record_state": "review-required",
+        "dispatch_mode": "mode-1-with-embedded-mode-2-summary",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": {
+        "outcome": "outside_requirement",
+        "charter_reference": "Charter CH-EXAMPLE-EXCLUDED, first version: outputs declared outside the §4.6 requirement (§4.6.1)"
+      }
+    },
+    {
+      "id": "R7",
+      "description": "mode-2 record at dispatched without pointer: not yet required (the text requires it from drafted)",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-107",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "dispatched",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": {
+        "outcome": "not_applicable",
+        "charter_reference": null
+      }
+    },
+    {
+      "id": "R8",
+      "description": "mode-1 draft without pointer: the signal does not read Mode 1 records",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-108",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "drafted",
+        "dispatch_mode": "mode-1",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive"
+      },
+      "expected": {
+        "outcome": "not_applicable",
+        "charter_reference": null
+      }
+    },
+    {
+      "id": "R9",
+      "description": "mode-2 record in review without pointer, Charter written before v1.1 relying on the transition sentence",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-OLD",
+        "reference": "Charter CH-EXAMPLE-OLD, written before v1.1, with the deployer's record that its outputs meet the §4.6.1 test",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": true,
+        "transition_record": "doc://transition-record"
+      },
+      "record": {
+        "decision_id": "DR-2099-109",
+        "charter_id": "CH-EXAMPLE-OLD",
+        "record_state": "review-required",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": {
+        "outcome": "outside_requirement",
+        "charter_reference": "Charter CH-EXAMPLE-OLD, written before v1.1, with the deployer's record that its outputs meet the §4.6.1 test"
+      }
+    },
+    {
+      "id": "R10",
+      "description": "mode-2 record in review without pointer, Charter written before v1.1 with no record of meeting the test",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-OLD-2",
+        "reference": "Charter CH-EXAMPLE-OLD-2, written before v1.1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": true,
+        "transition_record": null
+      },
+      "record": {
+        "decision_id": "DR-2099-110",
+        "charter_id": "CH-EXAMPLE-OLD-2",
+        "record_state": "review-required",
+        "dispatch_mode": "mode-2",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        }
+      },
+      "expected": {
+        "outcome": "finding",
+        "charter_reference": "Charter CH-EXAMPLE-OLD-2, written before v1.1, first version"
+      }
+    },
+    {
+      "id": "R11",
+      "description": "embedded-summary record re-opened with mode migration, with pointer",
+      "charter": {
+        "charter_id": "CH-EXAMPLE-1",
+        "reference": "Charter CH-EXAMPLE-1, first version",
+        "outside_4_6_declared": false,
+        "written_before_v1_1": false
+      },
+      "record": {
+        "decision_id": "DR-2099-111",
+        "charter_id": "CH-EXAMPLE-1",
+        "record_state": "re-opened-with-mode-migration",
+        "dispatch_mode": "mode-1-with-embedded-mode-2-summary",
+        "created_at": "2026-09-25T10:00:00Z",
+        "record_type": "decision",
+        "altitude": "executive",
+        "drafting_authority": {
+          "deployer_role_pointer": "role-x"
+        },
+        "disclosure_metadata_pointer": "a50://1"
+      },
+      "expected": {
+        "outcome": "met",
+        "charter_reference": "Charter CH-EXAMPLE-1, first version"
+      }
+    }
+  ]
+}

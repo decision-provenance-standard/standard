@@ -77,6 +77,7 @@ This state machine emits the following signals (per `../conformance/signal-vocab
 **Level 2**:
 - `every_mode_2_record_has_disclosure_block` — fires on transition into `closed` for Mode 2 records within the §4.6 requirement (Standard §4.6.1)
 - `every_mode_1_edge_case_record_has_disclosure_block` — fires on transition into `closed` for Mode 1 records carrying embedded-summary edge case whose embedded content is within the §4.6 requirement (Standard §4.6.1)
+- `every_mode_2_record_carries_disclosure_pointer` — conformance-reporter signal; read for Mode 2 and `mode-1-with-embedded-mode-2-summary` records from `drafted` onward (validation: `disclosure_metadata_pointer` populated, unless the Charter places the output outside the §4.6 requirement under Standard §4.6.1; the emission names the Charter reference it relied on)
 - `disclosure_block_required_fields_populated` — fires on transition into `closed` (validation: the five disclosure-block fields of Standard §4.6.2 all populated)
 - `no_silent_mode_drift_in_sample` — sample-level signal; fires on Layer 3 audit cadence per the §4.8.2 emission cadence (NOT every record)
 - `every_affirmed_record_carries_affirmation_event` — fires at the §5.1 `affirmed` lifecycle promotion (validation: `affirmation_record` populated)
