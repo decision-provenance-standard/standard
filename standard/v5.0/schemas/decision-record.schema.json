@@ -374,7 +374,7 @@
       "then": {"required": ["mode_classification_attestation", "accountable_owner_signoff", "re_decision_trigger", "record_location"]}
     },
     {
-      "if": {"properties": {"record_type": {"const": "redaction_event"}}},
+      "if": {"required": ["record_type"], "properties": {"record_type": {"const": "redaction_event"}}},
       "then": {"required": ["target_record_hash", "target_decision_id", "redacted_fields", "redaction_basis", "redaction_authority", "redaction_timestamp", "operational_store_deletion_attestation", "archival_record_retention_basis"]}
     },
     {
@@ -391,7 +391,11 @@
       }
     },
     {
-      "if": {"properties": {"altitude": {"enum": ["function-leader", "team-leader", "individual-professional"]}}},
+      "if": {"properties": {"record_state": {"enum": ["drafted", "review-required", "closed", "re-opened-with-mode-migration"]}}},
+      "then": {"required": ["altitude"]}
+    },
+    {
+      "if": {"required": ["altitude"], "properties": {"altitude": {"enum": ["function-leader", "team-leader", "individual-professional"]}}},
       "then": {"required": ["consent_posture"]}
     }
   ]
