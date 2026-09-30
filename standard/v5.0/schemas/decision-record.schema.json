@@ -111,7 +111,7 @@
     },
     "disclosure_metadata_pointer": {
       "type": "string",
-      "description": "Required when dispatch_mode is mode-2, OR Mode 1 record carrying embedded-summary edge case."
+      "description": "Standard §6.2.2: required from drafted for mode-2 and mode-1-with-embedded-mode-2-summary records within the §4.6 requirement (§4.6.1). This schema does not require it, because only the Charter shows whether an output is within that requirement; the reporter signal every_mode_2_record_carries_disclosure_pointer checks it."
     },
     "affirmation_record": {
       "type": "object",
@@ -363,7 +363,7 @@
   "allOf": [
     {
       "if": {"properties": {"dispatch_mode": {"const": "mode-2"}}},
-      "then": {"required": ["disclosure_metadata_pointer", "drafting_authority"]}
+      "then": {"required": ["drafting_authority"]}
     },
     {
       "if": {"properties": {"dispatch_mode": {"const": "mode-1-with-embedded-mode-2-summary"}}},

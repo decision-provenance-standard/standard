@@ -124,6 +124,7 @@ components:
             - every_record_carries_mode_declaration
             - every_mode_2_record_has_disclosure_block
             - every_mode_1_edge_case_record_has_disclosure_block
+            - every_mode_2_record_carries_disclosure_pointer
             - disclosure_block_required_fields_populated
             - no_silent_mode_drift_in_sample
             - re_decision_triggers_firing_on_schedule
