@@ -1,0 +1,104 @@
+# SPDX-License-Identifier: Apache-2.0
+format: dps-release-manifest/1
+status: retrospective-index
+note: This index was added after the immutable v1.2/ref-5.1.2 tags. It describes those tagged artifacts; it was not contained in either tagged release.
+canonical_repository: https://github.com/decision-provenance-standard/standard
+text:
+  release: Core v1.2, Reading Edition rev. 10
+  tag: v1.2-rev10
+  commit: 60a938f553a96f40ec276d0b46d17c29f366d06d
+  license: CC-BY-4.0
+  editions:
+  - id: core
+    sha256: 276fd77047ae7a81fac7ad915b0d6f766a3e4b872784618019c02683af0f5c6f
+    bytes: 278377
+    published_name: decision-provenance-standard-v1.2-rev10-core.md
+  - id: companion-A
+    sha256: 676bd22cabf2ad14ff7bc05fe65538cc5f3208762d4e61d834d5e117dea64316
+    bytes: 84279
+    published_name: decision-provenance-standard-v1.2-rev10-companion-A-regulatory-cross-reference.md
+  - id: companion-B
+    sha256: 237579e648e2e4eeefb55033be4d6756cebab305de8b92e78af1a01cbaa4547c
+    bytes: 61791
+    published_name: decision-provenance-standard-v1.2-rev10-companion-B-worked-charter-library.md
+  - id: companion-C
+    sha256: 034edc786bd025338a7f1f502fb19ad0714d2a6f00c49009e92dd0bae34a31c0
+    bytes: 31872
+    published_name: decision-provenance-standard-v1.2-rev10-companion-C-implementation-guidance.md
+  - id: companion-D
+    sha256: d4d238fd4e538996a37ca51f109c382fe9c2449947ccb8cd95c9e429b4172b27
+    bytes: 24681
+    published_name: decision-provenance-standard-v1.2-rev10-companion-D-diagrams.md
+  - id: appendix-G
+    sha256: 3bdd6ba414c38f9014afc87fa3562bfee8b3c8d81e673268770a857f14e9c437
+    bytes: 56694
+    published_name: decision-provenance-standard-v1.2-rev10-appendix-G-governance-and-references.md
+reference_files:
+  release: v5.1.2
+  directory: standard/v5.0/
+  tag: ref-5.1.2
+  commit: 60a938f553a96f40ec276d0b46d17c29f366d06d
+  license: MIT
+  artifacts:
+  - path: standard/v5.0/LICENSE
+    sha256: 0cc5fdbd8ac8d2bda38efc8b8417ced78e6d27fd8d7d0c90dade512353268216
+    bytes: 1075
+  - path: standard/v5.0/README.md
+    sha256: c0aeecced14442cd407c365a1c297e6ec7cd52646bc1d55c163abdc33a97f52e
+    bytes: 5394
+  - path: standard/v5.0/conformance/reporter-api-spec.md
+    sha256: e12d671ee8b3d29d23dc8faa6fe3822cba0804bf6a2a1e15e6bd09040ef4c8e9
+    bytes: 20553
+  - path: standard/v5.0/conformance/reporter-api.openapi.yaml
+    sha256: 3ce1ca60197aa8f0ecf8b8e2f281089a34de3954d0ca8313b7c9a3ddcd65c884
+    bytes: 7238
+  - path: standard/v5.0/conformance/signal-vocabulary.md
+    sha256: 0d655180748a38cc0fcc9b1a8cc14897fbc14ab9957fee588ff3b48a385797df
+    bytes: 7807
+  - path: standard/v5.0/mode-drift/layer-1-detection.md
+    sha256: 77ca500e9c260b677af4c696399b844f93a2b1b8e21df9e52791aa5daec73178
+    bytes: 4263
+  - path: standard/v5.0/mode-drift/layer-2-audit-hook.md
+    sha256: e4b7e822dd8e389cfa7d357cefc157a498fc73c75ce522e4882f4e3c1afaca5c
+    bytes: 4579
+  - path: standard/v5.0/mode-drift/layer-3-mode-confirmation.md
+    sha256: 1fb90c88b77cc2da8bc2ece876d120861eae8b8d30d30c22811ff36ed1290539
+    bytes: 4631
+  - path: standard/v5.0/mode-drift/layer-4-attestation.md
+    sha256: a7c1c661bab1084a1d03cf6888fa88bc4fc32bd68dca716e9322a286f6d3e76d
+    bytes: 4512
+  - path: standard/v5.0/mode-drift/layer-4-attestation.schema.json
+    sha256: 2d1c86d45182c583a3e728d36700edc238314dab40dd14c2de1bb52a81ccb51f
+    bytes: 2272
+  - path: standard/v5.0/release/RELEASE-NOTES.md
+    sha256: 85e135b623f5d77eed0d68aa1a43daf5e1fb32a01888da4241aefc945e7a36fd
+    bytes: 7264
+  - path: standard/v5.0/schemas/article-50-disclosure-metadata.json
+    sha256: d69fbda7423d920df3407b40f78edffffb80b147f8af0b15a72c5ee8298182f1
+    bytes: 5227
+  - path: standard/v5.0/schemas/charter.schema.json
+    sha256: a141f40c02af95fb1848740d1c2072f141daf0480d41c39ecaa205cb22042a0f
+    bytes: 5870
+  - path: standard/v5.0/schemas/decision-record.schema.json
+    sha256: 7a02ec589d00bd188c46a774191bdf7722559c2b3e81d1633f8b07398cbb6d35
+    bytes: 15507
+  - path: standard/v5.0/state-machines/charter-state-machine.md
+    sha256: dabdf52586b0b41d179e47f10e64543b776a6269a57bd13de95f195af3374d36
+    bytes: 5555
+  - path: standard/v5.0/state-machines/decision-record-state-machine.md
+    sha256: bf083b019ada4c13a70efde5ecd3ccb21dcc27d96f55dbc4c1853a1338383c8b
+    bytes: 7936
+  - path: standard/v5.0/tests/cross-stream-conformance-check.md
+    sha256: 6ad149b0572d2597e0624a4fe48621ac0d8a59d02a249125c9aa712fc7e5ef14
+    bytes: 7688
+  - path: standard/v5.0/tests/synthetic-charter-library.md
+    sha256: 1448920a16cec4d48c14251896c335b68ae32636f298ccc21f0a81148b554b4d
+    bytes: 4462
+known_deviations:
+  path: tests/known-defects/cases.json
+  sha256: b2db6a0d2d1943062547ea7b0679b18d33dc1e4480bedfbf4d4424395bc68b2b
+  status_at_tag: KD-01 through KD-11 open; see the tagged cases file for exact cases and expectations
+compatibility:
+  prior_text_tag: v1.1-rev9
+  prior_reference_files_tag: ref-5.1.1
+  version_policy_source: CONTRIBUTING.md
