@@ -1,0 +1,293 @@
+{
+  "about": "Test cases for the portable verification extension 0.1.0. Schema cases apply a patch to base_export or base_report (an empty patch tests the base itself), so each negative case differs from a valid instance by the one thing it tests. Digest, chain and trust cases are computed by run_checks.py with SHA-256 only; the values below also serve as simple vectors. Records R0 to R2 are synthetic; their bytes are the UTF-8 (here ASCII) encoding of each text. export_digest in base_report is an example value.",
+  "records": {
+    "R0": {"text": "{\"decision_id\":\"DR-2099-001\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_type\":\"decision\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-25T10:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Adopt option B for the example vendor review.\",\"affirmation_record\":{\"timestamp\":\"2026-09-25T11:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\"}", "seal_hash": "4671e381366fcdad7f6e2951619fa16622d826a4bbe0dd8b505692bd17cf5327"},
+    "R1": {"text": "{\"decision_id\":\"DR-2099-002\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-26T09:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Adopt option C instead of option B.\",\"supersedes\":\"DR-2099-001\",\"affirmation_record\":{\"timestamp\":\"2026-09-26T10:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\"}", "seal_hash": "b6a1a358237efc55ed8a4495166d471f65feb1697ddfa7fa3cb91dcf61b414a9"},
+    "R2": {"text": "{\"decision_id\":\"DR-2099-003\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_type\":\"decision\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-27T09:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Review the example vendor again in six months.\",\"affirmation_record\":{\"timestamp\":\"2026-09-27T10:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\",\"seal_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\"}", "seal_hash": "b338d5e167236a058d3222ea8634b394765a71b5a04d5ab65bf4751f4696a125"}
+  },
+  "chain": {
+    "about": "link(i) = SHA-256(link(i-1) || seal(i)) over 32-byte raw values, with 32 zero bytes before R0.",
+    "order": [
+      "R0",
+      "R1",
+      "R2"
+    ],
+    "links": [
+      "57970c502184e893dffafba4158f714663f3ebdfe4a42716e7cd0159362e496e",
+      "137c82021e36073e9a1d48c93dcc04d5ace7860df5ce60192f03387c5d0de8c7",
+      "461cf1cad5fe45a896737bb01ae396639da7ef5c424352ab0d029565e0228552"
+    ]
+  },
+  "trust_policy": {
+    "about": "Configured by the verifier, never taken from an export. Key values are labels; these cases use no real keys.",
+    "trusted_keys": {
+      "issuer-a": "key-a"
+    }
+  },
+  "base_export": {
+    "profile": "dps-portable-verification",
+    "profile_version": "0.1.0",
+    "entries": [
+      {
+        "decision_id": "DR-2099-001",
+        "record_type": "decision",
+        "covered_representation": {
+          "kind": "original_bytes",
+          "media_type": "application/json"
+        },
+        "content": {
+          "availability": "available",
+          "covered_bytes_b64": "eyJkZWNpc2lvbl9pZCI6IkRSLTIwOTktMDAxIiwiY2hhcnRlcl9pZCI6IkNILUVYQU1QTEUtMSIsInJlY29yZF90eXBlIjoiZGVjaXNpb24iLCJyZWNvcmRfc3RhdGUiOiJkcmFmdGVkIiwiZGlzcGF0Y2hfbW9kZSI6Im1vZGUtMSIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTI1VDEwOjAwOjAwWiIsImFsdGl0dWRlIjoiZXhlY3V0aXZlIiwiZGVjaXNpb25fc3RhdGVtZW50IjoiQWRvcHQgb3B0aW9uIEIgZm9yIHRoZSBleGFtcGxlIHZlbmRvciByZXZpZXcuIiwiYWZmaXJtYXRpb25fcmVjb3JkIjp7InRpbWVzdGFtcCI6IjIwMjYtMDktMjVUMTE6MDA6MDBaIiwiYWN0b3JfaWRlbnRpdHkiOiJvd25lci1leGFtcGxlLTEiLCJtZXRob2QiOiJhcHByb3ZhbCB0b2tlbiJ9LCJzZWFsX2FsZ29yaXRobSI6IlNIQS0yNTYifQ=="
+        },
+        "seal": {
+          "seal_hash": "4671e381366fcdad7f6e2951619fa16622d826a4bbe0dd8b505692bd17cf5327",
+          "seal_algorithm": "SHA-256",
+          "seal_field_handling": "seal_hash_absent",
+          "affirmation_record_covered": true
+        },
+        "chain": {
+          "sequence": 0,
+          "previous_link": null
+        }
+      },
+      {
+        "decision_id": "DR-2099-002",
+        "record_type": "decision",
+        "covered_representation": {
+          "kind": "original_bytes",
+          "media_type": "application/json"
+        },
+        "content": {
+          "availability": "available",
+          "covered_bytes_b64": "eyJkZWNpc2lvbl9pZCI6IkRSLTIwOTktMDAyIiwiY2hhcnRlcl9pZCI6IkNILUVYQU1QTEUtMSIsInJlY29yZF9zdGF0ZSI6ImRyYWZ0ZWQiLCJkaXNwYXRjaF9tb2RlIjoibW9kZS0xIiwiY3JlYXRlZF9hdCI6IjIwMjYtMDktMjZUMDk6MDA6MDBaIiwiYWx0aXR1ZGUiOiJleGVjdXRpdmUiLCJkZWNpc2lvbl9zdGF0ZW1lbnQiOiJBZG9wdCBvcHRpb24gQyBpbnN0ZWFkIG9mIG9wdGlvbiBCLiIsInN1cGVyc2VkZXMiOiJEUi0yMDk5LTAwMSIsImFmZmlybWF0aW9uX3JlY29yZCI6eyJ0aW1lc3RhbXAiOiIyMDI2LTA5LTI2VDEwOjAwOjAwWiIsImFjdG9yX2lkZW50aXR5Ijoib3duZXItZXhhbXBsZS0xIiwibWV0aG9kIjoiYXBwcm92YWwgdG9rZW4ifSwic2VhbF9hbGdvcml0aG0iOiJTSEEtMjU2In0="
+        },
+        "seal": {
+          "seal_hash": "b6a1a358237efc55ed8a4495166d471f65feb1697ddfa7fa3cb91dcf61b414a9",
+          "seal_algorithm": "SHA-256",
+          "seal_field_handling": "seal_hash_absent",
+          "affirmation_record_covered": true
+        },
+        "predecessors": {
+          "supersedes": "DR-2099-001"
+        },
+        "chain": {
+          "sequence": 1,
+          "previous_link": "57970c502184e893dffafba4158f714663f3ebdfe4a42716e7cd0159362e496e"
+        }
+      },
+      {
+        "decision_id": "DR-2099-003",
+        "record_type": "decision",
+        "covered_representation": {
+          "kind": "original_bytes",
+          "media_type": "application/json"
+        },
+        "content": {
+          "availability": "available",
+          "covered_bytes_b64": "eyJkZWNpc2lvbl9pZCI6IkRSLTIwOTktMDAzIiwiY2hhcnRlcl9pZCI6IkNILUVYQU1QTEUtMSIsInJlY29yZF90eXBlIjoiZGVjaXNpb24iLCJyZWNvcmRfc3RhdGUiOiJkcmFmdGVkIiwiZGlzcGF0Y2hfbW9kZSI6Im1vZGUtMSIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTI3VDA5OjAwOjAwWiIsImFsdGl0dWRlIjoiZXhlY3V0aXZlIiwiZGVjaXNpb25fc3RhdGVtZW50IjoiUmV2aWV3IHRoZSBleGFtcGxlIHZlbmRvciBhZ2FpbiBpbiBzaXggbW9udGhzLiIsImFmZmlybWF0aW9uX3JlY29yZCI6eyJ0aW1lc3RhbXAiOiIyMDI2LTA5LTI3VDEwOjAwOjAwWiIsImFjdG9yX2lkZW50aXR5Ijoib3duZXItZXhhbXBsZS0xIiwibWV0aG9kIjoiYXBwcm92YWwgdG9rZW4ifSwic2VhbF9hbGdvcml0aG0iOiJTSEEtMjU2Iiwic2VhbF9oYXNoIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCJ9"
+        },
+        "seal": {
+          "seal_hash": "b338d5e167236a058d3222ea8634b394765a71b5a04d5ab65bf4751f4696a125",
+          "seal_algorithm": "SHA-256",
+          "seal_field_handling": "seal_hash_zeroed",
+          "affirmation_record_covered": true
+        },
+        "chain": {
+          "sequence": 2,
+          "previous_link": "137c82021e36073e9a1d48c93dcc04d5ace7860df5ce60192f03387c5d0de8c7"
+        }
+      }
+    ]
+  },
+  "base_report": {
+    "profile": "dps-portable-verification-report",
+    "profile_version": "0.1.0",
+    "export_digest": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "trust_policy_ref": "urn:example:verifier-policy:1",
+    "structural_validity": {
+      "status": "verified"
+    },
+    "entries": [
+      {
+        "decision_id": "DR-2099-001",
+        "representation": "original_sealed",
+        "structural_validity": {
+          "status": "verified"
+        },
+        "cryptographic_verification": {
+          "seal_digest": {
+            "status": "verified",
+            "reference_source": "same_export"
+          },
+          "signature": {
+            "status": "not_checked",
+            "findings": [
+              "the entry carries no signature"
+            ]
+          }
+        },
+        "content_availability": {
+          "status": "available"
+        },
+        "time_assurance": {
+          "status": "not_checked",
+          "basis": "issuer_assertion"
+        },
+        "identity_assurance": {
+          "status": "not_checked",
+          "basis": "issuer_assertion"
+        }
+      },
+      {
+        "decision_id": "DR-2099-002",
+        "representation": "original_sealed",
+        "structural_validity": {
+          "status": "verified"
+        },
+        "cryptographic_verification": {
+          "seal_digest": {
+            "status": "verified",
+            "reference_source": "same_export"
+          },
+          "signature": {
+            "status": "not_checked",
+            "findings": [
+              "the entry carries no signature"
+            ]
+          }
+        },
+        "content_availability": {
+          "status": "available"
+        },
+        "time_assurance": {
+          "status": "not_checked",
+          "basis": "issuer_assertion"
+        },
+        "identity_assurance": {
+          "status": "not_checked",
+          "basis": "issuer_assertion"
+        }
+      },
+      {
+        "decision_id": "DR-2099-003",
+        "representation": "original_sealed",
+        "structural_validity": {
+          "status": "verified"
+        },
+        "cryptographic_verification": {
+          "seal_digest": {
+            "status": "verified",
+            "reference_source": "same_export"
+          },
+          "signature": {
+            "status": "not_checked",
+            "findings": [
+              "the entry carries no signature"
+            ]
+          }
+        },
+        "content_availability": {
+          "status": "available"
+        },
+        "time_assurance": {
+          "status": "not_checked",
+          "basis": "issuer_assertion"
+        },
+        "identity_assurance": {
+          "status": "not_checked",
+          "basis": "issuer_assertion"
+        }
+      }
+    ],
+    "object_links": {
+      "status": "verified",
+      "sequence": {
+        "status": "verified",
+        "completeness": "not_established",
+        "findings": [
+          "no independent checkpoint was supplied"
+        ]
+      }
+    },
+    "scope_of_conclusion": {
+      "covers": "supplied_export_only",
+      "not_assessed": [
+        "legal_requirements",
+        "conformance_level",
+        "events_not_in_export",
+        "truth_of_record_content"
+      ]
+    }
+  },
+  "schema_cases": [
+    {"id": "E01", "description": "the base export: three original sealed records, chained", "schema": "export", "patch": [], "expected": "pass"},
+    {"id": "E02", "description": "unknown profile version", "schema": "export", "patch": [{"set": "/profile_version", "value": "0.2.0"}], "expected": "fail"},
+    {"id": "E03", "description": "seal field handling not stated", "schema": "export", "patch": [{"remove": "/entries/0/seal/seal_field_handling"}], "expected": "fail"},
+    {"id": "E04", "description": "whether affirmation_record is covered not stated", "schema": "export", "patch": [{"remove": "/entries/0/seal/affirmation_record_covered"}], "expected": "fail"},
+    {"id": "E05", "description": "a canonical form named 'sorted JSON' with no specification", "schema": "export", "patch": [{"set": "/entries/0/covered_representation", "value": {"kind": "canonical_form", "media_type": "application/json", "canonicalisation": "sorted JSON"}}], "expected": "fail"},
+    {"id": "E06", "description": "a canonical form with a specification that fixes the bytes", "schema": "export", "patch": [{"set": "/entries/0/covered_representation", "value": {"kind": "canonical_form", "media_type": "application/json", "canonicalisation": "JCS", "specification_ref": "https://www.rfc-editor.org/rfc/rfc8785"}}], "expected": "pass"},
+    {"id": "E07", "description": "self-supplied key: the export carries the issuer's public key", "schema": "export", "patch": [{"set": "/issuer_public_key", "value": "MCowBQYDK2VwAyEAexample"}], "expected": "fail"},
+    {"id": "E08", "description": "a signed entry naming its algorithm, key reference and signed bytes", "schema": "export", "patch": [{"set": "/entries/0/signature", "value": {"algorithm": "Ed25519", "key_ref": "issuer-a", "signed_bytes_ref": "urn:example:signed-bytes:1", "value_b64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="}}], "expected": "pass"},
+    {"id": "E09", "description": "a signature with no key reference", "schema": "export", "patch": [{"set": "/entries/0/signature", "value": {"algorithm": "Ed25519", "key_ref": "issuer-a", "signed_bytes_ref": "urn:example:signed-bytes:1", "value_b64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="}}, {"remove": "/entries/0/signature/key_ref"}], "expected": "fail"},
+    {"id": "E10", "description": "seal algorithm other than the core's SHA-256", "schema": "export", "patch": [{"set": "/entries/0/seal/seal_algorithm", "value": "MD5"}], "expected": "fail"},
+    {"id": "E11", "description": "a derived representation linked to the original seal, with its transformation", "schema": "export", "patch": [{"remove": "/entries/1/seal"}, {"set": "/entries/1/derived_from", "value": {"original_seal_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "original_seal_algorithm": "SHA-256", "transformation": {"name": "field removal after a redaction event", "specification_ref": "urn:example:transformation:1", "record_ref": "DR-2099-009"}}}, {"set": "/entries/1/derived_digest", "value": "b6a1a358237efc55ed8a4495166d471f65feb1697ddfa7fa3cb91dcf61b414a9"}], "expected": "pass"},
+    {"id": "E12", "description": "a re-hashed representation presented as the original seal", "schema": "export", "patch": [{"set": "/entries/1/derived_from", "value": {"original_seal_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "original_seal_algorithm": "SHA-256", "transformation": {"name": "field removal after a redaction event", "specification_ref": "urn:example:transformation:1", "record_ref": "DR-2099-009"}}}, {"set": "/entries/1/derived_digest", "value": "b6a1a358237efc55ed8a4495166d471f65feb1697ddfa7fa3cb91dcf61b414a9"}], "expected": "fail"},
+    {"id": "E13", "description": "a derived representation that does not identify its transformation", "schema": "export", "patch": [{"remove": "/entries/1/seal"}, {"set": "/entries/1/derived_from", "value": {"original_seal_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "original_seal_algorithm": "SHA-256", "transformation": {"name": "field removal after a redaction event", "specification_ref": "urn:example:transformation:1", "record_ref": "DR-2099-009"}}}, {"set": "/entries/1/derived_digest", "value": "b6a1a358237efc55ed8a4495166d471f65feb1697ddfa7fa3cb91dcf61b414a9"}, {"remove": "/entries/1/derived_from/transformation"}], "expected": "fail"},
+    {"id": "E14", "description": "a redaction event without target_record_hash and target_decision_id", "schema": "export", "patch": [{"set": "/entries/2/record_type", "value": "redaction_event"}], "expected": "fail"},
+    {"id": "E15", "description": "a redaction event naming the seal and id of its target", "schema": "export", "patch": [{"set": "/entries/2/record_type", "value": "redaction_event"}, {"set": "/entries/2/predecessors", "value": {"target_record_hash": "4671e381366fcdad7f6e2951619fa16622d826a4bbe0dd8b505692bd17cf5327", "target_decision_id": "DR-2099-001"}}], "expected": "pass"},
+    {"id": "E16", "description": "unavailable content reported with its reason and record", "schema": "export", "patch": [{"set": "/entries/0/content", "value": {"availability": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}], "expected": "pass"},
+    {"id": "E17", "description": "unavailable content that still carries bytes", "schema": "export", "patch": [{"set": "/entries/0/content", "value": {"availability": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009", "covered_bytes_b64": "eyJkZWNpc2lvbl9pZCI6IkRSLTIwOTktMDAxIiwiY2hhcnRlcl9pZCI6IkNILUVYQU1QTEUtMSIsInJlY29yZF90eXBlIjoiZGVjaXNpb24iLCJyZWNvcmRfc3RhdGUiOiJkcmFmdGVkIiwiZGlzcGF0Y2hfbW9kZSI6Im1vZGUtMSIsImNyZWF0ZWRfYXQiOiIyMDI2LTA5LTI1VDEwOjAwOjAwWiIsImFsdGl0dWRlIjoiZXhlY3V0aXZlIiwiZGVjaXNpb25fc3RhdGVtZW50IjoiQWRvcHQgb3B0aW9uIEIgZm9yIHRoZSBleGFtcGxlIHZlbmRvciByZXZpZXcuIiwiYWZmaXJtYXRpb25fcmVjb3JkIjp7InRpbWVzdGFtcCI6IjIwMjYtMDktMjVUMTE6MDA6MDBaIiwiYWN0b3JfaWRlbnRpdHkiOiJvd25lci1leGFtcGxlLTEiLCJtZXRob2QiOiJhcHByb3ZhbCB0b2tlbiJ9LCJzZWFsX2FsZ29yaXRobSI6IlNIQS0yNTYifQ=="}}], "expected": "fail"},
+    {"id": "E18", "description": "unavailable after a redaction event, with no reference to it", "schema": "export", "patch": [{"set": "/entries/0/content", "value": {"availability": "unavailable", "reason": "redaction_event"}}], "expected": "fail"},
+    {"id": "E19", "description": "a chain entry after the first with no previous link", "schema": "export", "patch": [{"set": "/entries/1/chain/previous_link", "value": null}], "expected": "fail"},
+    {"id": "E20", "description": "an issuer checkpoint (allowed, but not independent)", "schema": "export", "patch": [{"set": "/issuer_checkpoint", "value": {"count": 3, "head_link": "461cf1cad5fe45a896737bb01ae396639da7ef5c424352ab0d029565e0228552"}}], "expected": "pass"},
+    {"id": "P01", "description": "the base report: every dimension separate, scope stated", "schema": "report", "patch": [], "expected": "pass"},
+    {"id": "P02", "description": "a single merged verdict added", "schema": "report", "patch": [{"set": "/overall", "value": "pass"}], "expected": "fail"},
+    {"id": "P03", "description": "a compliance claim added", "schema": "report", "patch": [{"set": "/compliance", "value": "compliant"}], "expected": "fail"},
+    {"id": "P04", "description": "identity assurance left out", "schema": "report", "patch": [{"remove": "/entries/0/identity_assurance"}], "expected": "fail"},
+    {"id": "P05", "description": "scope of conclusion left out", "schema": "report", "patch": [{"remove": "/scope_of_conclusion"}], "expected": "fail"},
+    {"id": "P06", "description": "scope of conclusion that drops 'legal_requirements'", "schema": "report", "patch": [{"set": "/scope_of_conclusion/not_assessed", "value": ["conformance_level", "events_not_in_export", "truth_of_record_content"]}], "expected": "fail"},
+    {"id": "P07", "description": "the chain claimed 'complete'", "schema": "report", "patch": [{"set": "/object_links/sequence/completeness", "value": "complete"}], "expected": "fail"},
+    {"id": "P08", "description": "consistent with a checkpoint, but no checkpoint named", "schema": "report", "patch": [{"set": "/object_links/sequence/completeness", "value": "consistent_with_independent_checkpoint"}], "expected": "fail"},
+    {"id": "P09", "description": "consistent with a named independent checkpoint", "schema": "report", "patch": [{"set": "/object_links/sequence/completeness", "value": "consistent_with_independent_checkpoint"}, {"set": "/object_links/sequence/checkpoint_ref", "value": "urn:example:checkpoint:1"}], "expected": "pass"},
+    {"id": "P10", "description": "unavailable content with a verified seal", "schema": "report", "patch": [{"set": "/entries/0/content_availability", "value": {"status": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}], "expected": "fail"},
+    {"id": "P11", "description": "unavailable content reported as unavailable, not re-verified", "schema": "report", "patch": [{"set": "/entries/0/content_availability", "value": {"status": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}, {"set": "/entries/0/cryptographic_verification/seal_digest", "value": {"status": "unavailable"}}], "expected": "pass"},
+    {"id": "P12", "description": "a verified seal that does not say what it was compared with", "schema": "report", "patch": [{"remove": "/entries/0/cryptographic_verification/seal_digest/reference_source"}], "expected": "fail"},
+    {"id": "P13", "description": "a signature verified with a key from the export itself", "schema": "report", "patch": [{"set": "/entries/0/cryptographic_verification/signature", "value": {"status": "verified", "reference_source": "same_export"}}], "expected": "fail"},
+    {"id": "P14", "description": "a signature verified with a key from the verifier's trust policy", "schema": "report", "patch": [{"set": "/entries/0/cryptographic_verification/signature", "value": {"status": "verified", "reference_source": "trust_policy"}}], "expected": "pass"},
+    {"id": "P15", "description": "the issuer's own timestamp reported as verified time", "schema": "report", "patch": [{"set": "/entries/0/time_assurance", "value": {"status": "verified", "basis": "issuer_assertion", "source_ref": "affirmation_record.timestamp"}}], "expected": "fail"},
+    {"id": "P16", "description": "time verified against a named independent source", "schema": "report", "patch": [{"set": "/entries/0/time_assurance", "value": {"status": "verified", "basis": "independent_source", "source_ref": "urn:example:time-source:1"}}], "expected": "pass"},
+    {"id": "P17", "description": "the issuer's named actor reported as verified identity", "schema": "report", "patch": [{"set": "/entries/0/identity_assurance", "value": {"status": "verified", "basis": "issuer_assertion", "source_ref": "affirmation_record.actor_identity"}}], "expected": "fail"},
+    {"id": "P18", "description": "a derived representation with no separate check of the original seal", "schema": "report", "patch": [{"set": "/entries/1/representation", "value": "derived"}], "expected": "fail"},
+    {"id": "P19", "description": "a derived representation whose original is unavailable, reported as such", "schema": "report", "patch": [{"set": "/entries/1/representation", "value": "derived"}, {"set": "/entries/1/original_seal_check", "value": {"original_seal_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "status": "unavailable"}}], "expected": "pass"}
+  ],
+  "digest_cases": [
+    {"id": "D01", "description": "SHA-256 known value for 'abc' (FIPS 180-2)", "check": "known_vector", "text": "abc", "digest": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", "expected": "match"},
+    {"id": "D02", "description": "each record's recorded seal_hash is the SHA-256 of its bytes", "check": "record_seals", "expected": "match"},
+    {"id": "D03", "description": "the chain links recorded above follow the link rule", "check": "chain_links", "expected": "match"},
+    {"id": "D04", "description": "base_export carries the records' exact bytes, their seals and their links", "check": "base_export", "expected": "match"},
+    {"id": "D05", "description": "payload mutation: one changed value is detected against the recorded seal", "check": "seal", "record": "R0", "edit": {"replace": "option B", "with": "option C"}, "expected": "mismatch"},
+    {"id": "D06", "description": "a changed record re-sealed in the same export: matches that seal, not the original one", "check": "reseal", "record": "R0", "edit": {"replace": "option B", "with": "option C"}, "expected": {"same_export_seal": "match", "original_seal": "mismatch"}, "limitation": "A seal from the same export shows only that bytes and seal agree; the change shows against a seal held independently."},
+    {"id": "D07", "description": "the same JSON value re-indented: equal as JSON, different bytes", "check": "seal", "record": "R0", "reserialise": "indent_2", "expected": "mismatch"},
+    {"id": "D08", "description": "the same JSON value with sorted keys: equal as JSON, different bytes", "check": "seal", "record": "R0", "reserialise": "sorted_keys", "expected": "mismatch"},
+    {"id": "D09", "description": "inserting the default record_type ('decision') changes the bytes; the seal matches only the bytes as sealed", "check": "seal", "record": "R1", "edit": {"replace": "\"record_state\"", "with": "\"record_type\":\"decision\",\"record_state\""}, "expected": "mismatch"},
+    {"id": "D10", "description": "seal_hash_zeroed: the stored record, with its seal value zeroed, matches the seal", "check": "zeroed_seal", "record": "R2", "hash_as": "zeroed", "expected": "match"},
+    {"id": "D11", "description": "seal_hash_zeroed: the stored record hashed as stored (seal value not zeroed) does not match", "check": "zeroed_seal", "record": "R2", "hash_as": "stored", "expected": "mismatch"}
+  ],
+  "chain_cases": [
+    {"id": "K01", "description": "all entries, in order", "supplied": [0, 1, 2], "checkpoint": null, "expected": "consistent"},
+    {"id": "K02", "description": "middle entry omitted", "supplied": [0, 2], "checkpoint": null, "expected": "inconsistent"},
+    {"id": "K03", "description": "entries reordered", "supplied": [0, 2, 1], "checkpoint": null, "expected": "inconsistent"},
+    {"id": "K04", "description": "first entry omitted (the chain is checked from its first link)", "supplied": [1, 2], "checkpoint": null, "expected": "inconsistent"},
+    {"id": "K05", "description": "last entry omitted, no checkpoint", "supplied": [0, 1], "checkpoint": null, "expected": "consistent", "limitation": "A missing tail is not detected without an independent checkpoint: a correctly linked prefix passes."},
+    {"id": "K06", "description": "last entry omitted, independent checkpoint", "supplied": [0, 1], "checkpoint": {"source": "independent", "count": 3, "head_link": "461cf1cad5fe45a896737bb01ae396639da7ef5c424352ab0d029565e0228552"}, "expected": "inconsistent_with_checkpoint"},
+    {"id": "K07", "description": "all entries, independent checkpoint", "supplied": [0, 1, 2], "checkpoint": {"source": "independent", "count": 3, "head_link": "461cf1cad5fe45a896737bb01ae396639da7ef5c424352ab0d029565e0228552"}, "expected": "consistent_with_checkpoint"},
+    {"id": "K08", "description": "last entry omitted, checkpoint supplied in the same export", "supplied": [0, 1], "checkpoint": {"source": "same_export", "count": 2, "head_link": "137c82021e36073e9a1d48c93dcc04d5ace7860df5ce60192f03387c5d0de8c7"}, "expected": "consistent", "limitation": "A checkpoint from the same export is not independent, so completeness stays not established."}
+  ],
+  "trust_cases": [
+    {"id": "T01", "description": "key reference in the verifier's own policy", "check": "select_key", "key_ref": "issuer-a", "expected": {"trust": "trusted", "key": "key-a"}},
+    {"id": "T02", "description": "untrusted key: the reference is not in the policy", "check": "select_key", "key_ref": "issuer-x", "expected": {"trust": "untrusted", "key": null}},
+    {"id": "T03", "description": "self-supplied key: key material in the export is never used", "check": "select_key", "key_ref": "issuer-x", "export_key_material": "key-x", "expected": {"trust": "untrusted", "key": null}},
+    {"id": "T04", "description": "wrong key: the export offers another key for a trusted reference; the policy's key is used, so a signature made with the other key fails", "check": "select_key", "key_ref": "issuer-a", "export_key_material": "key-x", "expected": {"trust": "trusted", "key": "key-a"}},
+    {"id": "T05", "description": "key-reference substitution: signed bytes that bind the key reference differ, so a signature cannot be moved to another reference", "check": "signed_bytes", "record": "R0", "key_refs": ["issuer-a", "alias"], "expected": "differ"}
+  ]
+}

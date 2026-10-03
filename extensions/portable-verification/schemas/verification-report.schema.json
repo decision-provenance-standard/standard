@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisionprovenancestandard.org/extensions/portable-verification/0.1.0/verification-report.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0. Portable verification extension 0.1.0 (proposal), written against Core v1.2 rev. 10 and reference files 5.1.2. Binds only an implementation that says it uses this extension.",
+  "title": "Portable verification report",
+  "description": "What a verifier found in one export, dimension by dimension, with the scope of its conclusion. There is deliberately no overall result: no dimension stands for the others, and nothing here is a legal conclusion or a Conformance Level.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile",
+    "profile_version",
+    "export_digest",
+    "trust_policy_ref",
+    "structural_validity",
+    "entries",
+    "object_links",
+    "scope_of_conclusion"
+  ],
+  "properties": {
+    "profile": {"const": "dps-portable-verification-report"},
+    "profile_version": {"const": "0.1.0"},
+    "export_digest": {"$ref": "#/$defs/sha256_hex", "description": "SHA-256 of the export's bytes as received."},
+    "trust_policy_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The trust policy the verifier configured independently of the export."
+    },
+    "structural_validity": {"$ref": "#/$defs/check", "description": "The export against the export schema."},
+    "entries": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/entry_result"}},
+    "object_links": {"$ref": "#/$defs/object_links"},
+    "scope_of_conclusion": {"$ref": "#/$defs/scope_of_conclusion"}
+  },
+  "$defs": {
+    "sha256_hex": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {"enum": ["verified", "failed", "not_checked", "unavailable", "not_supported"]},
+    "findings": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "findings": {"$ref": "#/$defs/findings"}
+      }
+    },
+    "crypto_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "reference_source": {
+          "enum": ["same_export", "trust_policy"],
+          "description": "Where the key, or the seal value compared with, came from."
+        },
+        "findings": {"$ref": "#/$defs/findings"}
+      },
+      "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+      "then": {"required": ["reference_source"]}
+    },
+    "assurance": {
+      "description": "Time or identity. An issuer's own assertion is never reported as verified.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "basis"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "basis": {"enum": ["issuer_assertion", "independent_source"]},
+        "source_ref": {"type": "string", "minLength": 1},
+        "findings": {"$ref": "#/$defs/findings"}
+      },
+      "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+      "then": {"required": ["source_ref"], "properties": {"basis": {"const": "independent_source"}}}
+    },
+    "entry_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "representation",
+        "structural_validity",
+        "cryptographic_verification",
+        "content_availability",
+        "time_assurance",
+        "identity_assurance"
+      ],
+      "properties": {
+        "decision_id": {"type": "string", "pattern": "^DR-[0-9]{4}-[0-9]{3,}$"},
+        "representation": {"enum": ["original_sealed", "derived"]},
+        "structural_validity": {"$ref": "#/$defs/check"},
+        "cryptographic_verification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["seal_digest", "signature"],
+          "properties": {
+            "seal_digest": {"$ref": "#/$defs/crypto_check"},
+            "signature": {
+              "$ref": "#/$defs/crypto_check",
+              "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+              "then": {"properties": {"reference_source": {"const": "trust_policy"}}}
+            }
+          }
+        },
+        "content_availability": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status"],
+          "properties": {
+            "status": {"enum": ["available", "unavailable", "not_checked"]},
+            "reason": {"enum": ["redaction_event", "retention_disposition", "withheld", "other"]},
+            "reason_ref": {"type": "string", "minLength": 1}
+          },
+          "if": {"properties": {"status": {"const": "unavailable"}}, "required": ["status"]},
+          "then": {"required": ["reason"]}
+        },
+        "time_assurance": {"$ref": "#/$defs/assurance"},
+        "identity_assurance": {"$ref": "#/$defs/assurance"},
+        "original_seal_check": {
+          "description": "For a derived representation: the check of the original seal, reported on its own.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["original_seal_hash", "status"],
+          "properties": {
+            "original_seal_hash": {"$ref": "#/$defs/sha256_hex"},
+            "status": {"$ref": "#/$defs/status"},
+            "findings": {"$ref": "#/$defs/findings"}
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"representation": {"const": "derived"}}, "required": ["representation"]},
+          "then": {"required": ["original_seal_check"]},
+          "else": {"not": {"required": ["original_seal_check"]}}
+        },
+        {
+          "description": "Content that is unavailable is reported as unavailable, never as verified or failed.",
+          "if": {
+            "properties": {"content_availability": {"properties": {"status": {"const": "unavailable"}}, "required": ["status"]}},
+            "required": ["content_availability"]
+          },
+          "then": {
+            "properties": {
+              "cryptographic_verification": {
+                "properties": {
+                  "seal_digest": {"properties": {"status": {"const": "unavailable"}}},
+                  "signature": {"properties": {"status": {"enum": ["unavailable", "not_checked"]}}}
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "object_links": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "sequence"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status", "description": "supersedes, target_record_hash and derived_from links among the supplied entries."},
+        "findings": {"$ref": "#/$defs/findings"},
+        "sequence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "completeness"],
+          "properties": {
+            "status": {"$ref": "#/$defs/status", "description": "Whether the supplied chain is consistent."},
+            "completeness": {
+              "enum": ["not_established", "consistent_with_independent_checkpoint", "inconsistent_with_independent_checkpoint"],
+              "description": "Even a matching checkpoint says nothing about events the issuer never recorded."
+            },
+            "checkpoint_ref": {"type": "string", "minLength": 1, "description": "The independently established checkpoint compared with."},
+            "findings": {"$ref": "#/$defs/findings"}
+          },
+          "if": {"properties": {"completeness": {"const": "not_established"}}},
+          "else": {"required": ["checkpoint_ref"]}
+        }
+      }
+    },
+    "scope_of_conclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["covers", "not_assessed"],
+      "properties": {
+        "covers": {"const": "supplied_export_only"},
+        "not_assessed": {
+          "description": "Every one of these, always.",
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 4,
+          "items": {"enum": ["legal_requirements", "conformance_level", "events_not_in_export", "truth_of_record_content"]}
+        }
+      }
+    }
+  }
+}
