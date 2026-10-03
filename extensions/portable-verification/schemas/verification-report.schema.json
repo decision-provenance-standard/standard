@@ -10,6 +10,7 @@
     "profile",
     "profile_version",
     "export_digest",
+    "export_entry_count",
     "trust_policy_ref",
     "structural_validity",
     "entries",
@@ -20,6 +21,11 @@
     "profile": {"const": "dps-portable-verification-report"},
     "profile_version": {"const": "0.1.0"},
     "export_digest": {"$ref": "#/$defs/sha256_hex", "description": "SHA-256 of the export's bytes as received."},
+    "export_entry_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The number of entries in the export. The report has one entry result for each, and each export_index from 0 to this count minus 1 appears once. JSON Schema cannot compare two documents: a reader holding both checks it."
+    },
     "trust_policy_ref": {
       "type": "string",
       "minLength": 1,
@@ -76,18 +82,35 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "export_index",
         "decision_id",
         "representation",
         "structural_validity",
+        "statement_check",
         "cryptographic_verification",
         "content_availability",
         "time_assurance",
         "identity_assurance"
       ],
       "properties": {
-        "decision_id": {"type": "string", "pattern": "^DR-[0-9]{4}-[0-9]{3,}$"},
+        "export_index": {"type": "integer", "minimum": 0, "description": "The position of this result's entry in the export, from 0."},
+        "decision_id": {"type": "string", "pattern": "^DR-[0-9]{4}-[0-9]{3,}$", "description": "The decision_id the export entry states."},
         "representation": {"enum": ["original_sealed", "derived"]},
         "structural_validity": {"$ref": "#/$defs/check"},
+        "statement_check": {
+          "description": "The entry's statements outside the seal (decision_id, record_type, predecessors, seal_field_handling, affirmation_record_covered), checked against the covered bytes where the verifier can read them; otherwise not_checked.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status"],
+          "properties": {
+            "status": {"$ref": "#/$defs/status"},
+            "affirmation_record_covered": {
+              "type": "boolean",
+              "description": "Carried through from the export entry. false: the affirmation is outside the seal."
+            },
+            "findings": {"$ref": "#/$defs/findings"}
+          }
+        },
         "cryptographic_verification": {
           "type": "object",
           "additionalProperties": false,
@@ -131,7 +154,10 @@
         {
           "if": {"properties": {"representation": {"const": "derived"}}, "required": ["representation"]},
           "then": {"required": ["original_seal_check"]},
-          "else": {"not": {"required": ["original_seal_check"]}}
+          "else": {
+            "not": {"required": ["original_seal_check"]},
+            "properties": {"statement_check": {"required": ["affirmation_record_covered"]}}
+          }
         },
         {
           "description": "Content that is unavailable is reported as unavailable, never as verified or failed.",
@@ -141,6 +167,7 @@
           },
           "then": {
             "properties": {
+              "statement_check": {"properties": {"status": {"const": "not_checked"}}},
               "cryptographic_verification": {
                 "properties": {
                   "seal_digest": {"properties": {"status": {"const": "unavailable"}}},
@@ -172,7 +199,7 @@
             "checkpoint_ref": {"type": "string", "minLength": 1, "description": "The independently established checkpoint compared with."},
             "findings": {"$ref": "#/$defs/findings"}
           },
-          "if": {"properties": {"completeness": {"const": "not_established"}}},
+          "if": {"properties": {"completeness": {"const": "not_established"}}, "required": ["completeness"]},
           "else": {"required": ["checkpoint_ref"]}
         }
       }

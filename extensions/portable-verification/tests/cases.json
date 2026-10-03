@@ -1,9 +1,10 @@
 {
-  "about": "Test cases for the portable verification extension 0.1.0. Schema cases apply a patch to base_export or base_report (an empty patch tests the base itself), so each negative case differs from a valid instance by the one thing it tests. Digest, chain and trust cases are computed by run_checks.py with SHA-256 only; the values below also serve as simple vectors. Records R0 to R2 are synthetic; their bytes are the UTF-8 (here ASCII) encoding of each text. export_digest in base_report is an example value.",
+  "about": "Test cases for the portable verification extension 0.1.0. Schema cases apply a patch to base_export or base_report (an empty patch tests the base itself), so each negative case differs from a valid instance by the one thing it tests. Statement cases run the reference check of an export entry's statements over its covered bytes. Pairing cases read a report together with its export, which JSON Schema cannot do. Digest, chain and trust cases are computed by run_checks.py with SHA-256 only; the values below also serve as simple vectors. Records R0 to R3 are synthetic (R3 is R2 with an empty seal_hash placeholder); their bytes are the UTF-8 (here ASCII) encoding of each text. export_digest in base_report is an example value.",
   "records": {
     "R0": {"text": "{\"decision_id\":\"DR-2099-001\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_type\":\"decision\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-25T10:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Adopt option B for the example vendor review.\",\"affirmation_record\":{\"timestamp\":\"2026-09-25T11:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\"}", "seal_hash": "4671e381366fcdad7f6e2951619fa16622d826a4bbe0dd8b505692bd17cf5327"},
     "R1": {"text": "{\"decision_id\":\"DR-2099-002\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-26T09:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Adopt option C instead of option B.\",\"supersedes\":\"DR-2099-001\",\"affirmation_record\":{\"timestamp\":\"2026-09-26T10:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\"}", "seal_hash": "b6a1a358237efc55ed8a4495166d471f65feb1697ddfa7fa3cb91dcf61b414a9"},
-    "R2": {"text": "{\"decision_id\":\"DR-2099-003\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_type\":\"decision\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-27T09:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Review the example vendor again in six months.\",\"affirmation_record\":{\"timestamp\":\"2026-09-27T10:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\",\"seal_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\"}", "seal_hash": "b338d5e167236a058d3222ea8634b394765a71b5a04d5ab65bf4751f4696a125"}
+    "R2": {"text": "{\"decision_id\":\"DR-2099-003\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_type\":\"decision\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-27T09:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Review the example vendor again in six months.\",\"affirmation_record\":{\"timestamp\":\"2026-09-27T10:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\",\"seal_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\"}", "seal_hash": "b338d5e167236a058d3222ea8634b394765a71b5a04d5ab65bf4751f4696a125"},
+    "R3": {"text": "{\"decision_id\":\"DR-2099-003\",\"charter_id\":\"CH-EXAMPLE-1\",\"record_type\":\"decision\",\"record_state\":\"drafted\",\"dispatch_mode\":\"mode-1\",\"created_at\":\"2026-09-27T09:00:00Z\",\"altitude\":\"executive\",\"decision_statement\":\"Review the example vendor again in six months.\",\"affirmation_record\":{\"timestamp\":\"2026-09-27T10:00:00Z\",\"actor_identity\":\"owner-example-1\",\"method\":\"approval token\"},\"seal_algorithm\":\"SHA-256\",\"seal_hash\":\"\"}", "seal_hash": "0c88eacdfdff457d9fca172300a78a7c3fc16fa2bffb9eab2825072426ecba97"}
   },
   "chain": {
     "about": "link(i) = SHA-256(link(i-1) || seal(i)) over 32-byte raw values, with 32 zero bytes before R0.",
@@ -103,17 +104,23 @@
     "profile": "dps-portable-verification-report",
     "profile_version": "0.1.0",
     "export_digest": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "export_entry_count": 3,
     "trust_policy_ref": "urn:example:verifier-policy:1",
     "structural_validity": {
       "status": "verified"
     },
     "entries": [
       {
+        "export_index": 0,
         "decision_id": "DR-2099-001",
         "representation": "original_sealed",
         "structural_validity": {
           "status": "verified"
         },
+        "statement_check": {
+          "status": "verified",
+          "affirmation_record_covered": true
+        },
         "cryptographic_verification": {
           "seal_digest": {
             "status": "verified",
@@ -139,11 +146,19 @@
         }
       },
       {
+        "export_index": 1,
         "decision_id": "DR-2099-002",
         "representation": "original_sealed",
         "structural_validity": {
           "status": "verified"
         },
+        "statement_check": {
+          "status": "verified",
+          "affirmation_record_covered": true,
+          "findings": [
+            "record_type is absent from the covered bytes and read as decision (Core §6.2)"
+          ]
+        },
         "cryptographic_verification": {
           "seal_digest": {
             "status": "verified",
@@ -169,10 +184,15 @@
         }
       },
       {
+        "export_index": 2,
         "decision_id": "DR-2099-003",
         "representation": "original_sealed",
         "structural_validity": {
           "status": "verified"
+        },
+        "statement_check": {
+          "status": "verified",
+          "affirmation_record_covered": true
         },
         "cryptographic_verification": {
           "seal_digest": {
@@ -249,8 +269,8 @@
     {"id": "P07", "description": "the chain claimed 'complete'", "schema": "report", "patch": [{"set": "/object_links/sequence/completeness", "value": "complete"}], "expected": "fail"},
     {"id": "P08", "description": "consistent with a checkpoint, but no checkpoint named", "schema": "report", "patch": [{"set": "/object_links/sequence/completeness", "value": "consistent_with_independent_checkpoint"}], "expected": "fail"},
     {"id": "P09", "description": "consistent with a named independent checkpoint", "schema": "report", "patch": [{"set": "/object_links/sequence/completeness", "value": "consistent_with_independent_checkpoint"}, {"set": "/object_links/sequence/checkpoint_ref", "value": "urn:example:checkpoint:1"}], "expected": "pass"},
-    {"id": "P10", "description": "unavailable content with a verified seal", "schema": "report", "patch": [{"set": "/entries/0/content_availability", "value": {"status": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}], "expected": "fail"},
-    {"id": "P11", "description": "unavailable content reported as unavailable, not re-verified", "schema": "report", "patch": [{"set": "/entries/0/content_availability", "value": {"status": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}, {"set": "/entries/0/cryptographic_verification/seal_digest", "value": {"status": "unavailable"}}], "expected": "pass"},
+    {"id": "P10", "description": "unavailable content with a verified seal", "schema": "report", "patch": [{"set": "/entries/0/content_availability", "value": {"status": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}, {"set": "/entries/0/statement_check", "value": {"status": "not_checked", "affirmation_record_covered": true}}], "expected": "fail"},
+    {"id": "P11", "description": "unavailable content reported as unavailable, not re-verified", "schema": "report", "patch": [{"set": "/entries/0/content_availability", "value": {"status": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}, {"set": "/entries/0/cryptographic_verification/seal_digest", "value": {"status": "unavailable"}}, {"set": "/entries/0/statement_check", "value": {"status": "not_checked", "affirmation_record_covered": true}}], "expected": "pass"},
     {"id": "P12", "description": "a verified seal that does not say what it was compared with", "schema": "report", "patch": [{"remove": "/entries/0/cryptographic_verification/seal_digest/reference_source"}], "expected": "fail"},
     {"id": "P13", "description": "a signature verified with a key from the export itself", "schema": "report", "patch": [{"set": "/entries/0/cryptographic_verification/signature", "value": {"status": "verified", "reference_source": "same_export"}}], "expected": "fail"},
     {"id": "P14", "description": "a signature verified with a key from the verifier's trust policy", "schema": "report", "patch": [{"set": "/entries/0/cryptographic_verification/signature", "value": {"status": "verified", "reference_source": "trust_policy"}}], "expected": "pass"},
@@ -258,7 +278,12 @@
     {"id": "P16", "description": "time verified against a named independent source", "schema": "report", "patch": [{"set": "/entries/0/time_assurance", "value": {"status": "verified", "basis": "independent_source", "source_ref": "urn:example:time-source:1"}}], "expected": "pass"},
     {"id": "P17", "description": "the issuer's named actor reported as verified identity", "schema": "report", "patch": [{"set": "/entries/0/identity_assurance", "value": {"status": "verified", "basis": "issuer_assertion", "source_ref": "affirmation_record.actor_identity"}}], "expected": "fail"},
     {"id": "P18", "description": "a derived representation with no separate check of the original seal", "schema": "report", "patch": [{"set": "/entries/1/representation", "value": "derived"}], "expected": "fail"},
-    {"id": "P19", "description": "a derived representation whose original is unavailable, reported as such", "schema": "report", "patch": [{"set": "/entries/1/representation", "value": "derived"}, {"set": "/entries/1/original_seal_check", "value": {"original_seal_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "status": "unavailable"}}], "expected": "pass"}
+    {"id": "P19", "description": "a derived representation whose original is unavailable, reported as such", "schema": "report", "patch": [{"set": "/entries/1/representation", "value": "derived"}, {"set": "/entries/1/original_seal_check", "value": {"original_seal_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "status": "unavailable"}}], "expected": "pass"},
+    {"id": "P20", "description": "statement check left out", "schema": "report", "patch": [{"remove": "/entries/0/statement_check"}], "expected": "fail"},
+    {"id": "P21", "description": "affirmation_record_covered not carried through", "schema": "report", "patch": [{"remove": "/entries/0/statement_check/affirmation_record_covered"}], "expected": "fail"},
+    {"id": "P22", "description": "unavailable content with verified statements", "schema": "report", "patch": [{"set": "/entries/0/content_availability", "value": {"status": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}, {"set": "/entries/0/cryptographic_verification/seal_digest", "value": {"status": "unavailable"}}], "expected": "fail"},
+    {"id": "P23", "description": "the export's entry count not stated", "schema": "report", "patch": [{"remove": "/export_entry_count"}], "expected": "fail"},
+    {"id": "P24", "description": "an entry result that does not name its export entry", "schema": "report", "patch": [{"remove": "/entries/0/export_index"}], "expected": "fail"}
   ],
   "digest_cases": [
     {"id": "D01", "description": "SHA-256 known value for 'abc' (FIPS 180-2)", "check": "known_vector", "text": "abc", "digest": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", "expected": "match"},
@@ -282,6 +307,30 @@
     {"id": "K06", "description": "last entry omitted, independent checkpoint", "supplied": [0, 1], "checkpoint": {"source": "independent", "count": 3, "head_link": "461cf1cad5fe45a896737bb01ae396639da7ef5c424352ab0d029565e0228552"}, "expected": "inconsistent_with_checkpoint"},
     {"id": "K07", "description": "all entries, independent checkpoint", "supplied": [0, 1, 2], "checkpoint": {"source": "independent", "count": 3, "head_link": "461cf1cad5fe45a896737bb01ae396639da7ef5c424352ab0d029565e0228552"}, "expected": "consistent_with_checkpoint"},
     {"id": "K08", "description": "last entry omitted, checkpoint supplied in the same export", "supplied": [0, 1], "checkpoint": {"source": "same_export", "count": 2, "head_link": "137c82021e36073e9a1d48c93dcc04d5ace7860df5ce60192f03387c5d0de8c7"}, "expected": "consistent", "limitation": "A checkpoint from the same export is not independent, so completeness stays not established."}
+  ],
+  "statement_cases": [
+    {"id": "S01", "description": "entry 0: every statement matches the covered bytes", "entry": 0, "patch": [], "expected": {"statements": "verified", "seal": "match"}},
+    {"id": "S02", "description": "entry 1: record_type absent from the bytes is read as decision; supersedes matches", "entry": 1, "patch": [], "expected": {"statements": "verified", "seal": "match"}},
+    {"id": "S03", "description": "entry 2: the declared zeroed seal field is in the bytes", "entry": 2, "patch": [], "expected": {"statements": "verified", "seal": "match"}},
+    {"id": "S04", "description": "relabelled: says DR-2099-042, carries the bytes and seal of DR-2099-001", "entry": 0, "patch": [{"set": "/entries/0/decision_id", "value": "DR-2099-042"}], "expected": {"statements": "failed", "seal": "match"}},
+    {"id": "S05", "description": "a zeroed seal field declared, but the bytes contain no seal_hash", "entry": 0, "patch": [{"set": "/entries/0/seal/seal_field_handling", "value": "seal_hash_zeroed"}], "expected": {"statements": "failed", "seal": "match"}},
+    {"id": "S06", "description": "a seal field declared absent, but the bytes contain a zeroed one", "entry": 2, "patch": [{"set": "/entries/2/seal/seal_field_handling", "value": "seal_hash_absent"}], "expected": {"statements": "failed", "seal": "match"}},
+    {"id": "S07", "description": "an empty seal_hash as placeholder (not covered in 0.1.0)", "entry": 2, "bytes_from": "R3", "patch": [{"set": "/entries/2/seal/seal_hash", "value": "0c88eacdfdff457d9fca172300a78a7c3fc16fa2bffb9eab2825072426ecba97"}], "expected": {"statements": "failed", "seal": "match"}},
+    {"id": "S08", "description": "a wrong affirmation_record_covered", "entry": 0, "patch": [{"set": "/entries/0/seal/affirmation_record_covered", "value": false}], "expected": {"statements": "failed", "seal": "match"}},
+    {"id": "S09", "description": "a predecessor the bytes carry, left out of the entry", "entry": 1, "patch": [{"remove": "/entries/1/predecessors"}], "expected": {"statements": "failed", "seal": "match"}},
+    {"id": "S10", "description": "a wrong record_type", "entry": 0, "patch": [{"set": "/entries/0/record_type", "value": "re_decision"}], "expected": {"statements": "failed", "seal": "match"}},
+    {"id": "S11", "description": "unavailable content: statements not checked", "entry": 0, "patch": [{"set": "/entries/0/content", "value": {"availability": "unavailable", "reason": "redaction_event", "reason_ref": "DR-2099-009"}}], "expected": {"statements": "not_checked", "seal": "unavailable"}},
+    {"id": "S12", "description": "a media type this check cannot read: statements not checked", "entry": 0, "patch": [{"set": "/entries/0/covered_representation/media_type", "value": "application/octet-stream"}], "expected": {"statements": "not_checked", "seal": "match"}}
+  ],
+  "pairing_cases": [
+    {"id": "J01", "description": "the base report read with the base export", "report_patch": [], "export_patch": [], "expected": "consistent"},
+    {"id": "J02", "description": "a report missing an entry", "report_patch": [{"remove": "/entries/2"}], "export_patch": [], "expected": "inconsistent"},
+    {"id": "J03", "description": "a duplicated entry (two results for entry 1, none for entry 2)", "report_patch": [{"copy": "/entries/1", "to": "/entries/2"}], "export_patch": [], "expected": "inconsistent"},
+    {"id": "J04", "description": "an entry left out and the entry count lowered to match", "report_patch": [{"remove": "/entries/2"}, {"set": "/export_entry_count", "value": 2}], "export_patch": [], "expected": "inconsistent"},
+    {"id": "J05", "description": "a result relabelled DR-2099-042 for the export entry DR-2099-001", "report_patch": [{"set": "/entries/0/decision_id", "value": "DR-2099-042"}], "export_patch": [], "expected": "inconsistent"},
+    {"id": "J06", "description": "a relabelled export entry, reported with verified statements", "report_patch": [{"set": "/entries/0/decision_id", "value": "DR-2099-042"}], "export_patch": [{"set": "/entries/0/decision_id", "value": "DR-2099-042"}], "expected": "inconsistent"},
+    {"id": "J07", "description": "a relabelled export entry, reported with failed statements", "report_patch": [{"set": "/entries/0/decision_id", "value": "DR-2099-042"}, {"set": "/entries/0/statement_check", "value": {"status": "failed", "affirmation_record_covered": true, "findings": ["decision_id does not match the covered bytes"]}}], "export_patch": [{"set": "/entries/0/decision_id", "value": "DR-2099-042"}], "expected": "consistent"},
+    {"id": "J08", "description": "affirmation_record_covered not carried through as the export states it", "report_patch": [{"set": "/entries/0/statement_check/affirmation_record_covered", "value": false}], "export_patch": [], "expected": "inconsistent"}
   ],
   "trust_cases": [
     {"id": "T01", "description": "key reference in the verifier's own policy", "check": "select_key", "key_ref": "issuer-a", "expected": {"trust": "trusted", "key": "key-a"}},

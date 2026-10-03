@@ -25,7 +25,7 @@ These limits are deliberate. A record produced under the Standard is structured 
 | `kit/` | A prompt and a coding-agent skill that help an organization or a product write its self-declaration (Apache-2.0) |
 | `tools/`, `tests/`, `.github/` | The automated checks that run on every pull request, and the Steward's tool for closing records |
 
-Licenses differ by folder. Text (`spec/`, `governance/`, and the other documentation files at the repository root, including `CITATION.cff` and `NOTICE`): CC BY 4.0. `standard/v5.0/`, including its Markdown files: MIT for all of 5.x. Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later: Apache-2.0. [NOTICE](NOTICE) has the details.
+Licenses differ by folder. Text (`spec/`, `governance/`, and the other documentation files at the repository root, including `CITATION.cff` and `NOTICE`): CC BY 4.0. `standard/v5.0/`, including its Markdown files: MIT for all of 5.x. Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later: Apache-2.0. `extensions/`: text CC BY 4.0, schemas and code Apache-2.0. [NOTICE](NOTICE) has the details.
 
 ## The text here is the text that was published
 

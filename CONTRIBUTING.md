@@ -33,6 +33,7 @@ There is no separate agreement to sign. By contributing, you license your contri
 | Text (`spec/`, `governance/`, and the other documentation files at the repository root, including `CITATION.cff` and `NOTICE`) | Creative Commons Attribution 4.0 (CC BY 4.0) |
 | `standard/v5.0/`, including its Markdown files (all of 5.x, including corrections) | MIT |
 | Code (`tools/`, `tests/`, `.github/`) and any folder of reference files or tooling added later | Apache License 2.0 |
+| `extensions/` | Text: Creative Commons Attribution 4.0 (CC BY 4.0). Schemas and code: Apache License 2.0 |
 
 Contributing gives no rights in the name "Decision Provenance Standard" or its mark. See [NOTICE](NOTICE).
 

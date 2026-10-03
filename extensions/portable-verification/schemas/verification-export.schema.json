@@ -123,7 +123,7 @@
               "description": "The decision_id of the redaction event or of the disposition record."
             }
           },
-          "if": {"properties": {"reason": {"enum": ["redaction_event", "retention_disposition"]}}},
+          "if": {"properties": {"reason": {"enum": ["redaction_event", "retention_disposition"]}}, "required": ["reason"]},
           "then": {"required": ["reason_ref"]}
         }
       ]
@@ -133,15 +133,15 @@
       "additionalProperties": false,
       "required": ["seal_hash", "seal_algorithm", "seal_field_handling", "affirmation_record_covered"],
       "properties": {
-        "seal_hash": {"$ref": "#/$defs/sha256_hex", "description": "The record's seal_hash (Core §5.1(3), §6.2), in lowercase hex."},
+        "seal_hash": {"$ref": "#/$defs/sha256_hex", "description": "The record's seal_hash (Core §5.1(3), §6.2), in lowercase hex. A seal stored in another encoding of the same 32 bytes is carried as lowercase hex."},
         "seal_algorithm": {"const": "SHA-256"},
         "seal_field_handling": {
           "enum": ["seal_hash_absent", "seal_hash_zeroed"],
-          "description": "seal_hash_absent: the covered bytes do not contain seal_hash. seal_hash_zeroed: they contain seal_hash with every character of its value replaced by the character 0."
+          "description": "seal_hash_absent: the covered bytes do not contain seal_hash. seal_hash_zeroed: they contain seal_hash with every character of its value replaced by the character 0, which keeps the length of the stored value. Other placeholders, such as an empty string or null, are not covered in 0.1.0."
         },
         "affirmation_record_covered": {
           "type": "boolean",
-          "description": "Whether the covered bytes include affirmation_record."
+          "description": "Whether the covered bytes include affirmation_record: a statement about the bytes, not a rule about what they must include."
         }
       }
     },
@@ -183,7 +183,7 @@
       }
     },
     "chain": {
-      "description": "link(i) = SHA-256(link(i-1) || digest(i)) over 32-byte raw values, with 32 zero bytes before the first entry; digest(i) is the entry's seal_hash or derived_digest. previous_link is link(i-1), in lowercase hex.",
+      "description": "link(i) = SHA-256(link(i-1) || digest(i)) over 32-byte raw values, with 32 zero bytes before the first entry; digest(i) is the entry's seal_hash or derived_digest. previous_link is link(i-1), in lowercase hex. The chain binds the seals and their order, not which record each seal belongs to.",
       "type": "object",
       "additionalProperties": false,
       "required": ["sequence", "previous_link"],
@@ -191,7 +191,7 @@
         "sequence": {"type": "integer", "minimum": 0},
         "previous_link": {"anyOf": [{"$ref": "#/$defs/sha256_hex"}, {"type": "null"}]}
       },
-      "if": {"properties": {"sequence": {"const": 0}}},
+      "if": {"properties": {"sequence": {"const": 0}}, "required": ["sequence"]},
       "then": {"properties": {"previous_link": {"type": "null"}}},
       "else": {"properties": {"previous_link": {"$ref": "#/$defs/sha256_hex"}}}
     },
