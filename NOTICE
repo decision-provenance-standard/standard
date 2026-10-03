@@ -16,6 +16,9 @@ LICENSING (by folder)
 - Code (tools/, tests/, .github/) and any folder of reference files or tooling
   added later: the Apache License, Version 2.0. See LICENSES/Apache-2.0.txt.
 
+- extensions/: the text under CC BY 4.0, and the schemas and code under the
+  Apache License, Version 2.0.
+
 - Contributions are accepted under the license of the folder they change
   (inbound = outbound), with a Developer Certificate of Origin 1.1 sign-off on
   every commit. See CONTRIBUTING.md.
