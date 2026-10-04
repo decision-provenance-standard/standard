@@ -205,8 +205,8 @@ Items NOT preserved (locked): everything in §§1-6 above. Deviations require a 
 
 **Locked at v1.1.0 for the v1.0 reference-files release.**
 
-### Editorial change (wire contract unchanged)
+### Additive amendment (the field-pair rule)
 
 **Change**: Section 6 points to `reporter-api.openapi.yaml` instead of carrying a copy of the request schema. The copy had drifted from the OpenAPI file: its `evidence_metric` list carried `soft_flag_rate_breach`, which is not a signal and was never in the OpenAPI enum, and it lacked eight signals the OpenAPI enum carries. The field-pair rule now names only pairs whose two values exist in the OpenAPI enums, and the response example echoes a real signal.
 
-**Scope**: `reporter-api.openapi.yaml` is unchanged, byte for byte, and `info.version` stays 1.1.0. No value is removed from the binding contract. A request with `escalation_type: layer_1_soft_flag_rate_breach`, which the old pair example could never match with a listed signal, is now accepted with any listed signal.
+**Scope**: additive. No value is removed from the binding contract. A request with `escalation_type: layer_1_soft_flag_rate_breach`, which the old pair example could never match with a listed signal and so returned `422`, is now accepted with any listed signal. This change leaves `reporter-api.openapi.yaml` unchanged, byte for byte.
