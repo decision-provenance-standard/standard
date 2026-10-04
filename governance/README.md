@@ -60,12 +60,12 @@ For each record, use the tag in the index's "Sealed at tag" column in place of `
 
 ## Where the records follow the text over the reference files
 
-The records are written to the Standard's text, which binds where the text and the reference files in `standard/v5.0/` differ. Four differences show when the records are checked against the reference schemas:
+The records are written to the Standard's text, which binds where the text and the reference files in `standard/v5.0/` differ. Two differences show when the records are checked against the reference schemas:
 
-- **Disclosure block (known defect KD-06).** The text requires five disclosure fields; the reference schema requires seven, adding `disclosure_text_pointer` and `attached_at`. The schema also rejects the text's spellings of the jurisdiction values (`eu`, `us-federal`, `uk`, `israel`, and `other:<...>`). The records carry the text's five fields in the text's spellings.
 - **Plain values.** The records write `declaring-authority` and `ai-system-identity` as the text's plain values: a person and the organization they act for; a vendor, model and version. The reference schema expects objects with sub-fields.
-- **Peer-reviewer pool.** The reference Charter state machine asks for a `peer_reviewer_pool` of at least three named people before a Charter reaches `fields-completed`. Sections 3.2 and 3.3 of the text do not require one (known defect KD-09), and this Charter has one Steward.
 - **Attestation link (known defect KD-01).** The decision-record schema links to the Layer 4 attestation schema by an address that a standard validator cannot resolve. A closed record's attestation object is therefore checked on its own against `standard/v5.0/mode-drift/layer-4-attestation.schema.json`, and the rest of the record against the decision-record schema.
+
+Two earlier differences are fixed in the reference files. The disclosure schema now requires only the text's five fields and accepts the text's spellings of the jurisdiction values (known defect KD-06). The Charter state machine no longer requires a `peer_reviewer_pool`, and neither it nor the Charter schema requires a pool of three; Sections 3.2 and 3.3 of the text require neither (known defect KD-09). This Charter has one Steward.
 
 The known defects are listed and tested in [`tests/known-defects/`](../tests/known-defects/).
 
