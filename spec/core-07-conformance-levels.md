@@ -55,7 +55,7 @@ The corrected formulation, used throughout this Section and binding for Standard
 | `every_mode_2_record_carries_drafting_authority` | Level 2 | Every record at `affirmed` whose `dispatch_mode` is `mode-2` or `mode-1-with-embedded-mode-2-summary` carries a populated `drafting_authority` field with a populated `deployer_role_pointer` sub-field per §6.2.3. The signal is a field-population audit, no substantive judgment. |
 | `altitude_to_consent_posture_binding_enforced` | Level 2 | A sampled audit of records at `altitude: individual-professional` returns no records whose `consent_posture.consent_record_pointer` is null, no records whose `consent_posture.withdrawal_state` is `withdrawn-stream-stopped` and yet carry a post-withdrawal `affirmation_record`, and no records readable by reader principals outside those enumerated in the Charter's use-case scope-limit declaration per §6.2.3.1. The signal is a structural enforcement audit. |
 
-These six signals are also listed in the §7.3.2 and §7.4.2 tables, at the level given here. The conformance-signal vocabulary has 23 signals: 6 Level 1, 11 Level 2, 6 Level 3.
+These six signals are also listed in the §7.3.2 and §7.4.2 tables, at the level given here. The conformance-signal vocabulary has 24 signals: 6 Level 1, 12 Level 2, 6 Level 3.
 
 **Level rules outside the tables.** Besides the tables in §7.2 to §7.4, some sections bar or grade a Level directly (for example §3.1, §6.2.3.1 and §6.2.3.2). Among them: a record that lacks a field required at its lifecycle state is a Level 1 failure (§6.2.4), and Level 3 reads the discoverability and retention rules of §6.4 (§6.5.2).
 

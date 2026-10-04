@@ -156,8 +156,8 @@ flowchart TB
         l1why["Truth value cannot change between Charter-state events"]
         l1fire --- l1why
     end
-    subgraph row2["Level 2 signals (11)"]
-        l2rec["Per-record signals fire at record closed"]
+    subgraph row2["Level 2 signals (12)"]
+        l2rec["Per-record signals fire at the<br/>record state each one reads:<br/>closed, affirmed,<br/>or drafted onward"]
         l2sample["Sample-level signals fire at AUDIT CADENCE<br/>(15% rolling / first-100 / 30% embedded-summary override):<br/>no_silent_mode_drift_in_sample,<br/>no_passive_promotion_to_affirmed_in_sample,<br/>redaction-attestation, altitude-consent"]
         l2rec --- l2sample
     end
@@ -173,7 +173,7 @@ flowchart TB
 
 **Figure 4-3 — Emission-Cadence by Semantic Class.** Signal emission frequency is matched to the rate at which each signal's truth can actually change.
 
-**Full description.** Conformance signals fire on a cadence matched to how fast their truth can change. The six Level 1 signals fire at Charter `fields-completed` and mode-migration events, because their truth value cannot change between Charter-state events. The eleven Level 2 signals split into per-record signals that fire at record `closed` and sample-level signals — `no_silent_mode_drift_in_sample`, `no_passive_promotion_to_affirmed_in_sample`, redaction-attestation, and altitude-consent — that fire on an audit cadence of 15% rolling with first-100 and 30%-embedded-summary overrides. The six Level 3 signals fire at every state transition and on scheduled reporter runs, being continuously auditable by definition. There are 23 signals in total: 6 Level 1, 11 Level 2, 6 Level 3.
+**Full description.** Conformance signals fire on a cadence matched to how fast their truth can change. The six Level 1 signals fire at Charter `fields-completed` and mode-migration events, because their truth value cannot change between Charter-state events. The twelve Level 2 signals split into per-record signals that fire at the record state each one reads (record `closed`, `affirmed`, or from `drafted` onward) and sample-level signals — `no_silent_mode_drift_in_sample`, `no_passive_promotion_to_affirmed_in_sample`, redaction-attestation, and altitude-consent — that fire on an audit cadence of 15% rolling with first-100 and 30%-embedded-summary overrides. The six Level 3 signals fire at every state transition and on scheduled reporter runs, being continuously auditable by definition. There are 24 signals in total: 6 Level 1, 12 Level 2, 6 Level 3.
 
 *Illustrates §4.8.2.*
 
