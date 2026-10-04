@@ -35,7 +35,7 @@
     },
     "KD-09": {
       "summary": "The reference Charter state machine requires a peer_reviewer_pool of at least 3 named individuals before fields-completed, and the Charter schema rejects any pool smaller than 3; the text (Sections 3.2 and 3.3) requires neither. The state-machine rule is prose and is not machine-checked here; the case covers the schema's pool size.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-10": {
       "summary": "For outputs a Charter places outside the disclosure requirement (§4.6.1), the text requires no disclosure_metadata_pointer; the schema requires it on every mode-2 record, and cannot see the Charter's declaration.",

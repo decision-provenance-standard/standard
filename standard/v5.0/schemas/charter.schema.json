@@ -84,7 +84,7 @@
     },
     "peer_reviewer_pool": {
       "type": "array",
-      "minItems": 3,
+      "minItems": 1,
       "items": {
         "type": "object",
         "required": ["full_name", "role"],
@@ -94,7 +94,7 @@
           "employer": {"type": "string"}
         }
       },
-      "description": "Minimum 3 named individuals per Layer 3 designation rule (eligibility: substantive expertise + author exclusion + Charter-owner exclusion when author + recusal carve-out)."
+      "description": "Named peer reviewers for the Layer 3 designation rule (eligibility: substantive expertise + author exclusion + Charter-owner exclusion when author + recusal carve-out). The text (Standard §3.2, §3.3) requires neither this field nor a pool size; a pool of at least 3 named individuals is recommended, so that every record keeps an eligible reviewer under the exclusions."
     },
     "use_case_scope_limit_declaration": {
       "type": "object",
