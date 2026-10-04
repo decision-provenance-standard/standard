@@ -19,7 +19,10 @@ Finally it checks that removing those rows and moving the state back gives back 
 
 The Steward's fixed values (name, role, employer, jurisdiction, capacity, the GitHub account and the
 signed attestation text) are copied byte for byte from an already closed record: by default the most
-recent one, or the one named with --values-from.
+recent one, or the one named with --values-from. The one exception is the Charter id inside the signed
+text: the Steward approved the same text with only the Charter id changed, so each record gets the text
+with that record's own charter_id in place of the source record's (which the text must name exactly once).
+tools/check_governance.py checks the text the same way.
 """
 import argparse
 import datetime
@@ -51,6 +54,18 @@ def fields(cell):
         k, v = part.split(": ", 1)
         out[k] = v
     return out
+
+
+def charter_id(text):
+    return rows(text).get("charter_id", "").replace("`", "").strip()
+
+
+def text_for(text, source_id, target_id):
+    """The signed text with the source record's Charter id (named exactly once) replaced by target_id."""
+    pat = r"(?<![\w-])" + re.escape(source_id) + r"(?![\w-])"
+    if not source_id or not target_id or len(re.findall(pat, text)) != 1:
+        return None
+    return re.sub(pat, lambda _: target_id, text)
 
 
 def main():
@@ -91,7 +106,10 @@ def main():
     text = attest["attestation_text_signed"]
     if len(text) < 200:
         fail(f"{src.name}: attestation text is shorter than 200 characters")
-    print(f"fixed values from {src.name}; attestation text {len(text)} characters, "
+    src_charter = charter_id(src.read_text(encoding="utf-8"))
+    if text_for(text, src_charter, src_charter) is None:
+        fail(f"{src.name}: its signed text does not name its Charter id {src_charter!r} exactly once")
+    print(f"fixed values from {src.name} (Charter {src_charter}); attestation text {len(text)} characters, "
           f"sha256 {hashlib.sha256(text.encode('utf-8')).hexdigest()}")
 
     # The merge.
@@ -124,27 +142,29 @@ def main():
             fail(f"merged by {(pr['mergedBy'] or {}).get('login')}, not {actor.group('login')}")
         print(f"GitHub: merged at {pr['mergedAt']} by {pr['mergedBy']['login']}; merge commit agrees")
 
-    attest_cell = "<br>".join([
-        f"attestor_full_name: {attest['attestor_full_name']}",
-        f"attestor_role_title: {attest['attestor_role_title']}",
-        f"attestor_employer: {attest['attestor_employer']}",
-        f"attestation_timestamp: {merged_at}",
-        f"jurisdiction: {attest['jurisdiction']}",
-        f"attestation_language_version: {attest['attestation_language_version']}",
-        f"attestation_text_signed: {text}",
-        f"attestor_capacity: {attest['attestor_capacity']}",
-    ])
-    before_redecision = (
-        f"| `closed_at` | {merged_at} |\n"
-        f"| `accountable_owner_signoff` | signed_by: {signoff['signed_by']}<br>signed_at: {merged_at} |\n"
-    )
-    after_related = (
-        f"| `affirmation_record` | timestamp: {merged_at}<br>actor_identity: {affirm['actor_identity']}<br>"
-        f"method: merge of pull request #{a.pr}, which added this record to the repository (merge commit {full}) |\n"
-        f"| `mode_classification_attestation` | {attest_cell} |\n"
-        "| `seal_algorithm` | SHA-256 |\n"
-        "| `seal_hash` | " + "0" * 64 + " |\n"
-    )
+    def closing_rows(signed):
+        attest_cell = "<br>".join([
+            f"attestor_full_name: {attest['attestor_full_name']}",
+            f"attestor_role_title: {attest['attestor_role_title']}",
+            f"attestor_employer: {attest['attestor_employer']}",
+            f"attestation_timestamp: {merged_at}",
+            f"jurisdiction: {attest['jurisdiction']}",
+            f"attestation_language_version: {attest['attestation_language_version']}",
+            f"attestation_text_signed: {signed}",
+            f"attestor_capacity: {attest['attestor_capacity']}",
+        ])
+        before_redecision = (
+            f"| `closed_at` | {merged_at} |\n"
+            f"| `accountable_owner_signoff` | signed_by: {signoff['signed_by']}<br>signed_at: {merged_at} |\n"
+        )
+        after_related = (
+            f"| `affirmation_record` | timestamp: {merged_at}<br>actor_identity: {affirm['actor_identity']}<br>"
+            f"method: merge of pull request #{a.pr}, which added this record to the repository (merge commit {full}) |\n"
+            f"| `mode_classification_attestation` | {attest_cell} |\n"
+            "| `seal_algorithm` | SHA-256 |\n"
+            "| `seal_hash` | " + "0" * 64 + " |\n"
+        )
+        return before_redecision, after_related
 
     closed_now = {}
     for i in a.ids:
@@ -162,6 +182,13 @@ def main():
         t = b.decode("utf-8")
         if t.count("| `record_state` | drafted |\n") != 1 or any(f"| `{k}` |" in t for k in CLOSING):
             fail(f"{rel} is not a drafted record without closing rows")
+        cid = charter_id(t)
+        signed = text_for(text, src_charter, cid)
+        if signed is None:
+            fail(f"{rel} names no charter_id to put in the signed text")
+        print(f"{rel}: Charter {cid}; signed text {len(signed)} characters, "
+              f"sha256 {hashlib.sha256(signed.encode('utf-8')).hexdigest()}")
+        before_redecision, after_related = closing_rows(signed)
         m1 = re.search(r"^\| `re_decision_trigger` \|", t, re.M)
         m2 = re.search(r"^\| `related_decisions` \|.*\n", t, re.M)
         if not m1 or not m2:
