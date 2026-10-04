@@ -24,6 +24,6 @@ The fields follow the order of Standard §3.2. Where a value is a list, or has n
 | `closed_at` | 2026-10-04T11:30:19Z |
 | `charter_state` | closed (the §3.3 lifecycle state; subsumed by the successor Charter dps-text-authoring-2) |
 
-Records made under this Charter are listed in [README.md](README.md). This is the Charter's first version; any change to it is made by a Charter-amendment record.
+Records made under this Charter are listed in [README.md](README.md). Its one change since its first version is its closing, by Charter-amendment record DR-2026-0015.
 
-This Charter is closed. Charter-amendment record DR-2026-0015 adopted the successor Charter `dps-text-authoring-2` ([charter-2.md](charter-2.md)), which subsumes its decision class (Standard §3.3); no record is dispatched under this Charter after its `closed_at`.
+This Charter is closed. DR-2026-0015 adopted the successor Charter `dps-text-authoring-2` ([charter-2.md](charter-2.md)), which subsumes its decision class (Standard §3.3); no record is dispatched under this Charter after its `closed_at`.
