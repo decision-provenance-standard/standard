@@ -21,7 +21,9 @@ The fields follow the order of Standard §3.2. Where a value is a list, or has n
 | `conformance_level_declared` | 1 (a target, as §3.2 requires; see the header line) |
 | `disclosure_metadata_pointer` | The disclosure block in `governance/README.md`, which every record repeats |
 | `created_at` | 2026-09-28T04:22:20Z |
-| `closed_at` | null (not closed) |
-| `charter_state` | fields-completed (the §3.3 lifecycle state) |
+| `closed_at` | 2026-10-04T11:30:19Z |
+| `charter_state` | closed (the §3.3 lifecycle state; subsumed by the successor Charter dps-text-authoring-2) |
 
 Records made under this Charter are listed in [README.md](README.md). This is the Charter's first version; any change to it is made by a Charter-amendment record.
+
+This Charter is closed. Charter-amendment record DR-2026-0015 adopted the successor Charter `dps-text-authoring-2` ([charter-2.md](charter-2.md)), which subsumes its decision class (Standard §3.3); no record is dispatched under this Charter after its `closed_at`.
