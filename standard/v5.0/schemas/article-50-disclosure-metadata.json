@@ -16,14 +16,17 @@
     "declaring_authority": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["full_name", "role_title", "employer", "capacity"],
+      "anyOf": [
+        {"required": ["full_name"]},
+        {"required": ["employer"]}
+      ],
       "properties": {
         "full_name": {"type": "string", "description": "Legal name as on employment record"},
         "role_title": {"type": "string", "description": "Role title at attestation moment"},
         "employer": {"type": "string", "description": "Legal entity employing the declaring authority"},
         "capacity": {"type": "string", "enum": ["employee", "contractor", "officer", "director"]}
       },
-      "description": "The person who prepares the disclosure and the organization they act for (Standard §2.2.12, §4.6.2). Not the AI system; not the Charter."
+      "description": "The person who prepares the disclosure and the organization they act for (Standard §2.2.12, §4.6.2). A value that names only the person (full_name) or only the organization (employer) is valid; new records should name both. Not the AI system; not the Charter."
     },
     "ai_system_identity": {
       "type": "object",

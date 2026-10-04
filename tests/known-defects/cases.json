@@ -31,7 +31,7 @@
     },
     "KD-08": {
       "summary": "Sections 4.6.2 and 2.2.12 accept a declaring authority that names only the person or only the organization; the disclosure schema's declaring_authority object requires a person's full_name, role_title and capacity and the employer, so a value that names only one of them is rejected.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-09": {
       "summary": "The reference Charter state machine requires a peer_reviewer_pool of at least 3 named individuals before fields-completed, and the Charter schema rejects any pool smaller than 3; the text (Sections 3.2 and 3.3) requires neither. The state-machine rule is prose and is not machine-checked here; the case covers the schema's pool size.",
