@@ -23,7 +23,7 @@
     },
     "KD-06": {
       "summary": "Disclosure block: the text requires 5 fields, the schema 7; the text's jurisdiction and content-type spellings (including other:<...>) are rejected.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-07": {
       "summary": "For mode-2 records the schema requires disclosure_metadata_pointer already at dispatched; the text requires it from drafted, and only for records within the §4.6 requirement.",
