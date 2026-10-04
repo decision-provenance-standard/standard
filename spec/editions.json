@@ -58,7 +58,7 @@
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "b7de91da4d2b2a7f8b0a9c69004ec436be86718d93772a81672784494ffd3e80"
+      "current_sha256": "de7e560e2625adec5aa8235fc42a49db0a9cac8618cc04620525debea1e11ef0"
     },
     {
       "id": "companion-A",
@@ -93,7 +93,7 @@
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
         }
       ],
-      "current_sha256": "676bd22cabf2ad14ff7bc05fe65538cc5f3208762d4e61d834d5e117dea64316"
+      "current_sha256": "1a8748a735177fceb069e40047ded6d0551ef981f40f07e8f5ead013ad1700e8"
     },
     {
       "id": "companion-B",
