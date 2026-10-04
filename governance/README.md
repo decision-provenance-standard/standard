@@ -29,6 +29,12 @@ Every record under either Charter is listed here by id, type, state and date; ea
 | [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | closed | 2026-09-28T13:35:53Z | v1.2 is a minor release | `v1.2-rev10` |
 | [DR-2026-0014](decisions/DR-2026-0014-disclosure-review-at-v1.2.md) | disclosure_review | drafted | 2026-09-28T14:23:25Z | Disclosure review at the v1.2 release |  |
 | [DR-2026-0015](decisions/DR-2026-0015-successor-charter-and-first-charter-closed.md) | charter_amendment | drafted | 2026-10-04T11:30:18Z | The successor Charter, and the first Charter closed |  |
+| [DR-2026-0016](decisions/DR-2026-0016-disclosure-pointer-check-and-the-compatibility-promise.md) | decision | drafted | 2026-10-04T11:30:20Z | The disclosure pointer check at Level 2, and the compatibility promise |  |
+| [DR-2026-0017](decisions/DR-2026-0017-a-schedule-may-list-record-types-not-yet-produced.md) | decision | drafted | 2026-10-04T11:30:21Z | A schedule may list record types not yet produced |  |
+| [DR-2026-0018](decisions/DR-2026-0018-escalation-without-a-higher-forum.md) | decision | drafted | 2026-10-04T11:30:22Z | Escalation when a Charter has no higher forum |  |
+| [DR-2026-0019](decisions/DR-2026-0019-readers-obligations-become-recommendations.md) | decision | drafted | 2026-10-04T11:30:23Z | Our own statements of readers' obligations become recommendations |  |
+| [DR-2026-0020](decisions/DR-2026-0020-v1.3-is-a-minor-release.md) | decision | drafted | 2026-10-04T11:30:24Z | v1.3 is a minor release |  |
+| [DR-2026-0021](decisions/DR-2026-0021-disclosure-review-at-v1.3.md) | disclosure_review | drafted | 2026-10-04T11:30:25Z | Disclosure review at the v1.3 release |  |
 
 Records DR-2026-0001 to DR-2026-0015 are under the first Charter, which is closed. Records from DR-2026-0016 on are under the successor, in its first version; any change to it is made by a Charter-amendment record listed here.
 
