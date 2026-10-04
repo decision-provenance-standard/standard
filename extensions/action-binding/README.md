@@ -1,0 +1,103 @@
+# Action binding
+
+| | |
+|---|---|
+| Extension | Action binding |
+| Version | 0.1.0 |
+| Status | Proposal. Not part of the Standard. |
+| Written against | Core v1.2, reading edition rev. 10 (tag `v1.2-rev10`), with reference files 5.1.2 (tag `ref-5.1.2`) |
+| Licences | This text: CC BY 4.0 ([LICENSE](../../LICENSE)). The schemas (`schemas/`) and the tests (`tests/`): Apache-2.0 ([LICENSES/Apache-2.0.txt](../../LICENSES/Apache-2.0.txt)) |
+
+This extension is for a decision that authorises an external action, such as a payment or a message to a third party. It says how to keep evidence that the action carried out is the action that was approved, and how a check of that evidence reports what it found. It adds two objects beside the decision record: an execution-evidence attachment and a verification report. It does not add a field to a decision record, and it does not change one.
+
+## Scope, and what this extension does not claim
+
+- The extension is optional. Its MUST, SHALL and SHOULD sentences bind only an implementation that says it uses action binding 0.1.0.
+- It does not change what a core field means or when it is required. Where this text and the Standard's text disagree, the Standard's text governs.
+- It says nothing about what any law requires. It sets no rule on how many people review an action, and no expected rate of rejections.
+- The records and the attachment remain input, not evidence. A matching digest shows that two stages name the same bytes. It does not show that the reviewer read them, that the action was right, or that the named person acted.
+- Using this extension makes no one "certified", "compliant" or "approved".
+
+## Core fields it reads
+
+| Core field | In the Standard | What the extension reads it for |
+|---|---|---|
+| `decision_id` | §6.2.1 | The record the attachment sits beside |
+| `drafting_authority` | §6.2 | Who proposed the action, when an AI worker drafted it |
+| `review_log` | §5.1(2), §6.2 | The reviewer, the time and the outcome the record states |
+| `affirmation_record` | §5.1(3), §5.2, §6.2 | The actor, time and method of an approval given by affirmation. They are the issuer's statements |
+
+The attachment refers to the record by `decision_id`. It is never inserted into the record. An action is usually carried out after the record is sealed, so the record's seal does not cover the attachment.
+
+## The attachment
+
+An attachment made under this extension:
+
+1. MUST identify the profile and its version (`dps-action-binding`, `0.1.0`) and the record it sits beside.
+2. MUST carry each action specification that is proposed, shown, approved, requested or attempted, with the SHA-256 digest of its exact bytes. The specification holds what is material: the operation, the target, the parameters, the input-version references and the applicable policy version. The deployer decides what else is material. Anything left out of the specification is not bound by the approval.
+3. MUST record these as separate stages, each with its own id and the issuer's time: the proposal (by an AI worker or a person), the review (with the digest of the specification shown), the outcome (`approved`, `rejected` or `escalated`), the authorised request, each recheck of the authorisation, each execution attempt, and each observed result.
+4. MUST bind an approval to the digest shown in the review it answers. An outcome answers one review and is given by the person who was shown the specification. A rejection or an escalation carries no approved digest, and MUST NOT be represented as an approval.
+5. MUST record the authority that an approval asserts. An approval covers one request unless it states a `request_limit`.
+6. MUST NOT let an approval carry over to a changed specification. Any change gives a new digest. The new digest needs a renewed review and approval, or a separately authorised change that names the earlier approval and carries its own authority.
+
+## The executor
+
+An executor that uses this extension:
+
+- MUST execute only a specification whose digest an approval or an authorised change binds, through a request that names that approval or change.
+- MUST recheck the authorisation before each attempt, and record the recheck. If the latest recheck does not authorise the action, for example because a permission was revoked after the approval, it MUST NOT attempt it. A retry is a new attempt, with its own recheck.
+- MUST give each request its own `request_id`, and MUST NOT run a second request with the same `request_id` as a new action.
+- MUST record an observed result for each attempt: `succeeded`, `failed` or `indeterminate`, with the basis of the observation. An attempt is not a completed action, and a result is never inferred from the attempt. When the outcome cannot be established, as after a timeout, the result is `indeterminate`.
+
+## The verifier and its report
+
+A verifier that uses this extension:
+
+- MUST check each specification's bytes against its digest, and report unavailable bytes as unavailable. It MUST check the statements the attachment makes outside the digest against those bytes where it can read them: the operation, the target, the policy version and the input-version references in the `summary`. Where it cannot read them, it reports them as not checked. A matching digest alone does not show that a specification is the action its summary names.
+- MUST check the stages' statements about core fields against the decision record, where it holds the record: the `decision_id`, an AI proposer against `drafting_authority`, and an outcome against the `affirmation_record` or the `review_log` entry it names. Otherwise it reports them as not checked.
+- MUST check that the shown, approved, requested and attempted digests agree, or are joined by an authorised change; that each stage comes after the stages it names; that no request rests on a rejection or an escalation; that no `request_id` is used twice and no approval covers more requests than it states; that each attempt follows an authorising recheck; and that each attempt has exactly one result. Times are the issuer's, and the report says so.
+- MUST give exactly one result for each attachment, with its index and its `decision_id`, and state the attachment count. Within each result it gives one result for each specification and carries through the observed result of each attempt, reporting a missing result as missing. JSON Schema cannot compare two documents, so a reader holding both checks this; the test runner does.
+- MUST report each check as a separate dimension, and MUST NOT merge them into one pass, fail or compliance result. It keeps `not_checked`, `unavailable` and `not_supported` explicit, and states the scope of its conclusion. That scope never includes what the reviewer actually saw: the report shows only which digest the attachment says was shown.
+
+## Separate assertions
+
+Four statements are reported separately. None stands for another.
+
+- **Human identity.** A stage's `actor_ref` is the issuer's statement of who acted. The report records identity as verified only against an independent source it names.
+- **Organisational authority.** The authority an approval asserts. The report records it as verified only against an independent source, such as the permission system the executor rechecked.
+- **Issuer signature.** A signature over the attachment attests that the issuer recorded these claims. It does not show that the named person reviewed anything, or that the claims are true.
+- **Legal signature.** An outcome may reference one (`legal_signature_ref`). Whether a signature has legal effect is outside this extension.
+
+## Rationale provenance
+
+Each outcome states when its rationale was recorded: `contemporaneous` (with the outcome, no later than its time), `later_supplemented`, or `not_recorded`. A recorded rationale also states whether it was drafted with AI assistance (`ai_assisted`). A later explanation MUST NOT be presented as contemporaneous. A verifier MUST compare the stated timing with the issuer's times. It cannot tell who wrote the text.
+
+## Decisions and telemetry
+
+The Core is not a real-time telemetry format, and it lets records reference traces kept elsewhere (§5.3). This extension keeps that line. The attachment records the stages of one reviewed action. Detailed machine traces MAY stay in another system, referenced by `trace_refs`. They MUST NOT be copied into the attachment, which is not a stream of machine events.
+
+## Relation to portable verification
+
+This extension reuses two definitions from [portable verification 0.1.0](../portable-verification/), by reference, and applies them to action specifications instead of records: exact bytes (item 3 of its export rules: the bytes that were hashed, unchanged) and the representation rule (item 5: the original bytes, or a canonical form named with a specification that fixes every byte). Both use SHA-256 in lowercase hex. Nothing else is reused. Using action binding does not require using portable verification. A record exported under portable verification and its attachment are checked side by side, each under its own extension.
+
+## Files and tests
+
+| Path | What it is |
+|---|---|
+| `schemas/execution-evidence.schema.json` | The attachment (JSON Schema Draft 2020-12) |
+| `schemas/verification-report.schema.json` | The verification report |
+| `tests/cases.json` | The test cases, with their expected outcomes |
+| `tests/run_checks.py` | Runs the cases, with the standard library and `jsonschema` only |
+
+To run them from the repository root: `python extensions/action-binding/tests/run_checks.py`. The exit code is 0 when every case behaves as expected and 1 otherwise.
+
+- **Schema cases** change one thing in a valid attachment or report. Among the negative ones: an approval with no asserted authority, a rejection carrying an approved digest, an outcome given by default, an attempt with no recheck or reported as completed, a result inferred from the attempt, a rationale that does not state its timing, machine traces copied in, a key carried in the attachment, a merged verdict, and identity reported as verified on the issuer's word or because the attachment is signed. Two cases check that the fixture records are valid core records.
+- **Digest cases** use SHA-256 over exact bytes: a changed amount or destination is detected, and JSON that is equal but re-serialised does not match.
+- **Binding cases** run the reference check. They detect a shown, approved, requested or executed specification that differs from the one before it; a changed parameter, target or destination with no renewed approval; execution before approval, or after a rejection or an escalation; a rejection the record states, presented as an approval; a missing or refusing recheck; a permission revoked before the attempt; a missing result; a duplicate request; a rationale written later but presented as contemporaneous; and relabelled specifications. They accept a rejection without execution, an indeterminate result reported as such, a renewed approval and an authorised change. One case shows a signed attachment naming an unverified person: it passes, and the runner states that limitation.
+- **Pairing cases** read the report with its attachments. They detect a missing, duplicated or relabelled result, a wrong count, a specification without a result, an observed result or execution state not carried through as recorded, and a dimension reported as verified that the reference check does not verify.
+
+The cases include no signature. A signature suite and signature vectors across languages are future work.
+
+## Credit
+
+Proposed by Laurent Lemonnier, iSoluce (CR-004). Prepared with AI assistance and reviewed by Laurent. The shape of this extension was agreed in issue #21.
