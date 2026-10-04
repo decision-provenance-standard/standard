@@ -79,7 +79,7 @@ A Charter grades at Level 1 when, and only when, every Level 1 criterion below i
 | `record_location` resolves to a durable surface | Section 3 §3.2; Section 6 §6.4 | The Charter's index that enumerates the schedule of records resolves and is queryable by record-type and by date range at minimum |
 | `accountable_owner` names one human | Section 3 §3.2 | A person, not a role, team, or organizational unit; one and only one |
 | `re_decision_triggers` meets two-class minimum | Section 3 §3.2 | At least one outcome-evidence trigger and one market-evidence trigger |
-| `escalation_rule` populated with a named, exact trigger | Section 3 §3.2 | A pre-declared condition that elevates a decision out of the Charter's standing forum; not "when it feels stuck" |
+| `escalation_rule` populated with a named, exact trigger | Section 3 §3.2 | A pre-declared condition that elevates a decision out of the Charter's standing forum; not "when it feels stuck". Where the Charter has no higher forum, a rule that, when the condition is met, makes the outcome public or has it reviewed by someone other than the person who decided also meets this criterion (§3.2) |
 
 A Charter satisfying every criterion above is Charter-conformant against this Standard at the Charter altitude. The grade is a structured fact about field population read off the Charter state at the moment the reporter runs.
 
