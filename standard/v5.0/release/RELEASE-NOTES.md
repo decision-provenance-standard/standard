@@ -6,7 +6,7 @@
 
 ---
 
-## Release 5.2.0 (<RELEASE-DATE>), with version 1.3 of the text (reading edition rev. 11)
+## Release 5.2.0 (2026-10-05), with version 1.3 of the text (reading edition rev. 11)
 
 A minor release (DR-2026-0020 in the repository's `governance/decisions/`). The reference files now accept what the text accepts. Of the eleven differences between the text and the files listed at release 5.1.2, ten are fixed; KD-01 stays open.
 

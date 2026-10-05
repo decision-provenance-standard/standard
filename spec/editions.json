@@ -56,9 +56,18 @@
           "published_name": "decision-provenance-standard-v1.2-rev10-core.md",
           "page_name": "dps-v1.2-rev10-core.html",
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
+        },
+        {
+          "revision": "v1.3 rev. 11",
+          "tag": "v1.3-rev11",
+          "sha256": "c300039e6ce09acb6259105790fd46d65ae460294f479f9989b55861dc8bc49d",
+          "bytes": 280040,
+          "published_name": "decision-provenance-standard-v1.3-rev11-core.md",
+          "page_name": "dps-v1.3-rev11-core.html",
+          "bundle_name": "decision-provenance-standard-v1.3-rev11-bundle.zip"
         }
       ],
-      "current_sha256": "0ed1823ec9a12c1da734ef8734f8ff4b1f6a292474e778b87843f53ec8f1d774"
+      "current_sha256": "c300039e6ce09acb6259105790fd46d65ae460294f479f9989b55861dc8bc49d"
     },
     {
       "id": "companion-A",
@@ -91,6 +100,15 @@
           "published_name": "decision-provenance-standard-v1.2-rev10-companion-A-regulatory-cross-reference.md",
           "page_name": "dps-v1.2-rev10-companion-A.html",
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
+        },
+        {
+          "revision": "v1.3 rev. 11",
+          "tag": "v1.3-rev11",
+          "sha256": "e634982689b84fb89d355151d4f4d0d3d88eaecefb6b725b4e0401afa08d681d",
+          "bytes": 80679,
+          "published_name": "decision-provenance-standard-v1.3-rev11-companion-A-regulatory-cross-reference.md",
+          "page_name": "dps-v1.3-rev11-companion-A.html",
+          "bundle_name": "decision-provenance-standard-v1.3-rev11-bundle.zip"
         }
       ],
       "current_sha256": "e634982689b84fb89d355151d4f4d0d3d88eaecefb6b725b4e0401afa08d681d"
@@ -126,6 +144,15 @@
           "published_name": "decision-provenance-standard-v1.2-rev10-companion-B-worked-charter-library.md",
           "page_name": "dps-v1.2-rev10-companion-B.html",
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
+        },
+        {
+          "revision": "v1.3 rev. 11",
+          "tag": "v1.3-rev11",
+          "sha256": "dd2dfb5e15d759df6f34b640893e4d51f0a79d67374edbe64497ba8dc69550fb",
+          "bytes": 61793,
+          "published_name": "decision-provenance-standard-v1.3-rev11-companion-B-worked-charter-library.md",
+          "page_name": "dps-v1.3-rev11-companion-B.html",
+          "bundle_name": "decision-provenance-standard-v1.3-rev11-bundle.zip"
         }
       ],
       "current_sha256": "dd2dfb5e15d759df6f34b640893e4d51f0a79d67374edbe64497ba8dc69550fb"
@@ -161,6 +188,15 @@
           "published_name": "decision-provenance-standard-v1.2-rev10-companion-C-implementation-guidance.md",
           "page_name": "dps-v1.2-rev10-companion-C.html",
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
+        },
+        {
+          "revision": "v1.3 rev. 11",
+          "tag": "v1.3-rev11",
+          "sha256": "1e1691e327b42b7e9de9806047cf43367af50df892ac8cef7422309a6e42122e",
+          "bytes": 31872,
+          "published_name": "decision-provenance-standard-v1.3-rev11-companion-C-implementation-guidance.md",
+          "page_name": "dps-v1.3-rev11-companion-C.html",
+          "bundle_name": "decision-provenance-standard-v1.3-rev11-bundle.zip"
         }
       ],
       "current_sha256": "1e1691e327b42b7e9de9806047cf43367af50df892ac8cef7422309a6e42122e"
@@ -196,6 +232,15 @@
           "published_name": "decision-provenance-standard-v1.2-rev10-companion-D-diagrams.md",
           "page_name": "dps-v1.2-rev10-companion-D.html",
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
+        },
+        {
+          "revision": "v1.3 rev. 11",
+          "tag": "v1.3-rev11",
+          "sha256": "eeaa669722697ffb76173b631524a41a2a527278814a9491858f0b5e0a058b21",
+          "bytes": 24820,
+          "published_name": "decision-provenance-standard-v1.3-rev11-companion-D-diagrams.md",
+          "page_name": "dps-v1.3-rev11-companion-D.html",
+          "bundle_name": "decision-provenance-standard-v1.3-rev11-bundle.zip"
         }
       ],
       "current_sha256": "eeaa669722697ffb76173b631524a41a2a527278814a9491858f0b5e0a058b21"
@@ -231,6 +276,15 @@
           "published_name": "decision-provenance-standard-v1.2-rev10-appendix-G-governance-and-references.md",
           "page_name": "dps-v1.2-rev10-appendix-G.html",
           "bundle_name": "decision-provenance-standard-v1.2-rev10-bundle.zip"
+        },
+        {
+          "revision": "v1.3 rev. 11",
+          "tag": "v1.3-rev11",
+          "sha256": "57aca3fc304c93b6bf6d7c76f1d04c1db3801e8e56e686e7b5ea2dbadf29fbee",
+          "bytes": 56881,
+          "published_name": "decision-provenance-standard-v1.3-rev11-appendix-G-governance-and-references.md",
+          "page_name": "dps-v1.3-rev11-appendix-G.html",
+          "bundle_name": "decision-provenance-standard-v1.3-rev11-bundle.zip"
         }
       ],
       "current_sha256": "57aca3fc304c93b6bf6d7c76f1d04c1db3801e8e56e686e7b5ea2dbadf29fbee"

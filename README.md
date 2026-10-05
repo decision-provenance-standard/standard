@@ -4,7 +4,7 @@ An open standard for audit-ready provenance of consequential decisions made by h
 
 **Website:** https://decisionprovenancestandard.org
 
-> The current release is version 1.3 (reading edition rev. 11), tag `v1.3-rev11`, released <RELEASE-DATE>, with reference files 5.2.0. Versions 1.2 (rev. 10, tag `v1.2-rev10`), 1.1 (rev. 9, tag `v1.1-rev9`) and 1.0 (rev. 8, tag `rev8-published`) stay available unchanged. Between releases, `main` may carry corrections not yet released: cite a release, not `main`.
+> The current release is version 1.3 (reading edition rev. 11), tag `v1.3-rev11`, released 2026-10-05, with reference files 5.2.0. Versions 1.2 (rev. 10, tag `v1.2-rev10`), 1.1 (rev. 9, tag `v1.1-rev9`) and 1.0 (rev. 8, tag `rev8-published`) stay available unchanged. Between releases, `main` may carry corrections not yet released: cite a release, not `main`.
 
 The published text is on the website. Its source and proposed corrections live here. Only a tagged release changes the Standard.
 
@@ -52,7 +52,7 @@ Licenses differ by folder. Text (`spec/`, `governance/`, and the other documenta
 
 ## Release notes
 
-### Version 1.3 (reading edition rev. 11), with reference files 5.2.0, released <RELEASE-DATE>
+### Version 1.3 (reading edition rev. 11), with reference files 5.2.0, released 2026-10-05
 
 **A minor release.** The Steward classifies version 1.3, with reference files 5.2.0, as a minor release ([DR-2026-0020](governance/decisions/DR-2026-0020-v1.3-is-a-minor-release.md)). No record or Charter valid under v1.2 (rev. 10) becomes invalid, and no field, allowed value or signal is renamed or removed. One signal is added, for a requirement v1.2 already stated.
 
