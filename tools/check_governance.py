@@ -1,16 +1,24 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Governance records check: the Charter and the decision records in governance/ are well-formed.
+"""Governance records check: the Charters and the decision records in governance/ are well-formed.
 
-1. Schema check: render charter.md and each record to JSON from the Markdown itself, and validate it
+The Charters are governance/charter.md and every governance/charter-*.md (a successor Charter sits next to
+the one it replaces). Charter ids must be unique, and each record is checked against the Charter its
+charter_id names.
+
+1. Schema check: render each Charter and each record to JSON from the Markdown itself, and validate it
    with the reference schemas in standard/v5.0/ (the same registry build as tests/known-defects/run_checks.py).
    Disclosure blocks are validated against the disclosure schema; every error must fall in one of the
-   categories listed below (the ones governance/README.md describes), and every category must occur.
-2. Field-list check against the text: the Charter against §3.2 (at fields-completed); each record against
-   §6.2.1 to §6.2.3 (at drafted), plus, for a closed record, the closing fields governance/README.md defines:
+   categories listed below (the ones governance/README.md describes). A category that belongs to a known
+   defect follows that defect's status in tests/known-defects/cases.json: it must occur while the defect is
+   open, and must not occur once it is fixed. A category that belongs to no known defect must occur.
+2. Field-list check against the text: each Charter against §3.2 (at fields-completed; closed_at is null unless
+   the Charter is closed); each record against §6.2.1 to §6.2.3 (at drafted) and against its own Charter
+   (owner, decision class, mode; dispatched while that Charter was open), with a review_log on every record
+   under any Charter but the first; plus, for a closed record, the closing fields governance/README.md defines:
    the merge named in the record is on main's first-parent history, was made by the account the affirmation
    names, and added the record; nothing but the closing fields and record_state changed since that merge; the
-   seal recomputes; and the Steward's fixed values (the signed attestation text and the affirming account) are
-   the same as in the first closed record.
+   seal recomputes; and the Steward's fixed values are those of the first closed record: the same affirming
+   account, and the same signed attestation text with only the Charter id changed to the record's own.
 3. Release check: for every release tag spec/editions.json lists, every record in governance/decisions/ at that
    tag still exists; a record closed at that tag is byte-identical today; a record drafted at that tag is
    identical today, or identical once its closing rows are removed. A listed tag may be missing only if it is the
@@ -61,6 +69,11 @@ CHARTER_HEADER = ("> Affiliated: the Standard's own use of itself by its Steward
                   "declaration. Etsion Brands is not listed as an adopter.")
 CLOSING = ("Carried because this Standard requires it for AI-drafted records; this says nothing about whether "
            "any law applies.")
+
+# The first Charter. Its records DR-2026-0001 to DR-2026-0007 were affirmed without a review_log and are never
+# edited (governance/README.md), so it is the one Charter whose records are not all required to carry one.
+# Every other Charter, now or later, is held to the text's field (Standard §6.2.3).
+FIRST_CHARTER = "dps-text-authoring"
 
 ROW = re.compile(r"^\| `([a-z0-9_\-]+)` \| (.*) \|\s*$")
 DUPLICATES = []  # (file, field, line) for a field row that appears twice in one section
@@ -198,6 +211,29 @@ def classify(e):
     return None
 
 
+# Each category above, and the known defect in tests/known-defects/cases.json it belongs to. While that defect
+# is open its category must occur; once it is fixed, it must not (so a fix that is only partly made fails).
+# None: no known defect. The records write these two fields as the text's plain values where the schema has an
+# object (governance/README.md, "Plain values"); that shape difference stays whatever the schema's object
+# requires inside, so these categories must always occur, or the README's description has gone stale.
+CATEGORY_KD = {
+    "KD-06: schema requires disclosure_text_pointer (text has 5 fields)": "KD-06",
+    "KD-06: schema requires attached_at (text has 5 fields)": "KD-06",
+    "KD-06: text's jurisdiction spelling rejected": "KD-06",
+    "Plain value: declaring_authority written as the text's plain value": None,
+    "Plain value: ai_system_identity written as the text's plain value": None,
+}
+
+
+def defect_status():
+    """{defect id: status} from tests/known-defects/cases.json ({} if it cannot be read)."""
+    try:
+        data = json.loads((ROOT / "tests" / "known-defects" / "cases.json").read_text(encoding="utf-8"))
+        return {k: v.get("status") for k, v in data["defects"].items()}
+    except (OSError, ValueError, KeyError, AttributeError):
+        return {}
+
+
 # ---------------------------------------------------------------- field-list check (the text)
 CHARTER_FIELDS = [  # §3.2: field, required-at-state
     ("charter_id", "open"), ("charter_name", "open"), ("decision_class", "open"), ("accountable_owner", "open"),
@@ -249,40 +285,48 @@ class Report:
             self.fails.append(f"{fname}: {field} ({note})")
 
 
-def field_check_charter(rep, path, f, lines, charter, record_files):
+def field_check_charter(rep, path, f, lines, charter, record_files, all_files):
+    """One Charter. record_files: the records whose charter_id names it; all_files: every record file name."""
     fn = path.name
     rep.row(fn, "(header line)", CHARTER_HEADER in lines, f"{fn}:{lines.index(CHARTER_HEADER)+1 if CHARTER_HEADER in lines else '-'}")
     main = f["main"]
+    w = lambda k: f"{fn}:{main[k][1]}" if k in main else "-"
+    closed = charter.get("charter_state") == "closed"
     for field, state in CHARTER_FIELDS:
         ok = field in main
         where = f"{fn}:{main[field][1]}" if ok else "-"
         note = f"§3.2, required at {state}"
         if ok and field == "closed_at":
-            ok = charter["closed_at"] is None
-            note += "; null (not closed)"
+            ca = charter["closed_at"]
+            if closed:  # §3.3: a closed Charter records when it closed; no record may be dispatched under it after
+                ok = iso_utc(ca or "") and ca >= charter.get("created_at", "")
+                note += f"; charter_state is closed, so a UTC time not before created_at ({ca})"
+            else:
+                ok = ca is None
+                note += "; null (not closed)"
         rep.row(fn, field, ok, where, note)
     # content rules the text sets on those fields
     ao = charter.get("accountable_owner", {})
     rep.row(fn, "  accountable_owner = one named human", bool(ao.get("full_name")) and "," not in ao.get("full_name", ","),
-            f"{fn}:{main['accountable_owner'][1]}", ao.get("full_name", ""))
+            w("accountable_owner"), ao.get("full_name", ""))
     rep.row(fn, "  mode_declaration enum", charter.get("mode_declaration") in ("mode-1", "mode-2", "mode-1-with-embedded-mode-2-summary"),
-            f"{fn}:{main['mode_declaration'][1]}", charter.get("mode_declaration", ""))
+            w("mode_declaration"), charter.get("mode_declaration", ""))
     kinds = [t["trigger_type"] for t in charter.get("re_decision_triggers", [])]
     rep.row(fn, "  re_decision_triggers: outcome + market", "outcome_evidence" in kinds and "market_evidence" in kinds,
-            f"{fn}:{main['re_decision_triggers'][1]}", ", ".join(kinds))
+            w("re_decision_triggers"), ", ".join(kinds))
     sched = " | ".join(charter.get("schedule_of_records", []))
     missing = [t for t in SCHEDULE_TYPES if t not in sched]
     rep.row(fn, "  schedule_of_records: 5 record types (§6.3.1, §7.2.1)", not missing,
-            f"{fn}:{main['schedule_of_records'][1]}", "missing " + ", ".join(missing) if missing else "all 5")
+            w("schedule_of_records"), "missing " + ", ".join(missing) if missing else "all 5")
     rep.row(fn, "  schedule_of_records: retention per type (§6.4.2)", "Retention, for every record type" in sched,
-            f"{fn}:{main['schedule_of_records'][1]}", "declared as 'permanent'")
+            w("schedule_of_records"), "declared as 'permanent'")
     rep.row(fn, "  conformance_level_declared in {1,2,3}", charter.get("conformance_level_declared") in (1, 2, 3),
-            f"{fn}:{main['conformance_level_declared'][1]}", str(charter.get("conformance_level_declared")))
-    rep.row(fn, "  created_at ISO 8601 UTC", iso_utc(charter.get("created_at", "")), f"{fn}:{main['created_at'][1]}", charter.get("created_at", ""))
+            w("conformance_level_declared"), str(charter.get("conformance_level_declared")))
+    rep.row(fn, "  created_at ISO 8601 UTC", iso_utc(charter.get("created_at", "")), w("created_at"), charter.get("created_at", ""))
     # record_location resolves to an index listing every record by id, type, state and date (§6.3.2, §7.2.1)
     idx = ROOT / charter.get("record_location", "")
     idx_text = idx.read_text(encoding="utf-8") if idx.is_file() else ""
-    rep.row(fn, "  record_location resolves (index file exists)", idx.is_file(), f"{fn}:{main['record_location'][1]}", charter.get("record_location", ""))
+    rep.row(fn, "  record_location resolves (index file exists)", idx.is_file(), w("record_location"), charter.get("record_location", ""))
     for rf, rec in record_files:
         pat = re.compile(r"^\| \[" + re.escape(rec["decision_id"]) + r"\]\(decisions/" + re.escape(rf.name) + r"\) \| "
                          + re.escape(rec["record_type"]) + r" \| " + re.escape(rec["record_state"]) + r" \| "
@@ -291,8 +335,10 @@ def field_check_charter(rep, path, f, lines, charter, record_files):
                 "README.md", "")
     listed = set(re.findall(r"^\| \[DR-\d{4}-\d+\]\(decisions/([^)]+)\)", idx_text, re.M))
     files = {rf.name for rf, _ in record_files}
-    rep.row(fn, "  every index row links an existing record, and every record is in the index", listed == files,
-            "README.md", ", ".join(sorted(listed ^ files)) or f"{len(files)} records")
+    # Charters may share one index, so a row may belong to another Charter; it must still link a record.
+    odd = sorted((listed - set(all_files)) | (files - listed))
+    rep.row(fn, "  every index row links an existing record, and every record under this Charter is in the index",
+            not odd, "README.md", ", ".join(odd) or f"{len(files)} records")
     # §3.1 conditional fields
     below_exec = [r["decision_id"] for _, r in record_files if r.get("altitude") != "executive"]
     rep.row(fn, "  use_case_scope_limit_declaration (§3.1)", not below_exec, "-",
@@ -379,6 +425,16 @@ SEALED_AT = sealed_at_column()
 PIN = {}  # the Steward's fixed values, from the first closed record
 
 
+def signed_text_for(charter_id):
+    """The signed attestation text for a record under charter_id: the first closed record's text with its own
+    Charter id, which it must name exactly once, replaced by charter_id. The Steward approved the same text with
+    only the Charter id changed; tools/close_record.py writes it the same way. None if it cannot be derived."""
+    pat = r"(?<![\w-])" + re.escape(PIN["charter_id"]) + r"(?![\w-])"
+    if not PIN["charter_id"] or len(re.findall(pat, PIN["text"])) != 1:
+        return None
+    return re.sub(pat, lambda _: charter_id, PIN["text"])
+
+
 def unclose(data):
     """A closed record's bytes with the closing rows removed and record_state set back to drafted."""
     text = data.decode("utf-8")
@@ -446,9 +502,15 @@ def closed_record_checks(rep, path, f, lines, rec, w):
             txt.startswith(f"I, {ao['full_name']},") and len(txt) >= 200 and "mode-2" in txt and "accurately reflects" in txt,
             w("mode_classification_attestation"), f"{len(txt)} chars")
     if not PIN:
-        PIN.update(text=txt, actor=ar.get("actor_identity", ""), source=fn)
-    rep.row(fn, f"  signed attestation text and affirming account = those in {PIN['source']}",
-            txt == PIN["text"] and ar.get("actor_identity", "") == PIN["actor"], w("mode_classification_attestation"))
+        PIN.update(text=txt, actor=ar.get("actor_identity", ""), source=fn, charter_id=g("charter_id", ""))
+    expected = signed_text_for(g("charter_id", ""))
+    src = PIN["source"][:12]
+    rep.row(fn, f"  affirming account = {src}'s", ar.get("actor_identity", "") == PIN["actor"],
+            w("affirmation_record"), ar.get("actor_identity", ""))
+    rep.row(fn, f"  signed attestation text = {src}'s, with only the Charter id changed to the record's",
+            expected is not None and txt == expected, w("mode_classification_attestation"),
+            f"Charter {g('charter_id', '')}" if expected is not None
+            else f"{src}'s text does not name its Charter id {PIN['charter_id']!r} exactly once")
     rep.row(fn, "  attestation: IL, v1.0, director",
             (at.get("jurisdiction"), at.get("attestation_language_version"), at.get("attestor_capacity")) == ("IL", "v1.0", "director"),
             w("mode_classification_attestation"))
@@ -518,7 +580,8 @@ def release_checks(rep, rec_paths):
                         cur == then or (b"| `record_state` | closed |" in cur and unclose(cur) == then), "git")
 
 
-def field_check_record(rep, path, f, lines, rec, charter, all_ids):
+def field_check_record(rep, path, f, lines, rec, charters, all_ids):
+    """One record; charters: {charter_id: rendered Charter}."""
     fn = path.name
     main = f["main"]
     rep.row(fn, "(header line)", RECORD_HEADER in lines, f"{fn}:{lines.index(RECORD_HEADER)+1 if RECORD_HEADER in lines else '-'}")
@@ -527,6 +590,10 @@ def field_check_record(rep, path, f, lines, rec, charter, all_ids):
         rep.row(fn, field, ok, f"{fn}:{main[field][1]}" if ok else "-", f"{src}, required at {state}")
     g = rec.get
     w = lambda k: f"{fn}:{main[k][1]}" if k in main else "-"
+    charter = charters.get(g("charter_id"))
+    if charter is not None and charter["charter_id"] != FIRST_CHARTER:
+        rep.row(fn, "  review_log present (required on every record under this Charter; Standard §6.2.3)",
+                "review_log" in main, w("review_log"), f"Charter {charter['charter_id']}")
     if "review_log" in main:
         entries = rec.get("review_log") or []
         good = bool(entries) and all(set(e) == {"reviewer", "reviewed_at", "outcome"} and e["reviewer"].strip()
@@ -547,10 +614,20 @@ def field_check_record(rep, path, f, lines, rec, charter, all_ids):
     rep.row(fn, "  decision_id format DR-YYYY-NNN (3+ digits)", bool(re.fullmatch(r"DR-\d{4}-\d{3,}", g("decision_id", ""))),
             w("decision_id"), g("decision_id", "") + " (four digits on purpose)")
     rep.row(fn, "  decision_id matches file name", fn.startswith(g("decision_id", "@") + "-"), w("decision_id"))
-    rep.row(fn, "  charter_id = the Charter's", g("charter_id") == charter["charter_id"], w("charter_id"))
-    rep.row(fn, "  accountable_owner = the Charter's", g("accountable_owner") == charter["accountable_owner"], w("accountable_owner"))
-    rep.row(fn, "  decision_class inherited from the Charter", g("decision_class") == charter["decision_class"], w("decision_class"))
-    rep.row(fn, "  dispatch_mode = Charter mode", g("dispatch_mode") == charter["mode_declaration"], w("dispatch_mode"), g("dispatch_mode", ""))
+    rep.row(fn, "  charter_id names a Charter in governance/ (charter.md or charter-*.md)", charter is not None,
+            w("charter_id"), g("charter_id", ""))
+    if charter is not None:
+        rep.row(fn, "  accountable_owner = its Charter's", g("accountable_owner") == charter.get("accountable_owner"), w("accountable_owner"))
+        rep.row(fn, "  decision_class inherited from its Charter", g("decision_class") == charter.get("decision_class"), w("decision_class"))
+        rep.row(fn, "  dispatch_mode = its Charter's mode", g("dispatch_mode") == charter.get("mode_declaration"), w("dispatch_mode"), g("dispatch_mode", ""))
+        # §3.3: a record is dispatched under an open Charter. Closing a record later is not a new dispatch, so a
+        # record dispatched before its Charter closed may still be closed after it.
+        da, cc, cx = g("dispatched_at", ""), charter.get("created_at", ""), charter.get("closed_at")
+        if iso_utc(da) and iso_utc(cc):
+            rep.row(fn, "  dispatched_at not before its Charter's created_at", da >= cc, w("dispatched_at"), f"Charter created {cc}")
+        if iso_utc(da) and cx is not None:
+            rep.row(fn, "  dispatched_at not after its Charter's closed_at (no new dispatch under a closed Charter)",
+                    iso_utc(cx) and da <= cx, w("dispatched_at"), f"Charter closed {cx}")
     rep.row(fn, "  dispatched_at ISO 8601 UTC", iso_utc(g("dispatched_at", "")), w("dispatched_at"), g("dispatched_at", ""))
     rep.row(fn, "  created_at ISO 8601 UTC", iso_utc(g("created_at", "")), w("created_at"), g("created_at", ""))
     rep.row(fn, "  record_type enum", g("record_type") in ("decision", "re_decision", "escalation", "charter_amendment",
@@ -630,9 +707,15 @@ def main():
     print(f"jsonschema FormatChecker date-time: {fmt}\n")
 
     schema_fail = []
-    cpath = GOV / "charter.md"
-    cf, clines = parse(cpath)
-    charter = render_charter(cf)
+    cpaths = ([GOV / "charter.md"] if (GOV / "charter.md").is_file() else []) + sorted(GOV.glob("charter-*.md"))
+    if not cpaths:
+        print("FAIL: no Charter in governance/ (charter.md or charter-*.md)")
+        return 1
+    charters = []  # (path, parsed, lines, rendered), one per Charter file
+    for cpath in cpaths:
+        cf, clines = parse(cpath)
+        charters.append((cpath, cf, clines, render_charter(cf)))
+    print("Charters: " + ", ".join(f"{p.name} ({c.get('charter_id', '?')})" for p, _, _, c in charters))
     rec_paths = sorted((GOV / "decisions").glob("DR-*.md"))
     recs = []
     for p in rec_paths:
@@ -640,18 +723,20 @@ def main():
         recs.append((p, f, lines, render_record(f), render_disclosure(f)))
     if JSON_OUT:
         JSON_OUT.mkdir(parents=True, exist_ok=True)
-        (JSON_OUT / "charter.json").write_text(json.dumps(charter, indent=2, ensure_ascii=False), encoding="utf-8")
+        for cpath, _, _, charter in charters:
+            (JSON_OUT / (cpath.stem + ".json")).write_text(json.dumps(charter, indent=2, ensure_ascii=False), encoding="utf-8")
         for p, _, _, r, dj in recs:
             (JSON_OUT / (p.stem[:12] + ".json")).write_text(json.dumps(r, indent=2, ensure_ascii=False), encoding="utf-8")
             (JSON_OUT / (p.stem[:12] + ".disclosure.json")).write_text(json.dumps(dj, indent=2, ensure_ascii=False), encoding="utf-8")
 
     print("=== CHECK 1: schema validation (repo registry, Draft 2020-12) ===")
-    errs = errors(cs, reg, charter)
-    print(f"charter.md -> charter.schema.json: {'VALID' if not errs else 'INVALID'} ({len(errs)} errors)")
-    for e in errs:
-        print("   ", list(e.absolute_path), e.message[:150])
-    if errs:
-        schema_fail.append("charter.md")
+    for cpath, _, _, charter in charters:
+        errs = errors(cs, reg, charter)
+        print(f"{cpath.name} -> charter.schema.json: {'VALID' if not errs else 'INVALID'} ({len(errs)} errors)")
+        for e in errs:
+            print("   ", list(e.absolute_path), e.message[:150])
+        if errs:
+            schema_fail.append(cpath.name)
     seen_cats = set()
     l4 = schemas["standard/v5.0/mode-drift/layer-4-attestation.schema.json"]
     # The decision-record schema's $ref to the attestation schema cannot be resolved (KD-01), so a
@@ -695,24 +780,38 @@ def main():
                 seen_cats.add(c.split(":")[0] + ":" + c.split(":")[1])
         if unexpected:
             schema_fail.append(p.name + " disclosure (unexpected errors)")
-    expected_cats = {"KD-06: schema requires disclosure_text_pointer (text has 5 fields)",
-                     "KD-06: schema requires attached_at (text has 5 fields)",
-                     "KD-06: text's jurisdiction spelling rejected",
-                     "Plain value: declaring_authority written as the text's plain value",
-                     "Plain value: ai_system_identity written as the text's plain value"}
     got = {c for _, _, _, _, dj in recs for c in (classify(e) for e in errors(a50, reg, dj)) if c}
-    missing = expected_cats - got
-    print(f"Every README-listed disclosure category occurred: {'yes' if not missing else 'NO, missing ' + str(missing)}")
-    if missing:
-        schema_fail.append("disclosure categories not all observed")
+    status = defect_status()
+    print("Disclosure categories (each must occur, unless its known defect is fixed in tests/known-defects/cases.json):")
+    for cat, kd in CATEGORY_KD.items():
+        st = status.get(kd) if kd else None
+        if kd and st not in ("open", "fixed"):
+            ok, why = False, f"{kd} has status {st!r} in tests/known-defects/cases.json (open or fixed expected)"
+        elif st == "fixed":
+            ok, why = cat not in got, f"{kd} is fixed, so it must not occur: " + ("it does not" if cat not in got else "IT OCCURS")
+        else:
+            ok = cat in got
+            why = (f"{kd} is open" if kd else "no known defect; governance/README.md describes it") + \
+                  ", so it must occur: " + ("it does" if ok else "IT DOES NOT")
+        print(f"    [{'ok' if ok else 'FAIL'}] {cat}: {why}")
+        if not ok:
+            schema_fail.append(f"disclosure category [{cat}]: {why}")
     print("CHECK 1:", "PASS" if not schema_fail else "FAIL " + "; ".join(schema_fail))
 
     print("\n=== CHECK 2: field lists from the text (Charter §3.2 at fields-completed; records §6.2.1-§6.2.3 at drafted, plus the closing fields at closed) ===")
     rep = Report()
-    field_check_charter(rep, cpath, cf, clines, charter, [(p, r) for p, _, _, r, _ in recs])
+    cids = [c.get("charter_id", "") for _, _, _, c in charters]
+    dup = sorted({i for i in cids if cids.count(i) > 1})
+    rep.row("charters", "  each Charter file has its own charter_id", not dup, "-",
+            ("repeated: " + ", ".join(dup)) if dup else ", ".join(cids))
+    by_id = {c["charter_id"]: c for _, _, _, c in charters if c.get("charter_id") and c["charter_id"] not in dup}
+    all_files = [p.name for p, _, _, _, _ in recs]
+    for cpath, cf, clines, charter in charters:
+        field_check_charter(rep, cpath, cf, clines, charter,
+                            [(p, r) for p, _, _, r, _ in recs if r.get("charter_id") == charter.get("charter_id")], all_files)
     ids = [r["decision_id"] for _, _, _, r, _ in recs if "decision_id" in r]
     for p, f, lines, r, dj in recs:
-        field_check_record(rep, p, f, lines, r, charter, ids)
+        field_check_record(rep, p, f, lines, r, by_id, ids)
     release_checks(rep, [p for p, _, _, _, _ in recs])
     for fname, field, line in DUPLICATES:
         rep.row(fname, f"  the field row {field} appears only once", False, f"line {line}", "a repeated row")
