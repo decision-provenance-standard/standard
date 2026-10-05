@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-10-04T11:30:22Z |
 | `record_type` | decision |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-10-04T11:30:22Z |
 | `decision_statement` | Where a Charter has no higher forum, for example because its accountable owner decides alone, its escalation rule may now pair the exact trigger with what happens when it fires: the outcome is made public or is reviewed by someone other than the person who decided (§3.2, §7.2.1). A rule that elevates the decision to a higher forum stays valid, so this adds a way to meet the field and the Level 1 criterion and removes none. No record or Charter valid under v1.2 becomes invalid. |
 | `context_at_decision` | • §3.2 and §7.2.1 (v1.2) define the escalation rule as an exact trigger that elevates a decision out of the Charter's standing forum, and do not say what a Charter with no higher forum can do.<br>• The declaration kit's help for this criterion therefore told users to grade such a Charter "not sure".<br>• The Steward's own Charter is such a Charter: its rule names an exact trigger, and the Steward then publishes an escalation record stating the call and the reason.<br>• An escalation record carries the escalation owner's call and the named outcome (§6.3.1), so making it public, or having someone else review it, puts the outcome before people other than the decider. |
@@ -23,9 +23,15 @@
 | `review_log` | • reviewer: a fresh AI-drafted compatibility and records review of this pull request made for the Steward; reviewed_at: 2026-10-04T11:57:29Z; outcome: merge after changes, with its findings folded into the pull request before the merge |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring-2<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-10-04 |
+| `closed_at` | 2026-10-05T11:38:50Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-10-05T11:38:50Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue shows a Charter that used the added route although it had a higher forum, or an escalation whose outcome was neither made public nor reviewed; the Steward then clarifies the route in a later release and records it.<br>Market evidence: a second party joins the Steward in maintaining the Standard, which gives the Steward's own Charter a higher forum, or a standards body publishes a rule for escalation where there is no higher forum. |
 | `record_location` | `governance/decisions/DR-2026-0018-escalation-without-a-higher-forum.md` and, once released, at tag `v1.3-rev11` |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005<br>• DR-2026-0006<br>• DR-2026-0007<br>• DR-2026-0008<br>• DR-2026-0009<br>• DR-2026-0010<br>• DR-2026-0011<br>• DR-2026-0012<br>• DR-2026-0013<br>• DR-2026-0014<br>• DR-2026-0015<br>• DR-2026-0016<br>• DR-2026-0017 |
+| `affirmation_record` | timestamp: 2026-10-05T11:38:50Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #25, which added this record to the repository (merge commit 4567df661d085e44d2e67daeec891e1865b4952a) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-10-05T11:38:50Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring-2; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | 0a0fe6ba003acf1fa97ac248a8052fa4ab6751b87ff085aeeaf3a989058ccc0d |
 
 ## Disclosure block
 

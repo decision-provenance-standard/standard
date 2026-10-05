@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-10-04T11:30:18Z |
 | `record_type` | charter_amendment |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-10-04T11:30:18Z |
 | `decision_statement` | The Founding Steward closes the Charter `dps-text-authoring` by subsumption and adopts the successor Charter `dps-text-authoring-2` for the same decision class, with the same accountable owner, mode and target, and with a `review_log` on every record made under it (Standard §3.3). Records DR-2026-0001 to DR-2026-0015 stay under the first Charter, no record is dispatched under it after its `closed_at`, and every record from DR-2026-0016 on is made under the successor. The successor differs from the first Charter only where the text asks it to: its escalation rule uses the route §3.2 gives a Charter with no higher forum, and its retention is named as a period (§6.4.2). |
 | `context_at_decision` | • The first Charter cannot reach its target Level 1: records DR-2026-0001 to DR-2026-0007 were affirmed without a `review_log`, which the text requires from `reviewed` on (§6.2.3, §6.2.4), and an affirmed record is never edited.<br>• Standard §3.3 closes a Charter when its decision class is subsumed by another Charter; a successor is a new Charter with a new `charter_id`, and the records made under the closed Charter stay bound to it.<br>• v1.3 removes the §3.5 clause a new Charter could not meet (DR-2026-0017) and adds a way to meet the escalation rule for a Charter with no higher forum (DR-2026-0018); the first Charter's rule already makes the call public in an escalation record.<br>• The first Charter declared its retention as "permanent"; §6.4.2 asks for a specific duration or a named requirement and does not accept "indefinite", so the successor names a duration and still commits to keeping every record.<br>• DR-2026-0014, affirmed by the merge of the v1.2 release, is closed under the first Charter at the v1.3 release; closing a record is not a new dispatch. |
@@ -23,9 +23,15 @@
 | `review_log` | • reviewer: a fresh AI-drafted compatibility and records review of this pull request made for the Steward; reviewed_at: 2026-10-04T11:57:29Z; outcome: merge after changes, with its findings folded into the pull request before the merge |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-10-04 |
+| `closed_at` | 2026-10-05T11:38:50Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-10-05T11:38:50Z |
 | `re_decision_trigger` | Outcome evidence: a record is found dispatched under `dps-text-authoring` after its `closed_at`, or a record under `dps-text-authoring-2` without a `review_log`; the Steward then records a correcting record and fixes the check that missed it.<br>Market evidence: a second party joins the Steward in maintaining the Standard, which would give the successor a higher forum, or a reader reports that two Charters over one decision class are hard to follow. |
 | `record_location` | `governance/decisions/DR-2026-0015-successor-charter-and-first-charter-closed.md` and, once released, at tag `v1.3-rev11` |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005<br>• DR-2026-0006<br>• DR-2026-0007<br>• DR-2026-0008<br>• DR-2026-0009<br>• DR-2026-0010<br>• DR-2026-0011<br>• DR-2026-0012<br>• DR-2026-0013<br>• DR-2026-0014 |
+| `affirmation_record` | timestamp: 2026-10-05T11:38:50Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #25, which added this record to the repository (merge commit 4567df661d085e44d2e67daeec891e1865b4952a) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-10-05T11:38:50Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | 8bf3a26dd6f6b458e814cbb4b8428252ebcdccccc43f4ea6576e1d91b9470809 |
 
 ## Disclosure block
 
