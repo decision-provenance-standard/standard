@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisionprovenancestandard.org/extensions/action-binding/0.1.0/verification-report.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0. Action binding extension 0.1.0 (proposal), written against Core v1.2 rev. 10 and reference files 5.1.2. Binds only an implementation that says it uses this extension.",
+  "title": "Action binding verification report",
+  "description": "What a verifier found in a set of execution-evidence attachments, dimension by dimension, with the scope of its conclusion. There is deliberately no overall result: no dimension stands for the others, and nothing here is a legal conclusion or a Conformance Level.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["profile", "profile_version", "attachment_count", "trust_policy_ref", "results", "scope_of_conclusion"],
+  "properties": {
+    "profile": {"const": "dps-action-binding-report"},
+    "profile_version": {"const": "0.1.0"},
+    "attachment_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The number of attachments checked. The report has one result for each, and each attachment_index from 0 to this count minus 1 appears once. JSON Schema cannot compare two documents: a reader holding both checks it."
+    },
+    "trust_policy_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The trust policy the verifier configured independently of the attachments."
+    },
+    "results": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/result"}},
+    "scope_of_conclusion": {"$ref": "#/$defs/scope_of_conclusion"}
+  },
+  "$defs": {
+    "sha256_hex": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "status": {"enum": ["verified", "failed", "not_checked", "unavailable", "not_supported"]},
+    "findings": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "findings": {"$ref": "#/$defs/findings"}
+      }
+    },
+    "assurance": {
+      "description": "Identity, authority, time or legal signature. An issuer's own assertion, signed or not, is never reported as verified.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "basis"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "basis": {"enum": ["issuer_assertion", "independent_source"]},
+        "source_ref": {"type": "string", "minLength": 1},
+        "findings": {"$ref": "#/$defs/findings"}
+      },
+      "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+      "then": {"required": ["source_ref"], "properties": {"basis": {"const": "independent_source"}}}
+    },
+    "issuer_signature": {
+      "description": "A signature over the attachment. Verified, it attests only that the issuer recorded these claims.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "reference_source": {"enum": ["same_attachment", "trust_policy"], "description": "Where the key came from."},
+        "attests": {"const": "issuer_recorded_claims_only"},
+        "findings": {"$ref": "#/$defs/findings"}
+      },
+      "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+      "then": {"required": ["reference_source", "attests"], "properties": {"reference_source": {"const": "trust_policy"}}}
+    },
+    "specification_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec_index", "spec_digest", "digest", "statements"],
+      "properties": {
+        "spec_index": {"type": "integer", "minimum": 0, "description": "The position of the specification in the attachment, from 0."},
+        "spec_digest": {"$ref": "#/$defs/sha256_hex", "description": "The digest the attachment states for it."},
+        "digest": {"$ref": "#/$defs/check", "description": "The bytes against the stated digest."},
+        "statements": {"$ref": "#/$defs/check", "description": "The summary outside the digest, against the bytes."}
+      },
+      "if": {"properties": {"digest": {"properties": {"status": {"const": "unavailable"}}}}},
+      "then": {"properties": {"statements": {"properties": {"status": {"const": "not_checked"}}}}}
+    },
+    "observed_results": {
+      "description": "The observed result of each attempt, carried through as the attachment records it. A missing result is reported as missing.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "execution_state", "attempts"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "execution_state": {"enum": ["not_requested", "requested_not_attempted", "attempted"]},
+        "attempts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["attempt_stage_id", "observed"],
+            "properties": {
+              "attempt_stage_id": {"type": "string", "minLength": 1},
+              "observed": {"enum": ["succeeded", "failed", "indeterminate", "missing", "multiple"]}
+            }
+          }
+        },
+        "findings": {"$ref": "#/$defs/findings"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"execution_state": {"const": "attempted"}}, "required": ["execution_state"]},
+          "then": {"properties": {"attempts": {"minItems": 1}}},
+          "else": {"properties": {"attempts": {"maxItems": 0}}}
+        },
+        {
+          "if": {"properties": {"attempts": {"contains": {"properties": {"observed": {"enum": ["missing", "multiple"]}}}}}},
+          "then": {"properties": {"status": {"const": "failed"}}}
+        }
+      ]
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attachment_index",
+        "decision_id",
+        "structural_validity",
+        "specifications",
+        "record_statements",
+        "action_binding",
+        "stage_order",
+        "authorisation_recheck",
+        "observed_results",
+        "rationale_provenance",
+        "identity_assurance",
+        "authority_assurance",
+        "time_assurance",
+        "issuer_signature",
+        "legal_signature"
+      ],
+      "properties": {
+        "attachment_index": {"type": "integer", "minimum": 0, "description": "The position of this result's attachment in the input, from 0."},
+        "decision_id": {"type": "string", "pattern": "^DR-[0-9]{4}-[0-9]{3,}$", "description": "The decision_id the attachment states."},
+        "structural_validity": {"$ref": "#/$defs/check"},
+        "specifications": {
+          "description": "One result for each action specification in the attachment.",
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/specification_result"}
+        },
+        "record_statements": {"$ref": "#/$defs/check", "description": "The stages' statements about core fields, against the decision record; not_checked when the verifier does not hold it."},
+        "action_binding": {"$ref": "#/$defs/check", "description": "Shown, approved, requested and attempted digests agree, or are joined by an authorised change."},
+        "stage_order": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "time_basis"],
+          "properties": {
+            "status": {"$ref": "#/$defs/status"},
+            "time_basis": {"enum": ["issuer_assertion", "independent_source"], "description": "The times the order was checked against."},
+            "findings": {"$ref": "#/$defs/findings"}
+          }
+        },
+        "authorisation_recheck": {"$ref": "#/$defs/check"},
+        "observed_results": {"$ref": "#/$defs/observed_results"},
+        "rationale_provenance": {"$ref": "#/$defs/check"},
+        "identity_assurance": {"$ref": "#/$defs/assurance"},
+        "authority_assurance": {"$ref": "#/$defs/assurance"},
+        "time_assurance": {"$ref": "#/$defs/assurance"},
+        "issuer_signature": {"$ref": "#/$defs/issuer_signature"},
+        "legal_signature": {"$ref": "#/$defs/assurance"}
+      }
+    },
+    "scope_of_conclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["covers", "not_assessed"],
+      "properties": {
+        "covers": {"const": "supplied_attachments_only"},
+        "not_assessed": {
+          "description": "Every one of these, always.",
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 5,
+          "items": {
+            "enum": [
+              "legal_requirements",
+              "conformance_level",
+              "events_not_in_attachment",
+              "truth_of_recorded_claims",
+              "what_the_reviewer_saw"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

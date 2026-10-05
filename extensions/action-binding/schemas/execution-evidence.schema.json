@@ -1,0 +1,340 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://decisionprovenancestandard.org/extensions/action-binding/0.1.0/execution-evidence.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0. Action binding extension 0.1.0 (proposal), written against Core v1.2 rev. 10 and reference files 5.1.2. Binds only an implementation that says it uses this extension.",
+  "title": "Action binding: execution-evidence attachment",
+  "description": "Evidence that an external action was carried out as approved, kept beside one decision record. It refers to the record by decision_id and is never inserted into it. Every stage is the issuer's statement; the attachment does not show that a statement is true.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["profile", "profile_version", "decision_id", "action_specifications", "stages"],
+  "properties": {
+    "profile": {"const": "dps-action-binding"},
+    "profile_version": {"const": "0.1.0"},
+    "decision_id": {"$ref": "#/$defs/decision_id", "description": "The decision record this attachment sits beside (Core §6.2.1)."},
+    "action_specifications": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/action_specification"}
+    },
+    "stages": {
+      "description": "The stages in the order the issuer recorded them. Every attachment has at least one review and one outcome.",
+      "type": "array",
+      "items": {"$ref": "#/$defs/stage"},
+      "allOf": [
+        {"contains": {"properties": {"kind": {"const": "review"}}, "required": ["kind"]}},
+        {"contains": {"properties": {"kind": {"const": "outcome"}}, "required": ["kind"]}}
+      ]
+    },
+    "issuer_signature": {
+      "$ref": "#/$defs/signature",
+      "description": "The issuer's signature over the attachment. It attests that the issuer recorded these claims, not that they are true or that the named person acted."
+    }
+  },
+  "$defs": {
+    "sha256_hex": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "decision_id": {"type": "string", "pattern": "^DR-[0-9]{4}-[0-9]{3,}$"},
+    "ref": {"type": "string", "minLength": 1, "maxLength": 512, "pattern": "\\S"},
+    "stage_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$",
+      "description": "The issuer's time, RFC 3339. It is not independently trusted time."
+    },
+    "base64": {
+      "type": "string",
+      "minLength": 4,
+      "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+    },
+    "action_specification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spec_digest", "representation", "content", "summary"],
+      "properties": {
+        "spec_digest": {
+          "$ref": "#/$defs/sha256_hex",
+          "description": "SHA-256 of the exact bytes of the action specification, in lowercase hex. Every stage names a specification by this digest."
+        },
+        "representation": {"$ref": "#/$defs/representation"},
+        "content": {"$ref": "#/$defs/content"},
+        "summary": {
+          "description": "Statements outside the digest. A verifier checks them against the bytes where it can read them, and reports them as not checked otherwise.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["operation", "target", "policy_version", "input_version_refs"],
+          "properties": {
+            "operation": {"$ref": "#/$defs/ref"},
+            "target": {"$ref": "#/$defs/ref"},
+            "policy_version": {"$ref": "#/$defs/ref"},
+            "input_version_refs": {"type": "array", "items": {"$ref": "#/$defs/ref"}}
+          }
+        }
+      }
+    },
+    "representation": {
+      "description": "As for portable verification 0.1.0: the original bytes, or a canonical form fixed by a named specification.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "media_type"],
+          "properties": {
+            "kind": {"const": "original_bytes"},
+            "media_type": {"type": "string", "minLength": 1}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "media_type", "canonicalisation", "specification_ref"],
+          "properties": {
+            "kind": {"const": "canonical_form"},
+            "media_type": {"type": "string", "minLength": 1},
+            "canonicalisation": {"type": "string", "minLength": 1},
+            "specification_ref": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:\\S+$",
+              "description": "A reference to a specification that fixes every byte of the canonical form."
+            }
+          }
+        }
+      ]
+    },
+    "content": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["availability", "bytes_b64"],
+          "properties": {
+            "availability": {"const": "available"},
+            "bytes_b64": {"$ref": "#/$defs/base64", "description": "The exact bytes the digest covers, unchanged, in padded base64."}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["availability", "reason"],
+          "properties": {
+            "availability": {"const": "unavailable"},
+            "reason": {"enum": ["withheld", "retention_disposition", "redaction_event", "other"]},
+            "reason_ref": {"$ref": "#/$defs/ref"}
+          }
+        }
+      ]
+    },
+    "rationale": {
+      "description": "When the rationale was recorded, and whether AI helped draft it. contemporaneous: recorded with the outcome, no later than the outcome's time.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["timing"],
+      "properties": {
+        "timing": {"enum": ["contemporaneous", "later_supplemented", "not_recorded"]},
+        "ai_assisted": {"type": "boolean"},
+        "recorded_at": {"$ref": "#/$defs/timestamp"},
+        "text_ref": {"$ref": "#/$defs/ref"}
+      },
+      "if": {"properties": {"timing": {"const": "not_recorded"}}, "required": ["timing"]},
+      "then": {"not": {"anyOf": [{"required": ["ai_assisted"]}, {"required": ["recorded_at"]}, {"required": ["text_ref"]}]}},
+      "else": {"required": ["ai_assisted", "recorded_at"]}
+    },
+    "authority": {
+      "description": "The organisational authority the actor asserts. An assertion, not a verified fact.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_ref"],
+      "properties": {
+        "authority_ref": {"$ref": "#/$defs/ref"}
+      }
+    },
+    "core_ref": {
+      "description": "The core field of the decision record that records the same act: its actor, time and method (affirmation_record), or its reviewer, time and outcome (a review_log entry).",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["field"],
+          "properties": {"field": {"const": "affirmation_record"}}
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["field", "index"],
+          "properties": {"field": {"const": "review_log"}, "index": {"type": "integer", "minimum": 0}}
+        }
+      ]
+    },
+    "stage": {
+      "oneOf": [
+        {"$ref": "#/$defs/proposal"},
+        {"$ref": "#/$defs/review"},
+        {"$ref": "#/$defs/outcome"},
+        {"$ref": "#/$defs/change_authorisation"},
+        {"$ref": "#/$defs/request"},
+        {"$ref": "#/$defs/recheck"},
+        {"$ref": "#/$defs/attempt"},
+        {"$ref": "#/$defs/result"}
+      ]
+    },
+    "proposal": {
+      "description": "What was proposed, and by whom. An AI worker is named as in the record's drafting_authority.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "origin", "spec_digest"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "proposal"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "origin": {"enum": ["ai", "human"]},
+        "spec_digest": {"$ref": "#/$defs/sha256_hex"},
+        "deployer_role_pointer": {"$ref": "#/$defs/ref"},
+        "system_name": {"$ref": "#/$defs/ref"},
+        "version": {"$ref": "#/$defs/ref"},
+        "actor_ref": {"$ref": "#/$defs/ref"}
+      },
+      "if": {"properties": {"origin": {"const": "ai"}}, "required": ["origin"]},
+      "then": {"required": ["deployer_role_pointer"], "not": {"required": ["actor_ref"]}},
+      "else": {
+        "required": ["actor_ref"],
+        "not": {"anyOf": [{"required": ["deployer_role_pointer"]}, {"required": ["system_name"]}, {"required": ["version"]}]}
+      }
+    },
+    "review": {
+      "description": "A person shown a specification. shown_spec_digest names exactly what was shown.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "reviewer_ref", "shown_spec_digest"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "review"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "reviewer_ref": {"$ref": "#/$defs/ref"},
+        "shown_spec_digest": {"$ref": "#/$defs/sha256_hex"},
+        "shown_view_ref": {"$ref": "#/$defs/ref", "description": "Where the view the reviewer was shown is kept."},
+        "shown_view_digest": {"$ref": "#/$defs/sha256_hex"}
+      }
+    },
+    "outcome": {
+      "description": "The answer to one review, by the person reviewed. Only an approval carries an approved digest, an authority and a request limit; a rejection or an escalation never does.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "review_ref", "outcome", "actor_ref", "method", "rationale"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "outcome"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "review_ref": {"$ref": "#/$defs/stage_id"},
+        "outcome": {"enum": ["approved", "rejected", "escalated"]},
+        "actor_ref": {"$ref": "#/$defs/ref", "description": "Who gave the outcome: the issuer's statement, not verified identity."},
+        "method": {"$ref": "#/$defs/ref"},
+        "approved_spec_digest": {"$ref": "#/$defs/sha256_hex"},
+        "authority": {"$ref": "#/$defs/authority"},
+        "request_limit": {"type": "integer", "minimum": 1, "description": "How many requests this approval covers. Without it, one."},
+        "escalated_to_ref": {"$ref": "#/$defs/ref"},
+        "rationale": {"$ref": "#/$defs/rationale"},
+        "identity_evidence_ref": {"$ref": "#/$defs/ref", "description": "Where independent evidence of the actor's identity is kept, if any."},
+        "legal_signature_ref": {"$ref": "#/$defs/ref", "description": "Where a legal signature is kept, if any. Its legal effect is outside this extension."},
+        "core_ref": {"$ref": "#/$defs/core_ref"}
+      },
+      "if": {"properties": {"outcome": {"const": "approved"}}, "required": ["outcome"]},
+      "then": {"required": ["approved_spec_digest", "authority"], "not": {"required": ["escalated_to_ref"]}},
+      "else": {"not": {"anyOf": [{"required": ["approved_spec_digest"]}, {"required": ["authority"]}, {"required": ["request_limit"]}]}}
+    },
+    "change_authorisation": {
+      "description": "A separately authorised change: it names the earlier approval or change, the new specification, and its own authority.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "from_ref", "spec_digest", "actor_ref", "authority", "rationale"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "change_authorisation"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "from_ref": {"$ref": "#/$defs/stage_id"},
+        "spec_digest": {"$ref": "#/$defs/sha256_hex"},
+        "actor_ref": {"$ref": "#/$defs/ref"},
+        "authority": {"$ref": "#/$defs/authority"},
+        "request_limit": {"type": "integer", "minimum": 1},
+        "rationale": {"$ref": "#/$defs/rationale"},
+        "identity_evidence_ref": {"$ref": "#/$defs/ref"},
+        "legal_signature_ref": {"$ref": "#/$defs/ref"}
+      }
+    },
+    "request": {
+      "description": "The authorised request to execute one specification. request_id is unique: a second request with the same request_id is a duplicate, never a new action.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "request_id", "authorised_by", "spec_digest", "requested_by"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "request"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "request_id": {"$ref": "#/$defs/ref"},
+        "authorised_by": {"$ref": "#/$defs/stage_id", "description": "The approval or authorised change this request rests on."},
+        "spec_digest": {"$ref": "#/$defs/sha256_hex"},
+        "requested_by": {"$ref": "#/$defs/ref"}
+      }
+    },
+    "recheck": {
+      "description": "The executor's recheck of the authorisation before an attempt.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "request_ref", "result", "authority_source_ref"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "recheck"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "request_ref": {"$ref": "#/$defs/stage_id"},
+        "result": {"enum": ["authorised", "not_authorised", "unavailable"]},
+        "authority_source_ref": {"$ref": "#/$defs/ref"},
+        "detail": {"type": "string", "minLength": 1}
+      }
+    },
+    "attempt": {
+      "description": "One execution attempt. An attempt is not a completed action: what happened is recorded only in a result stage.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "request_ref", "recheck_ref", "spec_digest", "executor_ref"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "attempt"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "request_ref": {"$ref": "#/$defs/stage_id"},
+        "recheck_ref": {"$ref": "#/$defs/stage_id"},
+        "spec_digest": {"$ref": "#/$defs/sha256_hex"},
+        "executor_ref": {"$ref": "#/$defs/ref"},
+        "trace_refs": {"type": "array", "items": {"$ref": "#/$defs/ref"}, "description": "Machine traces kept in another system."}
+      }
+    },
+    "result": {
+      "description": "What was observed after one attempt, and on what basis. Never inferred from the attempt.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage_id", "kind", "at", "attempt_ref", "observed", "basis"],
+      "properties": {
+        "stage_id": {"$ref": "#/$defs/stage_id"},
+        "kind": {"const": "result"},
+        "at": {"$ref": "#/$defs/timestamp"},
+        "attempt_ref": {"$ref": "#/$defs/stage_id"},
+        "observed": {"enum": ["succeeded", "failed", "indeterminate"]},
+        "basis": {"enum": ["target_response", "independent_observation", "executor_observation"]},
+        "evidence_ref": {"$ref": "#/$defs/ref"},
+        "trace_refs": {"type": "array", "items": {"$ref": "#/$defs/ref"}}
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "key_ref", "signed_bytes_ref", "value_b64"],
+      "properties": {
+        "algorithm": {"type": "string", "minLength": 1},
+        "key_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "A reference to the issuer's key. The key itself comes from the verifier's own trust policy, never from the attachment."
+        },
+        "signed_bytes_ref": {"type": "string", "minLength": 1, "description": "Where the exact signed bytes are defined."},
+        "value_b64": {"$ref": "#/$defs/base64"}
+      }
+    }
+  }
+}
