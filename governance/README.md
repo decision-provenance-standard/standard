@@ -56,7 +56,7 @@ Records DR-2026-0001 to DR-2026-0015 are under the first Charter, which is close
 A record's seal is the SHA-256 of the complete closed record file at the release tag, computed with the `seal_hash` value replaced by 64 zeros.
 
 - The file carries its seal in one table row: `` | `seal_hash` | `` followed by 64 lowercase hexadecimal digits and a closing `|`.
-- Each record names, in `record_location`, its path and the tag its seal covers.
+- Each record names, in `record_location`, its path and the tag its seal covers. A disclosure review is first released at `drafted` and closed at the next release, so its `record_location` names the tag of the release that closes it; the index's "Sealed at tag" column gives that tag.
 
 To check a seal, run this from a clone of the repository, with `FILE` replaced by the record's file name. The first 64 characters of the output must equal the record's `seal_hash`.
 

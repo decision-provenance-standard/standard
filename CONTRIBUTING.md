@@ -48,8 +48,8 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
 2. **Rule changes go to the Steward.** A change is a rule change if it touches a MUST, SHALL, SHOULD or MAY sentence, a field, an allowed value, a conformance signal, or a "required at this state" rule. Some sections are protected and always need the Steward's approval. See [GOVERNANCE.md](GOVERNANCE.md).
 3. **We classify its effect on people already using the Standard:**
    - **Patch:** fixes wording or an error and changes no rule.
-   - **Minor:** adds or clarifies without making any previously valid record invalid. The Standard promises this for every minor release.
-   - **Major:** makes some previously valid records invalid. It needs at least 12 months' notice and a migration note.
+   - **Minor:** adds or clarifies without making any previously valid record or Charter invalid. The Standard promises this for every minor release.
+   - **Major:** makes some previously valid records or Charters invalid. It needs at least 12 months' notice and a migration note.
 4. **The Steward decides what the Standard says.** We may merge your change, merge part of it, rewrite it, or decline it. You decide how your contribution is credited. We name you only in the form you approve.
 
 ## Practical notes for pull requests
