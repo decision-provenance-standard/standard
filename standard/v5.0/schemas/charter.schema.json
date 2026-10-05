@@ -84,7 +84,7 @@
     },
     "peer_reviewer_pool": {
       "type": "array",
-      "minItems": 3,
+      "minItems": 1,
       "items": {
         "type": "object",
         "required": ["full_name", "role"],
@@ -94,7 +94,7 @@
           "employer": {"type": "string"}
         }
       },
-      "description": "Minimum 3 named individuals per Layer 3 designation rule (eligibility: substantive expertise + author exclusion + Charter-owner exclusion when author + recusal carve-out)."
+      "description": "Named peer reviewers for the Layer 3 designation rule (eligibility: substantive expertise + author exclusion + Charter-owner exclusion when author + recusal carve-out). The text (Standard §3.2, §3.3) requires neither this field nor a pool size; a pool of at least 3 named individuals is recommended, so that every record keeps an eligible reviewer under the exclusions."
     },
     "use_case_scope_limit_declaration": {
       "type": "object",
@@ -138,6 +138,20 @@
         "outcome_document_pointer": {"type": "string"}
       },
       "description": "Standard §3.1. Required at fields-completed in EU/UK works-council jurisdictions where altitude is function-leader or below. Conditional, not top-level required."
+    },
+    "named_employment_counsel_of_record": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "full_name": {"type": "string"},
+          "admission_jurisdiction": {"type": "string"},
+          "engagement_reference": {"type": "string"},
+          "last_attestation_date": {"type": "string", "format": "date"}
+        }
+      },
+      "description": "Standard §3.1 (recommended; not required at any state). Employment counsel for the Charter's scope, one for each jurisdiction the records describe people in: each counsel's name and admission jurisdiction, the engagement reference, and the last_attestation_date of their latest review of the Charter's scope. Not a condition of any Conformance Level; no access-policy binding depends on it."
     },
     "created_at": {"type": "string", "format": "date-time"},
     "closed_at": {"type": ["string", "null"], "format": "date-time"}

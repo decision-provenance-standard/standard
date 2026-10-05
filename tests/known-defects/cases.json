@@ -23,7 +23,7 @@
     },
     "KD-06": {
       "summary": "Disclosure block: the text requires 5 fields, the schema 7; the text's jurisdiction and content-type spellings (including other:<...>) are rejected.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-07": {
       "summary": "For mode-2 records the schema requires disclosure_metadata_pointer already at dispatched; the text requires it from drafted, and only for records within the §4.6 requirement.",
@@ -31,11 +31,11 @@
     },
     "KD-08": {
       "summary": "Sections 4.6.2 and 2.2.12 accept a declaring authority that names only the person or only the organization; the disclosure schema's declaring_authority object requires a person's full_name, role_title and capacity and the employer, so a value that names only one of them is rejected.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-09": {
       "summary": "The reference Charter state machine requires a peer_reviewer_pool of at least 3 named individuals before fields-completed, and the Charter schema rejects any pool smaller than 3; the text (Sections 3.2 and 3.3) requires neither. The state-machine rule is prose and is not machine-checked here; the case covers the schema's pool size.",
-      "status": "open"
+      "status": "fixed"
     },
     "KD-10": {
       "summary": "For outputs a Charter places outside the disclosure requirement (§4.6.1), the text requires no disclosure_metadata_pointer; the schema requires it on every mode-2 record, and cannot see the Charter's declaration.",
@@ -43,7 +43,7 @@
     },
     "KD-11": {
       "summary": "Section 3.1 recommends (SHOULD) the named_employment_counsel_of_record Charter field; the Charter schema allows no properties beyond its list and rejects a Charter that carries it.",
-      "status": "open"
+      "status": "fixed"
     }
   },
   "cases": [
@@ -809,6 +809,52 @@
         ]
       },
       "expected": "pass",
+      "must_not_mention": null
+    },
+    {
+      "id": "CH4",
+      "kind": "control",
+      "defect": null,
+      "description": "Charter carrying a field the schema does not list (must stay invalid: adding the counsel field did not open the Charter to unknown fields)",
+      "schema": "standard/v5.0/schemas/charter.schema.json",
+      "instance": {
+        "charter_id": "test-charter",
+        "charter_name": "Test Charter",
+        "decision_class": "Test decisions",
+        "accountable_owner": {
+          "full_name": "Test Person",
+          "role": "Head of Test",
+          "employer": "Example Ltd"
+        },
+        "charter_state": "fields-completed",
+        "mode_declaration": "mode-1",
+        "cadence": {
+          "frequency": "monthly",
+          "trigger": "month end"
+        },
+        "record_location": "doc://schedule",
+        "re_decision_triggers": [
+          {
+            "trigger_type": "outcome_evidence",
+            "trigger_description": "outcome misses the stated threshold"
+          },
+          {
+            "trigger_type": "market_evidence",
+            "trigger_description": "a competitor changes the category"
+          }
+        ],
+        "escalation_rule": "doc://escalation",
+        "schedule_of_records": [
+          "decision",
+          "re-decision",
+          "escalation",
+          "charter-amendment"
+        ],
+        "conformance_level_declared": 1,
+        "created_at": "2026-09-25T09:00:00Z",
+        "unlisted_field": "a field the Charter schema does not list"
+      },
+      "expected": "fail",
       "must_not_mention": null
     },
     {

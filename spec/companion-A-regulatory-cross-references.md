@@ -46,9 +46,7 @@ The mapping is structural, not substantive. In each case below, the Standard's p
 
 ### A.1.1 What Article 14 requires
 
-Regulation (EU) 2024/1689, Article 14 imposes on providers of high-risk AI systems an obligation to design and develop those systems so that natural persons can exercise effective human oversight while the system is in use. The article enumerates the capabilities a high-risk AI system must support to make that oversight effective. The natural person carrying out oversight must be able to understand the relevant capacities and limitations of the system, monitor its operation, and recognize and address signs of system anomaly, dysfunction, or unexpected performance. They must also be able to decide not to use the system or override its output where appropriate, and to intervene in or interrupt the system's operation through a "stop" button or comparable procedure. Article 14 adds a further requirement for the high-risk AI systems referred to in Annex III point 1(a). For those systems, no action or decision may be taken by the deployer on the basis of identification resulting from the system unless that identification has been separately verified and confirmed by at least two natural persons.
-
-Article 14's obligation is a **design-and-development obligation on the provider**, paired with corresponding **use-side obligations on the deployer** (the natural or legal person that uses the AI system under its authority). The deployer's obligations under Article 26 reinforce Article 14. The deployer must ensure that the natural persons assigned to human oversight have the necessary competence, training, authority, and support to carry out the oversight task that Article 14 made possible.
+Regulation (EU) 2024/1689, Article 14 (Human Oversight). The mapping below also cites Article 26 of the same Regulation. Whether either applies to a deployer is for the deployer to determine (see §A.1.4).
 
 ### A.1.2 How the Standard's primitives map
 
@@ -80,9 +78,9 @@ The Decision Provenance Standard does not satisfy, ensure, or certify any obliga
 
 ### A.2.1 What Article 17 requires
 
-Regulation (EU) 2024/1689, Article 17 imposes on providers of high-risk AI systems an obligation to put in place a quality management system that ensures compliance with the Regulation. The article enumerates the elements the quality management system must address. Those elements include a strategy for regulatory compliance; techniques and procedures for design, design control, development, quality control, and quality assurance of the high-risk AI system; examination, test, and validation procedures to be carried out before, during, and after development; technical specifications; and systems and procedures for data management. They also include the risk management system referred to in Article 9, the post-market monitoring system referred to in Article 72, and procedures related to the reporting of serious incidents in accordance with Article 73. The remaining elements are the handling of communication with national competent authorities and other relevant authorities, systems and procedures for record keeping of all relevant documentation and information, resource management, and an accountability framework setting out the responsibilities of management and other staff.
+Regulation (EU) 2024/1689, Article 17 (Quality Management System). Whether it applies to a deployer is for the deployer to determine (see §A.2.2).
 
-Article 17 is an obligation **on providers**. The provider obligation runs to the entity that places the AI system on the market or puts it into service in the Union. The Decision Provenance Standard is consumed by deployers governing how their decisions are made; it is not consumed by providers building AI systems for the EU market.
+The Decision Provenance Standard is consumed by deployers governing how their decisions are made; it is not consumed by providers building AI systems for the EU market.
 
 ### A.2.2 How the Standard relates (provider vs deployer boundary)
 
@@ -100,11 +98,11 @@ The Decision Provenance Standard does not satisfy, ensure, or certify any obliga
 
 ## A.2.bis EU GDPR — Article 17 (Right to Erasure / Right to be Forgotten)
 
-> ⚠️ **Disambiguation — two unrelated Article 17s.** This sub-section §A.2.bis addresses **Regulation (EU) 2016/679 (the General Data Protection Regulation), Article 17** — the data subject's right to obtain erasure of personal data concerning them. The preceding sub-section §A.2 addresses **Regulation (EU) 2024/1689 (the EU AI Act), Article 17** — the provider's obligation to put in place a quality management system. The two Articles share a number; they cover entirely different subject matter, operate against different obligated parties, and are engaged by the Standard through entirely different primitives. A reader who treats them as the same article has misread §A.2 and §A.2.bis. Counsel and auditors consulting either cross-reference verify which Article 17 is in scope before proceeding.
+> ⚠️ **Disambiguation — two unrelated Article 17s.** This sub-section §A.2.bis addresses **Regulation (EU) 2016/679 (the General Data Protection Regulation), Article 17** (Right to Erasure / Right to be Forgotten). The preceding sub-section §A.2 addresses **Regulation (EU) 2024/1689 (the EU AI Act), Article 17** (Quality Management System). The two Articles share a number; they cover entirely different subject matter and are engaged by the Standard through entirely different primitives. A reader who treats them as the same article has misread §A.2 and §A.2.bis. Counsel and auditors consulting either cross-reference verify which Article 17 is in scope before proceeding.
 
 ### A.2.bis.1 What GDPR Article 17 requires
 
-GDPR Article 17 grants a data subject the right to obtain from the controller the erasure of personal data concerning them without undue delay, where one of the grounds in Article 17(1) applies. Those grounds are: the data are no longer necessary for the purposes for which they were collected; the data subject withdraws consent; the data subject objects under Article 21; the personal data have been unlawfully processed; erasure is required for compliance with a legal obligation; or the data have been collected in relation to the offer of information-society services to a child. The right is not absolute. Article 17(3) enumerates grounds on which the processing may continue notwithstanding the erasure request. These include (b) compliance with a legal obligation requiring processing under Union or Member State law, (e) the establishment, exercise, or defence of legal claims, and (d) archiving purposes in the public interest, scientific or historical research purposes, or statistical purposes under Article 89(1).
+Regulation (EU) 2016/679, Article 17 (Right to Erasure / Right to be Forgotten). Whether it applies to a deployer is for the deployer to determine (see §A.2.bis.2).
 
 ### A.2.bis.2 How the Standard's primitives map
 

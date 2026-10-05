@@ -1,15 +1,16 @@
 # Governance records
 
-This folder holds the Standard's own use of itself by its Steward: a Charter for how the Standard is authored, and the decision records made under it. This is affiliated use, not independent adoption, and it is not a conformance declaration. Etsion Brands is not listed as an adopter.
+This folder holds the Standard's own use of itself by its Steward: the Charters for how the Standard is authored, and the decision records made under them. This is affiliated use, not independent adoption, and it is not a conformance declaration. Etsion Brands is not listed as an adopter.
 
-- [`charter.md`](charter.md) is the Charter `dps-text-authoring`, with every field of Standard §3.2. It declares a target of Level 1 only because the text requires every complete Charter to declare one.
+- [`charter.md`](charter.md) is the first Charter, `dps-text-authoring`, with every field of Standard §3.2. It is closed: record DR-2026-0015 adopted its successor.
+- [`charter-2.md`](charter-2.md) is the successor Charter, `dps-text-authoring-2`, for the same decision class, with the same accountable owner and mode. Each Charter declares a target of Level 1 only because the text requires every complete Charter to declare one.
 - [`decisions/`](decisions/) holds one file per record, with its fields in the order of Standard §6.2.
 
 **Which text these files follow.** Each record is written against the Standard's text as released in the release its `record_location` names; section numbers refer to that release's text.
 
 ## Records index
 
-Every record under the Charter is listed here by id, type, state and date. Standard §6.4.1 requires the Charter's index to list its records so they can be found by record type and by date range; the findability rule of §6.3.2 requires any record to be found within 30 seconds by someone who was not in the room.
+Every record under either Charter is listed here by id, type, state and date; each record names its Charter in `charter_id`. Standard §6.4.1 requires a Charter's index to list its records so they can be found by record type and by date range; the findability rule of §6.3.2 requires any record to be found within 30 seconds by someone who was not in the room.
 
 | Record | Type | State | Dispatched (UTC) | Decision | Sealed at tag |
 |---|---|---|---|---|---|
@@ -27,8 +28,15 @@ Every record under the Charter is listed here by id, type, state and date. Stand
 | [DR-2026-0012](decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) | decision | closed | 2026-09-28T13:35:52Z | The declaration kit is Steward-only | `v1.2-rev10` |
 | [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | closed | 2026-09-28T13:35:53Z | v1.2 is a minor release | `v1.2-rev10` |
 | [DR-2026-0014](decisions/DR-2026-0014-disclosure-review-at-v1.2.md) | disclosure_review | drafted | 2026-09-28T14:23:25Z | Disclosure review at the v1.2 release |  |
+| [DR-2026-0015](decisions/DR-2026-0015-successor-charter-and-first-charter-closed.md) | charter_amendment | drafted | 2026-10-04T11:30:18Z | The successor Charter, and the first Charter closed |  |
+| [DR-2026-0016](decisions/DR-2026-0016-disclosure-pointer-check-and-the-compatibility-promise.md) | decision | drafted | 2026-10-04T11:30:20Z | The disclosure pointer check at Level 2, and the compatibility promise |  |
+| [DR-2026-0017](decisions/DR-2026-0017-a-schedule-may-list-record-types-not-yet-produced.md) | decision | drafted | 2026-10-04T11:30:21Z | A schedule may list record types not yet produced |  |
+| [DR-2026-0018](decisions/DR-2026-0018-escalation-without-a-higher-forum.md) | decision | drafted | 2026-10-04T11:30:22Z | Escalation when a Charter has no higher forum |  |
+| [DR-2026-0019](decisions/DR-2026-0019-readers-obligations-become-recommendations.md) | decision | drafted | 2026-10-04T11:30:23Z | Our own statements of readers' obligations become recommendations |  |
+| [DR-2026-0020](decisions/DR-2026-0020-v1.3-is-a-minor-release.md) | decision | drafted | 2026-10-04T11:30:24Z | v1.3 is a minor release |  |
+| [DR-2026-0021](decisions/DR-2026-0021-disclosure-review-at-v1.3.md) | disclosure_review | drafted | 2026-10-04T11:30:25Z | Disclosure review at the v1.3 release |  |
 
-The Charter is in its first version. Any change to it is made by a Charter-amendment record listed here.
+Records DR-2026-0001 to DR-2026-0015 are under the first Charter, which is closed. Records from DR-2026-0016 on are under the successor, in its first version; any change to it is made by a Charter-amendment record listed here.
 
 ## How a record is affirmed, closed and sealed
 
@@ -38,7 +46,7 @@ The Charter is in its first version. Any change to it is made by a Charter-amend
 - **Sealed.** The seal is computed in the release pull request, after the closing fields are written, over the complete closed record, closing fields included. It does not cover only the text as it stood before the merge. Standard §6.2 describes the seal as "computed at the affirmation moment"; here it is computed after the affirmation, not at that moment, because the affirmation is the Steward's merge and a file cannot contain its own merge.
 - **In between.** From the merge that affirms a record until the release pull request merges, the record on `main` is affirmed but still reads `drafted`, with no closing fields and no seal.
 - **After.** A closed record is never edited. It can only be superseded by a new record.
-- **Review log.** The text requires a `review_log` from the `reviewed` state onward (Standard §6.2.3). Records DR-2026-0001 to DR-2026-0007 were affirmed without one; affirmed records are never edited, so they stay as they are. Records from DR-2026-0008 on list the reviews made before the merge that affirms them. Because those seven records lack a field the text requires, the Charter does not meet the Level 1 field rule (§6.2.4) for them, and so does not reach its target Level 1.
+- **Review log.** The text requires a `review_log` from the `reviewed` state onward (Standard §6.2.3). Records DR-2026-0001 to DR-2026-0007 were affirmed without one; affirmed records are never edited, so they stay as they are. Records from DR-2026-0008 on list the reviews made before the merge that affirms them. Because those seven records lack a field the text requires, the first Charter does not meet the Level 1 field rule (§6.2.4) for them, and so does not reach its target Level 1. That is why it has a successor: every record under `dps-text-authoring-2` carries a `review_log`, and the check below requires it.
 - **Checked on every pull request.** `python tools/check_governance.py` checks every record's fields against the text, each closed record's closing values against the merge that affirmed it, and each seal.
 
 **Success checks.** Each record has a check at release plus checks at 2, 6 and 12 months after the release named in the record (T+2, T+6, T+12). They are the Steward's own targets, not forecasts.
@@ -60,18 +68,18 @@ For each record, use the tag in the index's "Sealed at tag" column in place of `
 
 ## Where the records follow the text over the reference files
 
-The records are written to the Standard's text, which binds where the text and the reference files in `standard/v5.0/` differ. Four differences show when the records are checked against the reference schemas:
+The records are written to the Standard's text, which binds where the text and the reference files in `standard/v5.0/` differ. Two differences show when the records are checked against the reference schemas:
 
-- **Disclosure block (known defect KD-06).** The text requires five disclosure fields; the reference schema requires seven, adding `disclosure_text_pointer` and `attached_at`. The schema also rejects the text's spellings of the jurisdiction values (`eu`, `us-federal`, `uk`, `israel`, and `other:<...>`). The records carry the text's five fields in the text's spellings.
 - **Plain values.** The records write `declaring-authority` and `ai-system-identity` as the text's plain values: a person and the organization they act for; a vendor, model and version. The reference schema expects objects with sub-fields.
-- **Peer-reviewer pool.** The reference Charter state machine asks for a `peer_reviewer_pool` of at least three named people before a Charter reaches `fields-completed`. Sections 3.2 and 3.3 of the text do not require one (known defect KD-09), and this Charter has one Steward.
 - **Attestation link (known defect KD-01).** The decision-record schema links to the Layer 4 attestation schema by an address that a standard validator cannot resolve. A closed record's attestation object is therefore checked on its own against `standard/v5.0/mode-drift/layer-4-attestation.schema.json`, and the rest of the record against the decision-record schema.
+
+Two earlier differences are fixed in the reference files. The disclosure schema now requires only the text's five fields and accepts the text's spellings of the jurisdiction values (known defect KD-06). The Charter state machine no longer requires a `peer_reviewer_pool`, and neither it nor the Charter schema requires a pool of three; Sections 3.2 and 3.3 of the text require neither (known defect KD-09). Both Charters have one Steward.
 
 The known defects are listed and tested in [`tests/known-defects/`](../tests/known-defects/).
 
 ## The disclosure block
 
-The Charter's `disclosure_metadata_pointer` points here. Every record repeats this block, with its own generation time.
+The `disclosure_metadata_pointer` of both Charters points here. Every record repeats this block, with its own generation time.
 
 | Field | Value |
 |---|---|
@@ -81,7 +89,7 @@ The Charter's `disclosure_metadata_pointer` points here. Every record repeats th
 | `content-type-tag` | decision-summary |
 | `generation-timestamp` | In each record's copy: the time that record was drafted |
 
-The jurisdiction tag lists where the records are intended to be read. The Steward reviews this block at each release and records the review as a disclosure-review record, as the Charter's schedule of records commits. There is one at each release: DR-2026-0007 at v1.1, DR-2026-0014 at v1.2.
+The jurisdiction tag lists where the records are intended to be read. The Steward reviews this block at each release and records the review as a disclosure-review record, as each Charter's schedule of records commits. There is one at each release: DR-2026-0007 at v1.1, DR-2026-0014 at v1.2, DR-2026-0021 at v1.3.
 
 Carried because this Standard requires it for AI-drafted records; this says nothing about whether any law applies.
 
