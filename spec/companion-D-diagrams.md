@@ -1,6 +1,6 @@
-# Decision Provenance Standard™ v1.2 — Companion D: Diagrams
+# Decision Provenance Standard™ v1.3 — Companion D: Diagrams
 
-**Status**: Companion to the Decision Provenance Standard v1.2 (rev. 10). Explanatory, **non-normative**.
+**Status**: Companion to the Decision Provenance Standard v1.3 (rev. 11). Explanatory, **non-normative**.
 
 > **These figures are explanatory aids, not normative.** The text of the Standard is the contract; every figure here *illustrates* a section of that text. Where a figure and the normative text appear to differ, the text governs. Captions and cross-references use "as shown in" / "illustrated by," never "as required by." Every state name, transition label, field name, enum value, signal name, and controlled-vocabulary chip rendered in these figures is a verbatim protected conformance token — rendered with exact case, hyphens, and underscores.
 

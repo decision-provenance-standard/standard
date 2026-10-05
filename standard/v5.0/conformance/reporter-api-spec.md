@@ -1,7 +1,7 @@
 # Conformance Reporter API Contract — POST /dps/conformance/charter-escalation
 
-**Status**: Locked at v1.1
-**Spec version**: 1.1.0 (matches OpenAPI YAML `info.version`)
+**Status**: Locked at v1.2
+**Spec version**: 1.2.0 (matches OpenAPI YAML `info.version`)
 **Cross-references**: Standard §6 (signal vocabulary); Mode-Drift mitigation Layer 3 (audit-cadence binding)
 
 ---
@@ -187,7 +187,7 @@ Items NOT preserved (locked): everything in §§1-6 above. Deviations require a 
 
 ---
 
-*Wire contract locked at v1.1.0.*
+*Wire contract locked at v1.2.0.*
 
 ---
 
@@ -204,6 +204,18 @@ Items NOT preserved (locked): everything in §§1-6 above. Deviations require a 
 **OpenAPI binding updated**: `reporter-api.openapi.yaml` `info.version` 1.0.0 → 1.1.0; enum extended to 9 values.
 
 **Locked at v1.1.0 for the v1.0 reference-files release.**
+
+### v1.2.0
+
+**Change**: Added `every_mode_2_record_carries_disclosure_pointer` to the `evidence_metric` enum (now 24 values, previously 23), with the signal list.
+
+**Rationale**: The text lists the signal at Level 2 (Standard §7.3.2). It reports, for an existing Level 2 criterion, the disclosure pointer the text already required from `drafted` (Standard §4.3, §6.2.2). The value was added to the enum with the signal, before this version number was raised; raising it here keeps one version number from naming two different enums.
+
+**Scope**: additive (no value removed; one value added), so existing v1.1 Reporter implementations remain valid against v1.2.
+
+**OpenAPI binding updated**: `reporter-api.openapi.yaml` `info.version` 1.1.0 → 1.2.0; `evidence_metric` enum extended to 24 values.
+
+**Released with reference files 5.2.0**, together with the field-pair amendment below, which leaves the OpenAPI file unchanged.
 
 ### Additive amendment (the field-pair rule)
 

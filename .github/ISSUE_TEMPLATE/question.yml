@@ -7,7 +7,7 @@ body:
     id: release
     attributes:
       label: Which release are you reading?
-      description: For example "Core v1.2 rev. 10, files 5.1.2".
+      description: For example "Core v1.3 rev. 11, files 5.2.0".
   - type: textarea
     id: question
     attributes:
