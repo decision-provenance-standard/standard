@@ -1,6 +1,6 @@
-Companion to the Decision Provenance Standard v1.2; tracks core revision rev. 10.
+Companion to the Decision Provenance Standard v1.3; tracks core revision rev. 11.
 
-*Appendix G aggregates governance and reference material from multiple origin sections of the Standard; each fragment carries a back-pointer to its origin anchor. References here to the Standard's core sections (§1–§7, §10.7, §11.1/§11.2/§11.5) resolve against the core Reading Edition (rev. 10); references to Companions A, B, C resolve against those documents.*
+*Appendix G aggregates governance and reference material from multiple origin sections of the Standard; each fragment carries a back-pointer to its origin anchor. References here to the Standard's core sections (§1–§7, §10.7, §11.1/§11.2/§11.5) resolve against the core Reading Edition (rev. 11); references to Companions A, B, C resolve against those documents.*
 
 > **Lettering note.** Lettered **G**; Appendices A–F are reserved.
 

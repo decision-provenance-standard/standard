@@ -4,7 +4,7 @@ Thank you for helping improve the Standard. This page explains how to take part,
 
 ## Two ways to take part
 
-- **Open an issue.** Use one issue per proposal, defect or question, and pick the matching form. Say which release you read, for example "Core v1.2, rev. 10" and "reference files 5.1.2".
+- **Open an issue.** Use one issue per proposal, defect or question, and pick the matching form. Say which release you read, for example "Core v1.3, rev. 11" and "reference files 5.2.0".
 - **Open a pull request.** Pull requests are welcome for anything in this repository. For a large change, an issue first saves everyone time.
 
 ## What we ask of every contribution
@@ -48,8 +48,8 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
 2. **Rule changes go to the Steward.** A change is a rule change if it touches a MUST, SHALL, SHOULD or MAY sentence, a field, an allowed value, a conformance signal, or a "required at this state" rule. Some sections are protected and always need the Steward's approval. See [GOVERNANCE.md](GOVERNANCE.md).
 3. **We classify its effect on people already using the Standard:**
    - **Patch:** fixes wording or an error and changes no rule.
-   - **Minor:** adds or clarifies without making any previously valid record invalid. The Standard promises this for every minor release.
-   - **Major:** makes some previously valid records invalid. It needs at least 12 months' notice and a migration note.
+   - **Minor:** adds or clarifies without making any previously valid record or Charter invalid. The Standard promises this for every minor release.
+   - **Major:** makes some previously valid records or Charters invalid. It needs at least 12 months' notice and a migration note.
 4. **The Steward decides what the Standard says.** We may merge your change, merge part of it, rewrite it, or decline it. You decide how your contribution is credited. We name you only in the form you approve.
 
 ## Practical notes for pull requests
@@ -59,7 +59,7 @@ Contributing gives no rights in the name "Decision Provenance Standard" or its m
   - Adding, removing or renaming a section file also needs a matching change to `spec/editions.json`.
   - The core files keep the Windows line endings (CRLF) they were published with; the other documents use Unix line endings (LF). Make sure your editor does not convert them. The check fails if it does.
 - **Text and reference files must agree.** If your change affects both, change both in the same pull request.
-- **Fixing a known defect.** The differences between the text and reference release 5.1.2 are listed in `tests/known-defects/cases.json`. If your pull request fixes one, set that defect's `status` to `fixed` in the same pull request, so the fix is protected from then on.
+- **Fixing a known defect.** The differences between the text and reference release 5.2.0 are listed in `tests/known-defects/cases.json`. If your pull request fixes one, set that defect's `status` to `fixed` in the same pull request, so the fix is protected from then on.
 - **Compatibility.** When renaming an allowed value, keep the old value accepted and mark it deprecated. Old values are removed only in a major release.
 - **The checks** run on every pull request: the text split, the reference files, the known-defects report, the DCO sign-off, the leak guard, the governance records, and whether the declaration kit in `kit/` (Apache-2.0) is in sync with its sources. To run them locally:
 

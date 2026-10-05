@@ -11,7 +11,7 @@
 | `dispatch_mode` | mode-2 |
 | `dispatched_at` | 2026-09-28T14:23:25Z |
 | `record_type` | disclosure_review |
-| `record_state` | drafted |
+| `record_state` | closed |
 | `created_at` | 2026-09-28T14:23:25Z |
 | `decision_statement` | The Founding Steward's disclosure review at the v1.2 release (reading edition rev. 10) finds the disclosure blocks of records DR-2026-0007 to DR-2026-0013, and the block in `governance/README.md` to which the Charter's `disclosure_metadata_pointer` points, accurate as written: each names Yohay Etsion, for Etsion Brands Ltd, as the declaring authority and Anthropic / Claude Opus 5.5 as the AI system that drafted the records, tags where the records are intended to be read and their content type, and, in each record, gives that record's own drafting time. No block is changed, and no correcting record is needed. |
 | `context_at_decision` | • The Charter is Mode 2, and its schedule of records commits to a disclosure-review record at each release, reviewing the disclosure block in `governance/README.md` (Standard §6.3.1 and §7.2.1).<br>• DR-2026-0007, the review at v1.1, was affirmed by the Steward's merge of pull request #7; records DR-2026-0008 to DR-2026-0013 were drafted with AI and affirmed by the Steward's merge of the pull request that added them.<br>• Each record repeats the block from `governance/README.md` with its own generation time, and names the AI system that drafted it in `drafting_authority`.<br>• v1.2 lets a Level 3 disclosure review be shown by a disclosure-review record as well as by `last_reviewed_at` (Standard §7.4.1); this record is such a review for the blocks of records DR-2026-0007 to DR-2026-0013. |
@@ -23,9 +23,15 @@
 | `review_log` | • reviewer: a fresh AI-drafted release review made for the Steward; reviewed_at: 2026-09-28T16:39:19Z; outcome: go with changes, with its findings folded into the pull request before the merge |
 | `altitude` | executive |
 | `drafting_authority` | deployer_role_pointer: drafting assistant to the Founding Steward, under Charter dps-text-authoring<br>system_name: Anthropic Claude Opus 5.5<br>version: claude-opus-5-5, as used on 2026-09-28 |
+| `closed_at` | 2026-09-28T16:49:50Z |
+| `accountable_owner_signoff` | signed_by: Yohay Etsion, Founding Steward<br>signed_at: 2026-09-28T16:49:50Z |
 | `re_decision_trigger` | Outcome evidence: a confirmed issue shows a reviewed block to be inaccurate; the Steward then records a correcting record that supersedes the affected record, and a new disclosure review.<br>Market evidence: the Steward starts drafting records with a different AI system or version, or a reader reports that the jurisdiction tag misdescribes where the records are read. |
 | `record_location` | `governance/decisions/DR-2026-0014-disclosure-review-at-v1.2.md`, first released at `drafted` with tag `v1.2-rev10`; once closed, at the tag of the release that closes it |
 | `related_decisions` | • DR-2026-0001<br>• DR-2026-0002<br>• DR-2026-0003<br>• DR-2026-0004<br>• DR-2026-0005<br>• DR-2026-0006<br>• DR-2026-0007<br>• DR-2026-0008<br>• DR-2026-0009<br>• DR-2026-0010<br>• DR-2026-0011<br>• DR-2026-0012<br>• DR-2026-0013 |
+| `affirmation_record` | timestamp: 2026-09-28T16:49:50Z<br>actor_identity: Yohay Etsion (GitHub account yohayetsion), the accountable owner<br>method: merge of pull request #16, which added this record to the repository (merge commit 60a938f553a96f40ec276d0b46d17c29f366d06d) |
+| `mode_classification_attestation` | attestor_full_name: Yohay Etsion<br>attestor_role_title: Founding Steward<br>attestor_employer: Etsion Brands Ltd<br>attestation_timestamp: 2026-09-28T16:49:50Z<br>jurisdiction: IL<br>attestation_language_version: v1.0<br>attestation_text_signed: I, Yohay Etsion, in my role as Founding Steward at Etsion Brands Ltd, confirm that I have reviewed the substantive content of this decision record and that the Mode classification recorded in its metadata, mode-2, accurately reflects the substantive role of AI worker output in framing the options under consideration: the record was drafted with AI and affirmed by me. I make this confirmation within the scope of my role on behalf of Etsion Brands Ltd. This confirmation is made under the Charter dps-text-authoring; it makes no conformance claim and does not constitute legal advice or legal certification.<br>attestor_capacity: director |
+| `seal_algorithm` | SHA-256 |
+| `seal_hash` | 93fd281373056a2a8076fcfc9454a72ec917f04d27c80084539b98d0b8b00d0c |
 
 ## Disclosure block
 

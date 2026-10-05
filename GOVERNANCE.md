@@ -28,8 +28,8 @@ A change is a **rule change**, and goes to the Steward, if it touches a MUST, SH
 | Release | What it may do |
 |---|---|
 | Patch | Fix wording or errors; change no rule |
-| Minor | Add and clarify, never making a previously valid record invalid (Standard §11.2; Appendix G §G.7.5–§G.7.6) |
-| Major | Make some previously valid records invalid; needs at least 12 months' notice and a migration note |
+| Minor | Add and clarify, never making a previously valid record or Charter invalid (Standard §11.2; Appendix G §G.7.5–§G.7.6) |
+| Major | Make some previously valid records or Charters invalid; needs at least 12 months' notice and a migration note |
 
 - **Renamed values.** When an allowed value is renamed, the old value stays accepted and is marked deprecated. It is removed only in a major release.
 - **What each release publishes.** Each release names the text revision, the reference-files release and the repository commit, and gives the SHA-256 digest of every published file.

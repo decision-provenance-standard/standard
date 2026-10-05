@@ -27,14 +27,14 @@ Every record under either Charter is listed here by id, type, state and date; ea
 | [DR-2026-0011](decisions/DR-2026-0011-level-2-checks-with-nothing-to-check.md) | decision | closed | 2026-09-28T13:35:51Z | Level 2 checks with nothing to check | `v1.2-rev10` |
 | [DR-2026-0012](decisions/DR-2026-0012-the-declaration-kit-is-steward-only.md) | decision | closed | 2026-09-28T13:35:52Z | The declaration kit is Steward-only | `v1.2-rev10` |
 | [DR-2026-0013](decisions/DR-2026-0013-v1.2-is-a-minor-release.md) | decision | closed | 2026-09-28T13:35:53Z | v1.2 is a minor release | `v1.2-rev10` |
-| [DR-2026-0014](decisions/DR-2026-0014-disclosure-review-at-v1.2.md) | disclosure_review | drafted | 2026-09-28T14:23:25Z | Disclosure review at the v1.2 release |  |
-| [DR-2026-0015](decisions/DR-2026-0015-successor-charter-and-first-charter-closed.md) | charter_amendment | drafted | 2026-10-04T11:30:18Z | The successor Charter, and the first Charter closed |  |
-| [DR-2026-0016](decisions/DR-2026-0016-disclosure-pointer-check-and-the-compatibility-promise.md) | decision | drafted | 2026-10-04T11:30:20Z | The disclosure pointer check at Level 2, and the compatibility promise |  |
-| [DR-2026-0017](decisions/DR-2026-0017-a-schedule-may-list-record-types-not-yet-produced.md) | decision | drafted | 2026-10-04T11:30:21Z | A schedule may list record types not yet produced |  |
-| [DR-2026-0018](decisions/DR-2026-0018-escalation-without-a-higher-forum.md) | decision | drafted | 2026-10-04T11:30:22Z | Escalation when a Charter has no higher forum |  |
-| [DR-2026-0019](decisions/DR-2026-0019-readers-obligations-become-recommendations.md) | decision | drafted | 2026-10-04T11:30:23Z | Our own statements of readers' obligations become recommendations |  |
-| [DR-2026-0020](decisions/DR-2026-0020-v1.3-is-a-minor-release.md) | decision | drafted | 2026-10-04T11:30:24Z | v1.3 is a minor release |  |
-| [DR-2026-0021](decisions/DR-2026-0021-disclosure-review-at-v1.3.md) | disclosure_review | drafted | 2026-10-04T11:30:25Z | Disclosure review at the v1.3 release |  |
+| [DR-2026-0014](decisions/DR-2026-0014-disclosure-review-at-v1.2.md) | disclosure_review | closed | 2026-09-28T14:23:25Z | Disclosure review at the v1.2 release | `v1.3-rev11` |
+| [DR-2026-0015](decisions/DR-2026-0015-successor-charter-and-first-charter-closed.md) | charter_amendment | closed | 2026-10-04T11:30:18Z | The successor Charter, and the first Charter closed | `v1.3-rev11` |
+| [DR-2026-0016](decisions/DR-2026-0016-disclosure-pointer-check-and-the-compatibility-promise.md) | decision | closed | 2026-10-04T11:30:20Z | The disclosure pointer check at Level 2, and the compatibility promise | `v1.3-rev11` |
+| [DR-2026-0017](decisions/DR-2026-0017-a-schedule-may-list-record-types-not-yet-produced.md) | decision | closed | 2026-10-04T11:30:21Z | A schedule may list record types not yet produced | `v1.3-rev11` |
+| [DR-2026-0018](decisions/DR-2026-0018-escalation-without-a-higher-forum.md) | decision | closed | 2026-10-04T11:30:22Z | Escalation when a Charter has no higher forum | `v1.3-rev11` |
+| [DR-2026-0019](decisions/DR-2026-0019-readers-obligations-become-recommendations.md) | decision | closed | 2026-10-04T11:30:23Z | Our own statements of readers' obligations become recommendations | `v1.3-rev11` |
+| [DR-2026-0020](decisions/DR-2026-0020-v1.3-is-a-minor-release.md) | decision | closed | 2026-10-04T11:30:24Z | v1.3 is a minor release | `v1.3-rev11` |
+| [DR-2026-0021](decisions/DR-2026-0021-disclosure-review-at-v1.3.md) | disclosure_review | closed | 2026-10-04T11:30:25Z | Disclosure review at the v1.3 release | `v1.3-rev11` |
 
 Records DR-2026-0001 to DR-2026-0015 are under the first Charter, which is closed. Records from DR-2026-0016 on are under the successor, in its first version; any change to it is made by a Charter-amendment record listed here.
 
@@ -56,7 +56,7 @@ Records DR-2026-0001 to DR-2026-0015 are under the first Charter, which is close
 A record's seal is the SHA-256 of the complete closed record file at the release tag, computed with the `seal_hash` value replaced by 64 zeros.
 
 - The file carries its seal in one table row: `` | `seal_hash` | `` followed by 64 lowercase hexadecimal digits and a closing `|`.
-- Each record names, in `record_location`, its path and the tag its seal covers.
+- Each record names, in `record_location`, its path and the tag its seal covers. A disclosure review released at `drafted` is closed at a later release: DR-2026-0007 and DR-2026-0014 name "the tag of the release that closes it", and the index's "Sealed at tag" column gives that tag. DR-2026-0021 was affirmed before its own release, so it is closed in that release and names its tag.
 
 To check a seal, run this from a clone of the repository, with `FILE` replaced by the record's file name. The first 64 characters of the output must equal the record's `seal_hash`.
 
