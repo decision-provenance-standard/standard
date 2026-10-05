@@ -46,9 +46,11 @@ The badge page is at https://decisionprovenancestandard.org/badges.html. It embe
 
 ## Versions
 
-The prompt and the skill draft declarations against version 1.2 (reading edition rev. 10) only, `"standard_version": "v1.2-rev10"`. Version 1.2 is a minor release, so a Charter that meets version 1.1 (reading edition rev. 9) also meets version 1.2. The format still accepts `"v1.1-rev9"` and `"v1.0-rev8"` for declarations already made against them.
+The prompt and the skill draft declarations against version 1.3 (reading edition rev. 11) only, `"standard_version": "v1.3-rev11"`. Version 1.3 is a minor release, so a Charter that meets version 1.2 (reading edition rev. 10) also meets version 1.3. The format still accepts `"v1.2-rev10"`, `"v1.1-rev9"` and `"v1.0-rev8"` for declarations already made against them.
 
 For version 1.2 the kit added L1-08 (every record carries the fields required at its state) and L3-07 (records findable and retained as §6.4 requires), and retired L2-10: the minimum group size for team-level records is now a recommendation, shown as a note under L2-09. A retired ID is never reused.
+
+For version 1.3 the kit keeps its 25 criteria. L1-07 also accepts the escalation route the text now gives a Charter with no higher forum: an exact trigger, with the outcome made public or reviewed by someone other than the person who decided (§3.2, §7.2.1). L2-02 names the signal `every_mode_2_record_carries_disclosure_pointer`, which reports that criterion; the text adds no Level 2 criterion for it.
 
 ## Changing the kit
 

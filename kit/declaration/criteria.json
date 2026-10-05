@@ -3,10 +3,13 @@
   "license": "Apache-2.0",
   "note": "Single source for the Conformance Level criteria used by the badge page, the chat-AI prompt and the coding-agent skill. Edit this file, then run declaration/build.py. Wording follows the normative text of the Standard, Section 7; section numbers are cited on every criterion. The prompt and the skill use the exact wording (question, applies_if, help); the badge page leads with the plain wording (plain_intro per Level, plain per criterion), which must say the same thing in everyday words, and folds the exact wording under each line.",
   "standard": {
-    "id": "v1.2-rev10",
-    "label": "Decision Provenance Standard v1.2, reading edition rev. 10",
-    "url": "https://decisionprovenancestandard.org/dps-v1.2-rev10-core.html",
+    "id": "v1.3-rev11",
+    "label": "Decision Provenance Standard v1.3, reading edition rev. 11",
+    "url": "https://decisionprovenancestandard.org/dps-v1.3-rev11-core.html",
     "earlier": [
+      { "id": "v1.2-rev10", "label": "Decision Provenance Standard v1.2, reading edition rev. 10",
+        "url": "https://decisionprovenancestandard.org/dps-v1.2-rev10-core.html",
+        "note": "Still published. Accepted for declarations made against v1.2; new declarations use the current version." },
       { "id": "v1.1-rev9", "label": "Decision Provenance Standard v1.1, reading edition rev. 9",
         "url": "https://decisionprovenancestandard.org/dps-v1.1-rev9-core.html",
         "note": "Still published. Accepted for declarations made against v1.1; new declarations use the current version." },
@@ -76,9 +79,9 @@
     },
     {
       "id": "L1-07", "level": 1, "signal": null, "sections": ["§7.2.1", "§3.2"],
-      "plain": "An escalation rule: a stated, exact condition that moves a decision out of its usual forum, not \"when it feels stuck\".",
-      "question": "Does the Charter set an escalation rule with a named, exact trigger: a stated condition that moves a decision out of its usual forum (not \"when it feels stuck\")?",
-      "help": "What counts is a named, exact trigger (§3.2). The rule must move the decision out of the Charter's standing forum (§3.2, §7.2.1); where a Charter has no higher forum, the text does not say what counts, so grade it \"not sure\" and say why.",
+      "plain": "An escalation rule: a stated, exact condition that moves a decision out of its usual forum, not \"when it feels stuck\". Where there is no higher forum, the rule may instead make the outcome public or have it reviewed by someone other than the person who decided.",
+      "question": "Does the Charter set an escalation rule with a named, exact trigger (not \"when it feels stuck\") that moves the decision out of its usual forum or, where the Charter has no higher forum, makes the outcome public or has it reviewed by someone other than the person who decided?",
+      "help": "What counts is a named, exact trigger (§3.2). When it fires, the rule either moves the decision out of the Charter's standing forum, or, where the Charter has no higher forum (for example, its accountable owner decides alone), makes the outcome public or has it reviewed by someone other than the person who decided (§3.2, §7.2.1). Either meets the criterion, and a rule that moves the decision to a higher forum always does. Record \"not met\" if there is no exact trigger, or if a Charter with no higher forum neither makes the outcome public nor has it reviewed by someone else.",
       "evidence_hint": "The Charter's escalation_rule field."
     },
     {
@@ -96,12 +99,12 @@
       "evidence_hint": "The dispatch_mode field on each decision record."
     },
     {
-      "id": "L2-02", "level": 2, "signal": "every_mode_2_record_has_disclosure_block", "also_signals": ["disclosure_block_required_fields_populated"], "sections": ["§7.3.1", "§4.6", "§4.6.1", "§4.6.2", "§6.2.2"],
+      "id": "L2-02", "level": 2, "signal": "every_mode_2_record_has_disclosure_block", "also_signals": ["disclosure_block_required_fields_populated", "every_mode_2_record_carries_disclosure_pointer"], "sections": ["§7.3.1", "§4.6", "§4.6.1", "§4.6.2", "§6.2.2"],
       "plain": "A disclosure block on every AI-drafted record, unless the Charter places it outside the Standard's disclosure requirement: the label that gives five facts, namely who stands behind it (a person, the organization, or both), which AI system drafted it, for which countries, what kind of content it is, and when it was made. Only where an AI system drafts records.",
       "applies_if": "The Charter has any records drafted by an AI system (mode-2), other than outputs outside the Standard's disclosure requirement: those the Charter declares outside it, or, for a Charter written before v1.1, outputs that already met the §4.6.1 test (§4.6.1; see L1-03).",
       "question": "Does every AI-drafted (mode-2) record that the Standard's disclosure requirement covers carry a complete disclosure block with all five required fields: declaring authority, AI system identity, jurisdictions it applies to, content type, and generation timestamp?",
-      "help": "The declaring authority may name the person who prepares the disclosure, the organization they act for, or both: any of the three counts, though the Standard asks new records to name both (§4.6.2). It is never the AI system's vendor.",
-      "evidence_hint": "The disclosure block on each mode-2 record."
+      "help": "The declaring authority may name the person who prepares the disclosure, the organization they act for, or both: any of the three counts, though the Standard asks new records to name both (§4.6.2). It is never the AI system's vendor. The signal every_mode_2_record_carries_disclosure_pointer reports this same criterion: it checks that each record's disclosure_metadata_pointer is there from the drafted state on, not only at close (§7.3.2, §4.3, §6.2.2). It adds no criterion. A record with an embedded AI-drafted summary (mode-1-with-embedded-mode-2-summary) within the requirement needs the pointer from drafted too; a missing pointer is judged under L1-08 (§6.2.2, §6.2.4).",
+      "evidence_hint": "The disclosure block on each mode-2 record, and its disclosure_metadata_pointer."
     },
     {
       "id": "L2-03", "level": 2, "signal": "every_mode_1_edge_case_record_has_disclosure_block", "sections": ["§7.3.1", "§7.3.2", "§4.7", "§4.6.1", "§6.2.2"],

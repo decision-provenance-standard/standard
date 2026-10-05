@@ -3,7 +3,7 @@
 
 # Conformance Level criteria
 
-Standard: Decision Provenance Standard v1.2, reading edition rev. 10 (https://decisionprovenancestandard.org/dps-v1.2-rev10-core.html)
+Standard: Decision Provenance Standard v1.3, reading edition rev. 11 (https://decisionprovenancestandard.org/dps-v1.3-rev11-core.html)
 
 ## How to check
 
@@ -19,7 +19,7 @@ When there is no Charter, or the person does not know what one is, say this in t
 
 > A Charter is the written setup for one area of decisions: who owns them, how they are drafted, which records are kept and where. The Standard's Levels are about Charters, so an organization cannot declare any Level until it has at least one.
 
-Then offer a product declaration instead, in case they make a product that implements the Standard, and point them to the Standard's section on Charters (Section 3): https://decisionprovenancestandard.org/dps-v1.2-rev10-core.html#section-3-the-charter-mechanism. No Level and no declaration.
+Then offer a product declaration instead, in case they make a product that implements the Standard, and point them to the Standard's section on Charters (Section 3): https://decisionprovenancestandard.org/dps-v1.3-rev11-core.html#section-3-the-charter-mechanism. No Level and no declaration.
 
 ## Level 1: Charter-Conformant (§7.2)
 
@@ -47,8 +47,8 @@ The Charter is written down in full, and every record under it carries the field
 - **L1-06** Does the Charter set at least two triggers that reopen a decision: at least one based on outcome evidence (how the decision is working out) and at least one based on market evidence (a change outside the organization)?
   - Evidence: The Charter's re_decision_triggers field.
   - Standard: §7.2.1, §3.2. Signal: re_decision_triggers_minimum_met.
-- **L1-07** Does the Charter set an escalation rule with a named, exact trigger: a stated condition that moves a decision out of its usual forum (not "when it feels stuck")?
-  - How to judge: What counts is a named, exact trigger (§3.2). The rule must move the decision out of the Charter's standing forum (§3.2, §7.2.1); where a Charter has no higher forum, the text does not say what counts, so grade it "not sure" and say why.
+- **L1-07** Does the Charter set an escalation rule with a named, exact trigger (not "when it feels stuck") that moves the decision out of its usual forum or, where the Charter has no higher forum, makes the outcome public or has it reviewed by someone other than the person who decided?
+  - How to judge: What counts is a named, exact trigger (§3.2). When it fires, the rule either moves the decision out of the Charter's standing forum, or, where the Charter has no higher forum (for example, its accountable owner decides alone), makes the outcome public or has it reviewed by someone other than the person who decided (§3.2, §7.2.1). Either meets the criterion, and a rule that moves the decision to a higher forum always does. Record "not met" if there is no exact trigger, or if a Charter with no higher forum neither makes the outcome public nor has it reviewed by someone else.
   - Evidence: The Charter's escalation_rule field.
   - Standard: §7.2.1, §3.2. Signal: none named in §7.
 - **L1-08** Does every record carry every field the Standard requires at the state it is in?
@@ -66,9 +66,9 @@ Every record says whether a person or an AI system drafted it, and carries the d
   - Standard: §7.3.1, §6.2.1, §4.5. Signal: every_record_carries_mode_declaration.
 - **L2-02** Does every AI-drafted (mode-2) record that the Standard's disclosure requirement covers carry a complete disclosure block with all five required fields: declaring authority, AI system identity, jurisdictions it applies to, content type, and generation timestamp?
   - Applies only if: The Charter has any records drafted by an AI system (mode-2), other than outputs outside the Standard's disclosure requirement: those the Charter declares outside it, or, for a Charter written before v1.1, outputs that already met the §4.6.1 test (§4.6.1; see L1-03).
-  - How to judge: The declaring authority may name the person who prepares the disclosure, the organization they act for, or both: any of the three counts, though the Standard asks new records to name both (§4.6.2). It is never the AI system's vendor.
-  - Evidence: The disclosure block on each mode-2 record.
-  - Standard: §7.3.1, §4.6, §4.6.1, §4.6.2, §6.2.2. Signal: every_mode_2_record_has_disclosure_block, disclosure_block_required_fields_populated.
+  - How to judge: The declaring authority may name the person who prepares the disclosure, the organization they act for, or both: any of the three counts, though the Standard asks new records to name both (§4.6.2). It is never the AI system's vendor. The signal every_mode_2_record_carries_disclosure_pointer reports this same criterion: it checks that each record's disclosure_metadata_pointer is there from the drafted state on, not only at close (§7.3.2, §4.3, §6.2.2). It adds no criterion. A record with an embedded AI-drafted summary (mode-1-with-embedded-mode-2-summary) within the requirement needs the pointer from drafted too; a missing pointer is judged under L1-08 (§6.2.2, §6.2.4).
+  - Evidence: The disclosure block on each mode-2 record, and its disclosure_metadata_pointer.
+  - Standard: §7.3.1, §4.6, §4.6.1, §4.6.2, §6.2.2. Signal: every_mode_2_record_has_disclosure_block, disclosure_block_required_fields_populated, every_mode_2_record_carries_disclosure_pointer.
 - **L2-03** Does every person-drafted record whose AI-drafted content the Standard's disclosure requirement covers carry a disclosure block at the point where that content sits?
   - Applies only if: The Charter has any person-drafted records with AI-drafted content inside them (records flagged mode_1_edge_case_flag), other than embedded content outside the Standard's disclosure requirement: content the Charter places outside it, or, for a Charter written before v1.1, content that already met the §4.6.1 test (§4.6.1, §4.7; see L1-03). Until the Charter has such a record, there is nothing to check and this criterion does not apply (§7.3.2, "When there is nothing yet to check").
   - Evidence: The mode_1_edge_case_flag and the per-record disclosure pointer.
@@ -145,7 +145,7 @@ For an organization:
 ```text
 Decision Provenance Standard: self-declaration
 Organization: {name}
-Standard: Decision Provenance Standard v1.2, reading edition rev. 10 (https://decisionprovenancestandard.org/dps-v1.2-rev10-core.html)
+Standard: Decision Provenance Standard v1.3, reading edition rev. 11 (https://decisionprovenancestandard.org/dps-v1.3-rev11-core.html)
 Charters covered: {charters}
 Conformance Level claimed: Level {level} ({level_name}), self-declared on {date}
 Where this declaration can be read: {where}
@@ -158,7 +158,7 @@ For a product:
 ```text
 Decision Provenance Standard: self-declaration
 Product: {name}
-Standard: Decision Provenance Standard v1.2, reading edition rev. 10 (https://decisionprovenancestandard.org/dps-v1.2-rev10-core.html)
+Standard: Decision Provenance Standard v1.3, reading edition rev. 11 (https://decisionprovenancestandard.org/dps-v1.3-rev11-core.html)
 Claim: this product implements the Decision Provenance Standard, self-declared on {date}
 Where this declaration can be read: {where}
 Stands behind it: {affirmed_name}, {affirmed_role}
@@ -167,7 +167,7 @@ This is our own statement about our product, not a statement by the Standard's S
 
 Level names: Level 1 = Charter-Conformant; Level 2 = Mode-Disambiguated; Level 3 = Continuously Auditable.
 
-Use "v1.2-rev10" as standard_version: declarations are drafted against this version only.
+Use "v1.3-rev11" as standard_version: declarations are drafted against this version only.
 
 Only when the organization declaring is the Standard's Steward, use this statement instead of the organization statement above, in the plain text and in the JSON (the schema allows both):
 
