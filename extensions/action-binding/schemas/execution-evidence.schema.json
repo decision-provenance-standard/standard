@@ -3,7 +3,7 @@
   "$id": "https://decisionprovenancestandard.org/extensions/action-binding/0.1.0/execution-evidence.schema.json",
   "$comment": "SPDX-License-Identifier: Apache-2.0. Action binding extension 0.1.0 (proposal), written against Core v1.2 rev. 10 and reference files 5.1.2. Binds only an implementation that says it uses this extension.",
   "title": "Action binding: execution-evidence attachment",
-  "description": "Evidence that an external action was carried out as approved, kept beside one decision record. It refers to the record by decision_id and is never inserted into it. Every stage is the issuer's statement; the attachment does not show that a statement is true.",
+  "description": "Evidence that an external action was carried out as approved, kept beside one decision record. There is one attachment per decision record. It refers to the record by decision_id and is never inserted into it. It is not sealed or chained: the attachment_digest in a verification report fixes which bytes were checked. Every stage is the issuer's statement; the attachment does not show that a statement is true.",
   "type": "object",
   "additionalProperties": false,
   "required": ["profile", "profile_version", "decision_id", "action_specifications", "stages"],
@@ -147,7 +147,7 @@
       }
     },
     "core_ref": {
-      "description": "The core field of the decision record that records the same act: its actor, time and method (affirmation_record), or its reviewer, time and outcome (a review_log entry).",
+      "description": "The core field of the decision record that records the same act: its actor, time and method (affirmation_record), or its reviewer, time and outcome (a review_log entry). A core field backs at most one outcome. An approval with no core_ref is not shown by the record: its record statements are reported as not checked.",
       "oneOf": [
         {
           "type": "object",
@@ -209,12 +209,13 @@
         "at": {"$ref": "#/$defs/timestamp"},
         "reviewer_ref": {"$ref": "#/$defs/ref"},
         "shown_spec_digest": {"$ref": "#/$defs/sha256_hex"},
+        "proposal_ref": {"$ref": "#/$defs/stage_id", "description": "The proposal this review answers, where there is one. The check then reports whether the reviewer was shown what was proposed."},
         "shown_view_ref": {"$ref": "#/$defs/ref", "description": "Where the view the reviewer was shown is kept."},
         "shown_view_digest": {"$ref": "#/$defs/sha256_hex"}
       }
     },
     "outcome": {
-      "description": "The answer to one review, by the person reviewed. Only an approval carries an approved digest, an authority and a request limit; a rejection or an escalation never does.",
+      "description": "The answer to one review, by the person reviewed. A review has one outcome. Only an approval carries an approved digest, an authority and a request limit; a rejection or an escalation never does.",
       "type": "object",
       "additionalProperties": false,
       "required": ["stage_id", "kind", "at", "review_ref", "outcome", "actor_ref", "method", "rationale"],
@@ -240,17 +241,18 @@
       "else": {"not": {"anyOf": [{"required": ["approved_spec_digest"]}, {"required": ["authority"]}, {"required": ["request_limit"]}]}}
     },
     "change_authorisation": {
-      "description": "A separately authorised change: it names the earlier approval or change, the new specification, and its own authority.",
+      "description": "A separately authorised change: it names the earlier approval or change, the new specification, and the named person who authorises it with their own authority. Never the proposer, a service named in the attachment, or a default. No reviewer is shown the new specification, and a verification report says so.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["stage_id", "kind", "at", "from_ref", "spec_digest", "actor_ref", "authority", "rationale"],
+      "required": ["stage_id", "kind", "at", "from_ref", "spec_digest", "actor_ref", "method", "authority", "rationale"],
       "properties": {
         "stage_id": {"$ref": "#/$defs/stage_id"},
         "kind": {"const": "change_authorisation"},
         "at": {"$ref": "#/$defs/timestamp"},
         "from_ref": {"$ref": "#/$defs/stage_id"},
         "spec_digest": {"$ref": "#/$defs/sha256_hex"},
-        "actor_ref": {"$ref": "#/$defs/ref"},
+        "actor_ref": {"$ref": "#/$defs/ref", "description": "The named person who authorises the change: the issuer's statement, not verified identity."},
+        "method": {"$ref": "#/$defs/ref", "description": "How that person gave the authorisation. Never a default, a timeout or the absence of an objection."},
         "authority": {"$ref": "#/$defs/authority"},
         "request_limit": {"type": "integer", "minimum": 1},
         "rationale": {"$ref": "#/$defs/rationale"},
@@ -259,7 +261,7 @@
       }
     },
     "request": {
-      "description": "The authorised request to execute one specification. request_id is unique: a second request with the same request_id is a duplicate, never a new action.",
+      "description": "The authorised request to execute one specification. request_id is unique within the attachment: a second request with the same request_id is a duplicate, never a new action. Where the target accepts an idempotency key, the executor sends request_id as that key.",
       "type": "object",
       "additionalProperties": false,
       "required": ["stage_id", "kind", "at", "request_id", "authorised_by", "spec_digest", "requested_by"],

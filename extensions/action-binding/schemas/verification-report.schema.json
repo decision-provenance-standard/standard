@@ -13,7 +13,7 @@
     "attachment_count": {
       "type": "integer",
       "minimum": 1,
-      "description": "The number of attachments checked. The report has one result for each, and each attachment_index from 0 to this count minus 1 appears once. JSON Schema cannot compare two documents: a reader holding both checks it."
+      "description": "The number of attachments checked. The report has one result for each, and each attachment_index from 0 to this count minus 1 appears once. There is one attachment per decision record, so no two results name the same decision_id. JSON Schema cannot compare two documents: a reader holding both checks it."
     },
     "trust_policy_ref": {
       "type": "string",
@@ -93,8 +93,15 @@
             "required": ["attempt_stage_id", "observed"],
             "properties": {
               "attempt_stage_id": {"type": "string", "minLength": 1},
-              "observed": {"enum": ["succeeded", "failed", "indeterminate", "missing", "multiple"]}
-            }
+              "observed": {"enum": ["succeeded", "failed", "indeterminate", "missing", "multiple"]},
+              "basis": {
+                "enum": ["target_response", "independent_observation", "executor_observation"],
+                "description": "The basis of the observation, as recorded. executor_observation: the executor's own word."
+              }
+            },
+            "if": {"properties": {"observed": {"enum": ["succeeded", "failed", "indeterminate"]}}, "required": ["observed"]},
+            "then": {"required": ["basis"]},
+            "else": {"not": {"required": ["basis"]}}
           }
         },
         "findings": {"$ref": "#/$defs/findings"}
@@ -117,8 +124,11 @@
       "required": [
         "attachment_index",
         "decision_id",
+        "attachment_digest",
         "structural_validity",
         "specifications",
+        "reviews",
+        "executed_specifications",
         "record_statements",
         "action_binding",
         "stage_order",
@@ -134,6 +144,10 @@
       "properties": {
         "attachment_index": {"type": "integer", "minimum": 0, "description": "The position of this result's attachment in the input, from 0."},
         "decision_id": {"type": "string", "pattern": "^DR-[0-9]{4}-[0-9]{3,}$", "description": "The decision_id the attachment states."},
+        "attachment_digest": {
+          "$ref": "#/$defs/sha256_hex",
+          "description": "SHA-256 of the attachment's bytes as received. Attachments are not sealed or chained, so this digest is what fixes which bytes were checked."
+        },
         "structural_validity": {"$ref": "#/$defs/check"},
         "specifications": {
           "description": "One result for each action specification in the attachment.",
@@ -141,7 +155,34 @@
           "minItems": 1,
           "items": {"$ref": "#/$defs/specification_result"}
         },
-        "record_statements": {"$ref": "#/$defs/check", "description": "The stages' statements about core fields, against the decision record; not_checked when the verifier does not hold it."},
+        "reviews": {
+          "description": "For each review, whether the reviewer was shown what was proposed: as_proposed, differs_from_proposal, or proposal_not_named.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["review_stage_id", "shown"],
+            "properties": {
+              "review_stage_id": {"type": "string", "minLength": 1},
+              "shown": {"enum": ["as_proposed", "differs_from_proposal", "proposal_not_named"]}
+            }
+          }
+        },
+        "executed_specifications": {
+          "description": "For each specification attempted, how it was reached: shown to a reviewer and approved, only through an authorised change that no reviewer was shown, or by neither (unbound).",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["spec_index", "reached_by"],
+            "properties": {
+              "spec_index": {"type": "integer", "minimum": 0},
+              "reached_by": {"enum": ["shown_to_reviewer", "via_change_only", "unbound"]}
+            }
+          }
+        },
+        "record_statements": {"$ref": "#/$defs/check", "description": "The stages' statements about core fields, against the decision record. not_checked when the verifier does not hold the record, when an approval names no core field (the record does not show it), or when a review_log outcome is a word the check does not know."},
         "action_binding": {"$ref": "#/$defs/check", "description": "Shown, approved, requested and attempted digests agree, or are joined by an authorised change."},
         "stage_order": {
           "type": "object",
@@ -161,7 +202,25 @@
         "time_assurance": {"$ref": "#/$defs/assurance"},
         "issuer_signature": {"$ref": "#/$defs/issuer_signature"},
         "legal_signature": {"$ref": "#/$defs/assurance"}
-      }
+      },
+      "allOf": [
+        {
+          "description": "No specification is reported as executed when nothing was attempted.",
+          "if": {
+            "properties": {"observed_results": {"properties": {"execution_state": {"enum": ["not_requested", "requested_not_attempted"]}}}},
+            "required": ["observed_results"]
+          },
+          "then": {"properties": {"executed_specifications": {"maxItems": 0}}}
+        },
+        {
+          "description": "An unbound executed specification is a failed binding.",
+          "if": {
+            "properties": {"executed_specifications": {"contains": {"properties": {"reached_by": {"const": "unbound"}}, "required": ["reached_by"]}}},
+            "required": ["executed_specifications"]
+          },
+          "then": {"properties": {"action_binding": {"properties": {"status": {"const": "failed"}}}}}
+        }
+      ]
     },
     "scope_of_conclusion": {
       "type": "object",
