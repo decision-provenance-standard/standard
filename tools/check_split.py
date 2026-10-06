@@ -30,9 +30,10 @@ This check FAILS when:
       * only the newest release of an edition may be untagged, and a release tag reachable from
         the commit being checked must be listed for every edition (a release is never dropped
         from the record);
-  - a release whose values are fixed in this file (RELEASED: v1.1 rev. 9 and v1.2 rev. 10) is missing from an
-    edition's releases, or its entry's revision, sha256 or bytes differ from the values fixed
-    here; this holds whether or not the release tag is available;
+  - a release whose values are fixed in this file (RELEASED: v1.1 rev. 9, v1.2 rev. 10 and
+    v1.3 rev. 11) is missing from an edition's releases, or its entry's revision, sha256 or
+    bytes differ from the values fixed here; this holds whether or not the release tag is
+    available;
   - the text differs from the published release and the baseline tag is not available to
     prove the split is still lossless.
 
@@ -115,6 +116,17 @@ RELEASED = {
             "companion-C": ("034edc786bd025338a7f1f502fb19ad0714d2a6f00c49009e92dd0bae34a31c0", 31872),
             "companion-D": ("d4d238fd4e538996a37ca51f109c382fe9c2449947ccb8cd95c9e429b4172b27", 24681),
             "appendix-G": ("3bdd6ba414c38f9014afc87fa3562bfee8b3c8d81e673268770a857f14e9c437", 56694),
+        },
+    },
+    "v1.3-rev11": {   # spec/editions.json at tag v1.3-rev11 (commit 1b1f22c)
+        "revision": "v1.3 rev. 11",
+        "editions": {
+            "core": ("c300039e6ce09acb6259105790fd46d65ae460294f479f9989b55861dc8bc49d", 280040),
+            "companion-A": ("e634982689b84fb89d355151d4f4d0d3d88eaecefb6b725b4e0401afa08d681d", 80679),
+            "companion-B": ("dd2dfb5e15d759df6f34b640893e4d51f0a79d67374edbe64497ba8dc69550fb", 61793),
+            "companion-C": ("1e1691e327b42b7e9de9806047cf43367af50df892ac8cef7422309a6e42122e", 31872),
+            "companion-D": ("eeaa669722697ffb76173b631524a41a2a527278814a9491858f0b5e0a058b21", 24820),
+            "appendix-G": ("57aca3fc304c93b6bf6d7c76f1d04c1db3801e8e56e686e7b5ea2dbadf29fbee", 56881),
         },
     },
 }
