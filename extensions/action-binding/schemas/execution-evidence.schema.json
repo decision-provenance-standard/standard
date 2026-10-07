@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://decisionprovenancestandard.org/extensions/action-binding/0.1.0/execution-evidence.schema.json",
-  "$comment": "SPDX-License-Identifier: Apache-2.0. Action binding extension 0.1.0 (proposal), written against Core v1.2 rev. 10 and reference files 5.1.2. Binds only an implementation that says it uses this extension.",
+  "$id": "https://decisionprovenancestandard.org/extensions/action-binding/0.2.0/execution-evidence.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0. Action binding extension 0.2.0 (proposal), written against Core v1.3 rev. 11 and reference files 5.2.0. Binds only an implementation that says it uses this extension.",
   "title": "Action binding: execution-evidence attachment",
   "description": "Evidence that an external action was carried out as approved, kept beside one decision record. There is one attachment per decision record. It refers to the record by decision_id and is never inserted into it. It is not sealed or chained: the attachment_digest in a verification report fixes which bytes were checked. Every stage is the issuer's statement; the attachment does not show that a statement is true.",
   "type": "object",
@@ -9,7 +9,7 @@
   "required": ["profile", "profile_version", "decision_id", "action_specifications", "stages"],
   "properties": {
     "profile": {"const": "dps-action-binding"},
-    "profile_version": {"const": "0.1.0"},
+    "profile_version": {"const": "0.2.0"},
     "decision_id": {"$ref": "#/$defs/decision_id", "description": "The decision record this attachment sits beside (Core §6.2.1)."},
     "action_specifications": {
       "type": "array",
@@ -210,6 +210,7 @@
         "reviewer_ref": {"$ref": "#/$defs/ref"},
         "shown_spec_digest": {"$ref": "#/$defs/sha256_hex"},
         "proposal_ref": {"$ref": "#/$defs/stage_id", "description": "The proposal this review answers, where there is one. The check then reports whether the reviewer was shown what was proposed."},
+        "edited_by": {"$ref": "#/$defs/ref", "description": "Who edited the proposal into the specification shown, when the two differ. That person is the author of the change, and a verification report shows them."},
         "shown_view_ref": {"$ref": "#/$defs/ref", "description": "Where the view the reviewer was shown is kept."},
         "shown_view_digest": {"$ref": "#/$defs/sha256_hex"}
       }
@@ -229,7 +230,7 @@
         "method": {"$ref": "#/$defs/ref"},
         "approved_spec_digest": {"$ref": "#/$defs/sha256_hex"},
         "authority": {"$ref": "#/$defs/authority"},
-        "request_limit": {"type": "integer", "minimum": 1, "description": "How many requests this approval covers. Without it, one."},
+        "request_limit": {"type": "integer", "minimum": 1, "description": "How many requests this approval covers, a change of it counting as one. Without it, one. However many approvals and changes bind one specification, the requests for it number at most the largest request_limit any of them states."},
         "escalated_to_ref": {"$ref": "#/$defs/ref"},
         "rationale": {"$ref": "#/$defs/rationale"},
         "identity_evidence_ref": {"$ref": "#/$defs/ref", "description": "Where independent evidence of the actor's identity is kept, if any."},
@@ -241,7 +242,7 @@
       "else": {"not": {"anyOf": [{"required": ["approved_spec_digest"]}, {"required": ["authority"]}, {"required": ["request_limit"]}]}}
     },
     "change_authorisation": {
-      "description": "A separately authorised change: it names the earlier approval or change, the new specification, and the named person who authorises it with their own authority. Never the proposer, a service named in the attachment, or a default. No reviewer is shown the new specification, and a verification report says so.",
+      "description": "A separately authorised change: it names the earlier approval or change, a different specification, and the named person who authorises it with their own authority. Never the proposer, a service named in the attachment, or a default. It uses up one request of the approval or change it names, and it cannot reach a specification that a reviewer in the attachment rejected or escalated. No reviewer is shown the new specification, and a verification report says so.",
       "type": "object",
       "additionalProperties": false,
       "required": ["stage_id", "kind", "at", "from_ref", "spec_digest", "actor_ref", "method", "authority", "rationale"],

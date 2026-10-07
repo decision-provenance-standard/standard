@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://decisionprovenancestandard.org/extensions/action-binding/0.1.0/verification-report.schema.json",
-  "$comment": "SPDX-License-Identifier: Apache-2.0. Action binding extension 0.1.0 (proposal), written against Core v1.2 rev. 10 and reference files 5.1.2. Binds only an implementation that says it uses this extension.",
+  "$id": "https://decisionprovenancestandard.org/extensions/action-binding/0.2.0/verification-report.schema.json",
+  "$comment": "SPDX-License-Identifier: Apache-2.0. Action binding extension 0.2.0 (proposal), written against Core v1.3 rev. 11 and reference files 5.2.0. Binds only an implementation that says it uses this extension.",
   "title": "Action binding verification report",
   "description": "What a verifier found in a set of execution-evidence attachments, dimension by dimension, with the scope of its conclusion. There is deliberately no overall result: no dimension stands for the others, and nothing here is a legal conclusion or a Conformance Level.",
   "type": "object",
@@ -9,11 +9,11 @@
   "required": ["profile", "profile_version", "attachment_count", "trust_policy_ref", "results", "scope_of_conclusion"],
   "properties": {
     "profile": {"const": "dps-action-binding-report"},
-    "profile_version": {"const": "0.1.0"},
+    "profile_version": {"const": "0.2.0"},
     "attachment_count": {
       "type": "integer",
       "minimum": 1,
-      "description": "The number of attachments checked. The report has one result for each, and each attachment_index from 0 to this count minus 1 appears once. There is one attachment per decision record, so no two results name the same decision_id. JSON Schema cannot compare two documents: a reader holding both checks it."
+      "description": "The number of attachments checked. The report has one result for each, and each attachment_index from 0 to this count minus 1 appears once. There is one attachment per decision record, so no two results name the same decision_id; this can be checked only among the attachments one report covers. JSON Schema cannot compare two documents: a reader holding both checks it."
     },
     "trust_policy_ref": {
       "type": "string",
@@ -146,7 +146,7 @@
         "decision_id": {"type": "string", "pattern": "^DR-[0-9]{4}-[0-9]{3,}$", "description": "The decision_id the attachment states."},
         "attachment_digest": {
           "$ref": "#/$defs/sha256_hex",
-          "description": "SHA-256 of the attachment's bytes as received. Attachments are not sealed or chained, so this digest is what fixes which bytes were checked."
+          "description": "SHA-256 of the attachment's bytes as received. Attachments are not sealed or chained, so this digest is what fixes which bytes were checked, for a reader who holds the report as the verifier issued it."
         },
         "structural_validity": {"$ref": "#/$defs/check"},
         "specifications": {
@@ -156,7 +156,7 @@
           "items": {"$ref": "#/$defs/specification_result"}
         },
         "reviews": {
-          "description": "For each review, whether the reviewer was shown what was proposed: as_proposed, differs_from_proposal, or proposal_not_named.",
+          "description": "For each review, whether the reviewer was shown what was proposed: as_proposed, differs_from_proposal (with edited_by, the author of that change, where the attachment names them), or proposal_not_named.",
           "type": "array",
           "minItems": 1,
           "items": {
@@ -165,12 +165,15 @@
             "required": ["review_stage_id", "shown"],
             "properties": {
               "review_stage_id": {"type": "string", "minLength": 1},
-              "shown": {"enum": ["as_proposed", "differs_from_proposal", "proposal_not_named"]}
-            }
+              "shown": {"enum": ["as_proposed", "differs_from_proposal", "proposal_not_named"]},
+              "edited_by": {"type": "string", "minLength": 1}
+            },
+            "if": {"properties": {"shown": {"const": "differs_from_proposal"}}, "required": ["shown"]},
+            "else": {"not": {"required": ["edited_by"]}}
           }
         },
         "executed_specifications": {
-          "description": "For each specification attempted, how it was reached: shown to a reviewer and approved, only through an authorised change that no reviewer was shown, or by neither (unbound).",
+          "description": "For each specification attempted, how it was reached: shown to a reviewer and approved, only through an authorised change that no reviewer was shown (and that used up a request of what it changes), or by neither (unbound).",
           "type": "array",
           "items": {
             "type": "object",
