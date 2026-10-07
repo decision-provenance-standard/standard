@@ -1,16 +1,22 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Checks for the action binding extension, version 0.1.0 (a proposal).
+"""Checks for the action binding extension, version 0.2.0 (a proposal).
 
 Runs the cases in cases.json:
 
   schema cases    a base attachment or the base report, changed by a patch, against the extension's
                   schemas; and the fixture records against the core decision-record schema
-  digest cases    SHA-256 over the exact bytes of action specifications: changes and re-serialisation
+  digest cases    SHA-256 over exact bytes: action specifications (changes and re-serialisation), and the
+                  seal of the affirmed fixture record
   binding cases   the reference check of one attachment, with or without its decision record
-  pairing cases   a report read with its attachments: one result per attachment, per specification and
-                  per attempt (JSON Schema cannot compare two documents)
+  pairing cases   a report read with its attachments: one result per attachment and per decision record, the
+                  attachment's digest, and one result per specification, review and attempt (JSON Schema
+                  cannot compare two documents)
 
-Standard library and jsonschema only. Times are the issuer's; the cases include no signature.
+In these cases, an attachment's bytes as received are its JSON text as the runner writes it: UTF-8, no
+whitespace, members in the order given (json.dumps with separators (",", ":") and ensure_ascii False).
+
+Standard library and jsonschema only. Times are the issuer's, compared as instants; the cases include no
+signature.
 
 Usage:  python extensions/action-binding/tests/run_checks.py
 Exit code 0 = every case behaves as expected, 1 = a case does not.
@@ -35,12 +41,15 @@ CORE_RECORD_SCHEMA = ROOT / "standard" / "v5.0" / "schemas" / "decision-record.s
 READABLE = {"application/json"}  # media types the reference statement checks read
 SPEC_MEMBERS = ("operation", "target", "parameters", "input_version_refs", "policy_version")
 SUMMARY_MEMBERS = ("operation", "target", "policy_version", "input_version_refs")
+KNOWN_OUTCOMES = {"approved", "rejected", "escalated"}  # review_log.outcome words this check reads
 DIMENSIONS = (
     "specification_digests", "specification_statements", "record_statements", "action_binding",
     "stage_order", "authorisation_recheck", "observed_results", "rationale_provenance",
 )
+CARRIED = ("observed", "executed", "reviews")  # compared in a binding case only when it lists them
 RANK = {"verified": 0, "not_checked": 1, "unavailable": 2, "failed": 3}
-REFS = ("review_ref", "from_ref", "authorised_by", "request_ref", "recheck_ref", "attempt_ref")
+REFS = ("proposal_ref", "review_ref", "from_ref", "authorised_by", "request_ref", "recheck_ref", "attempt_ref")
+ZEROED = '"seal_hash":"' + "0" * 64 + '"'
 
 
 def sha256(data):
@@ -49,6 +58,23 @@ def sha256(data):
 
 def when(text):
     return datetime.fromisoformat(text.replace("Z", "+00:00"))
+
+
+def same_instant(a, b):
+    """True or False for two times compared as instants; None when one cannot be read as an instant (not a
+    time, or a time with no offset)."""
+    try:
+        x, y = when(a), when(b)
+    except (AttributeError, TypeError, ValueError):
+        return None
+    if x.tzinfo is None or y.tzinfo is None:
+        return None
+    return x == y
+
+
+def attachment_bytes(att):
+    """The attachment's bytes as received, by the convention of these cases (see the docstring)."""
+    return json.dumps(att, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
 
 
 def locate(doc, pointer):
@@ -123,16 +149,21 @@ def check_specification(spec):
 
 
 def check_record(att, record_raw):
-    """The stages' statements about core fields, against the decision record the verifier holds."""
+    """The stages' statements about core fields, against the decision record the verifier holds.
+
+    Verified only when every approval is backed by a core field and every backed statement matches. A matching
+    decision_id shows consistency only: a verifier usually finds the record by that same id."""
+    unbacked = [f"{s['stage_id']}: no core field backs this approval; the record does not show it"
+                for s in att["stages"] if s["kind"] == "outcome" and s["outcome"] == "approved" and "core_ref" not in s]
     if record_raw is None:
-        return "not_checked", ["the decision record was not supplied"]
+        return "not_checked", ["the decision record was not supplied"] + unbacked
     try:
         record = strict_json(record_raw)
     except ValueError as exc:
-        return "not_checked", [f"the record cannot be read: {exc}"]
+        return "not_checked", [f"the record cannot be read: {exc}"] + unbacked
     if not isinstance(record, dict):
-        return "not_checked", ["the record is not a JSON object"]
-    wrong = []
+        return "not_checked", ["the record is not a JSON object"] + unbacked
+    wrong, unread = [], list(unbacked)
     if record.get("decision_id") != att["decision_id"]:
         wrong.append("decision_id")
     for s in att["stages"]:
@@ -146,14 +177,31 @@ def check_record(att, record_raw):
             a = record.get("affirmation_record") or {}
             pairs = [("actor_identity", "actor_ref"), ("timestamp", "at"), ("method", "method")]
         else:
-            log = record.get("review_log") or []
-            a = log[ref["index"]] if ref["index"] < len(log) else {}
+            log, i = record.get("review_log") or [], ref["index"]
+            if not isinstance(i, int) or isinstance(i, bool):  # JSON Schema accepts 0.0 as an integer
+                unread.append(f"{s['stage_id']}: review_log index {i!r} is not written as an integer")
+                continue
+            a = log[i] if i < len(log) else {}
             pairs = [("reviewer", "actor_ref"), ("reviewed_at", "at"), ("outcome", "outcome")]
         for core_key, stage_key in pairs:
-            if a.get(core_key) != s[stage_key]:
-                wrong.append(f"{s['stage_id']}: {ref['field']}.{core_key}")
+            name = f"{s['stage_id']}: {ref['field']}.{core_key}"
+            value = a.get(core_key)
+            if value is None:
+                wrong.append(name)
+            elif core_key in ("timestamp", "reviewed_at"):
+                same = same_instant(value, s[stage_key])
+                if same is None:
+                    unread.append(f"{name}: the time cannot be read as an instant")
+                elif not same:
+                    wrong.append(name)
+            elif core_key == "outcome" and value not in KNOWN_OUTCOMES:
+                unread.append(f"{name}: {value!r} is not a word this check knows")
+            elif value != s[stage_key]:
+                wrong.append(name)
     if wrong:
-        return "failed", ["does not match the decision record: " + ", ".join(wrong)]
+        return "failed", ["does not match the decision record: " + ", ".join(wrong)] + unread
+    if unread:
+        return "not_checked", unread
     return "verified", []
 
 
@@ -167,7 +215,7 @@ def check_attachment(att, record_raw=None):
             continue
         pos[s["stage_id"]], by_id[s["stage_id"]] = i, s
     kinds = {k: [s for s in stages if s["kind"] == k] for k in
-             ("outcome", "change_authorisation", "request", "recheck", "attempt", "result")}
+             ("proposal", "review", "outcome", "change_authorisation", "request", "recheck", "attempt", "result")}
     out = {}
 
     # Specifications: each digest, and each summary, on its own; the dimension keeps the worst status.
@@ -193,24 +241,82 @@ def check_attachment(att, record_raw=None):
             return None
         return target
 
+    # A review shown something other than its proposal is reported, not failed; whoever edited it is the author
+    # of that change, and the review names them.
+    reviews = []
+    for s in kinds["review"]:
+        shown, editor = "proposal_not_named", None
+        if "proposal_ref" in s:
+            proposal = ref(s, "proposal_ref", ("proposal",))
+            if proposal and proposal["spec_digest"] == s["shown_spec_digest"]:
+                shown = "as_proposed"
+            elif proposal:
+                shown, editor = "differs_from_proposal", s.get("edited_by")
+                if editor is None:
+                    bad.append(f"{s['stage_id']}: shown something other than {proposal['stage_id']} proposed, and does "
+                               "not name who edited it")
+        reviews.append([s["stage_id"], shown, editor])
+    out["reviews"] = reviews
+    index = {}
+    for i, spec in enumerate(att["action_specifications"]):
+        index.setdefault(spec["spec_digest"], i)
+
     bound = {}  # stage id of an approval or authorised change -> (digest it binds, request limit)
+    answered, backing, shown_approved, refused = {}, {}, set(), {}
     for s in kinds["outcome"]:
         review = ref(s, "review_ref", ("review",))
+        if s["review_ref"] in answered:
+            bad.append(f"{s['stage_id']}: {s['review_ref']} already has an outcome ({answered[s['review_ref']]}); "
+                       "a review has one outcome")
+        answered.setdefault(s["review_ref"], s["stage_id"])
+        if "core_ref" in s:
+            field = (s["core_ref"]["field"], s["core_ref"].get("index"))
+            if field in backing:
+                bad.append(f"{s['stage_id']}: {s['core_ref']['field']} already backs {backing[field]}; "
+                           "a core field backs at most one outcome")
+            backing.setdefault(field, s["stage_id"])
         if review and s["actor_ref"] != review["reviewer_ref"]:
             bad.append(f"{s['stage_id']}: the outcome is not given by the person shown the specification")
+        if s["outcome"] != "approved" and review:
+            refused.setdefault(review["shown_spec_digest"], (s["stage_id"], s["outcome"]))
         if s["outcome"] == "approved":
             if review and s["approved_spec_digest"] != review["shown_spec_digest"]:
                 bad.append(f"{s['stage_id']}: the approved specification differs from the one shown")
+            elif review:
+                shown_approved.add(s["approved_spec_digest"])
             bound[s["stage_id"]] = (s["approved_spec_digest"], s.get("request_limit", 1))
+    # A change is authorised by a named person: never the proposer, nor a service named in the attachment.
+    machine = {p.get(k) for p in kinds["proposal"] for k in ("deployer_role_pointer", "system_name", "actor_ref")}
+    machine |= {q["requested_by"] for q in kinds["request"]} | {x["executor_ref"] for x in kinds["attempt"]}
+    machine.discard(None)
+    changed, users = set(), {}  # users: approval or change -> the changes and requests that use it, in order
+
+    def use(s, auth_id):
+        limit = bound[auth_id][1]
+        users.setdefault(auth_id, []).append(s["stage_id"])
+        if len(users[auth_id]) > limit:
+            bad.append(f"{s['stage_id']}: {auth_id} covers {limit} request(s), already used by "
+                       f"{', '.join(users[auth_id][:-1])}")
+
     for s in kinds["change_authorisation"]:
+        if s["actor_ref"] in machine:
+            bad.append(f"{s['stage_id']}: authorised by {s['actor_ref']}, which proposed, requested or executes "
+                       "the action; a change is authorised by a named person")
+        if s["spec_digest"] in refused:
+            bad.append(f"{s['stage_id']}: reaches a specification that {refused[s['spec_digest']][0]} "
+                       f"{refused[s['spec_digest']][1]}; overriding that needs a new review")
         source = ref(s, "from_ref", ("outcome", "change_authorisation"))
         if source is None:
             continue
         if source["stage_id"] not in bound:
             bad.append(f"{s['stage_id']}: changes an outcome that is not an approval")
             continue
+        if s["spec_digest"] == bound[source["stage_id"]][0]:
+            bad.append(f"{s['stage_id']}: names the specification it changes; a change names a different one")
+        use(s, source["stage_id"])  # a change uses up one request of what it changes
         bound[s["stage_id"]] = (s["spec_digest"], s.get("request_limit", 1))
-    seen_ids, uses = set(), {}
+        changed.add(s["spec_digest"])
+    seen_ids = set()
     for s in kinds["request"]:
         if s["request_id"] in seen_ids:
             bad.append(f"{s['stage_id']}: duplicate request_id {s['request_id']!r}")
@@ -222,17 +328,32 @@ def check_attachment(att, record_raw=None):
             bad.append(f"{s['stage_id']}: rests on {auth['stage_id']} ({auth.get('outcome', 'unbound change')}); only "
                        "an approval or an authorised change authorises a request")
             continue
-        digest, limit = bound[auth["stage_id"]]
-        uses[auth["stage_id"]] = uses.get(auth["stage_id"], 0) + 1
-        if uses[auth["stage_id"]] > limit:
-            bad.append(f"{s['stage_id']}: {auth['stage_id']} covers {limit} request(s)")
-        if s["spec_digest"] != digest:
+        use(s, auth["stage_id"])
+        if s["spec_digest"] != bound[auth["stage_id"]][0]:
             bad.append(f"{s['stage_id']}: the requested specification differs from the one approved")
+    # However many approvals and changes bind a specification, its requests number at most the largest limit.
+    for d in dict.fromkeys(q["spec_digest"] for q in kinds["request"]):
+        limits = [limit for digest, limit in bound.values() if digest == d]
+        count = sum(q["spec_digest"] == d for q in kinds["request"])
+        if limits and count > max(limits):
+            bad.append(f"specification {index.get(d)}: requested {count} times; the most any approval or change "
+                       f"of it covers is {max(limits)}")
     for s in kinds["attempt"]:
         request = ref(s, "request_ref", ("request",))
         if request and s["spec_digest"] != request["spec_digest"]:
             bad.append(f"{s['stage_id']}: the attempted specification differs from the one requested")
     out["action_binding"] = ("failed", bad) if bad else ("verified", [])
+
+    # Each executed specification: shown to a reviewer and approved, or reached only through a change.
+    executed = []
+    for s in kinds["attempt"]:
+        i = index.get(s["spec_digest"])
+        if i is None or any(e[0] == i for e in executed):
+            continue
+        reached = ("shown_to_reviewer" if s["spec_digest"] in shown_approved else
+                   "via_change_only" if s["spec_digest"] in changed else "unbound")
+        executed.append([i, reached])
+    out["executed"] = executed
 
     # Order: each stage comes after the stages it names, in the list and in the issuer's times.
     bad = [f"stage_id {d!r} is used more than once" for d in dupes]
@@ -272,18 +393,20 @@ def check_attachment(att, record_raw=None):
     else:
         out["authorisation_recheck"] = ("not_checked", ["no recheck or attempt is recorded"])
 
-    # Results: exactly one observed result for each attempt, carried through as recorded.
+    # Results: exactly one observed result for each attempt, carried through with its basis as recorded.
     bad, observed = [], []
     attempt_ids = {s["stage_id"] for s in kinds["attempt"]}
     for r in kinds["result"]:
         if r["attempt_ref"] not in attempt_ids:
             bad.append(f"{r['stage_id']}: names no attempt")
     for s in kinds["attempt"]:
-        found = [r["observed"] for r in kinds["result"] if r["attempt_ref"] == s["stage_id"]]
-        value = found[0] if len(found) == 1 else ("missing" if not found else "multiple")
-        if value in ("missing", "multiple"):
-            bad.append(f"{s['stage_id']}: {'no' if value == 'missing' else 'more than one'} observed result")
-        observed.append([s["stage_id"], value])
+        found = [r for r in kinds["result"] if r["attempt_ref"] == s["stage_id"]]
+        if len(found) == 1:
+            observed.append([s["stage_id"], found[0]["observed"], found[0]["basis"]])
+            continue
+        value = "missing" if not found else "multiple"
+        bad.append(f"{s['stage_id']}: {'no' if value == 'missing' else 'more than one'} observed result")
+        observed.append([s["stage_id"], value, None])
     if bad:
         out["observed_results"] = ("failed", bad)
     elif kinds["attempt"]:
@@ -337,6 +460,15 @@ def digest_case(c, data):
                 if raw != specs[c["carries"][name][i]]["text"].encode() or sha256(raw) != spec["spec_digest"]:
                     problems.append(f"{name} specification {i}")
         return ("mismatch" if problems else "match"), "; ".join(problems)
+    if c["check"] == "record_seal":
+        # As the repository's governance records are sealed: SHA-256 of the whole record with the seal_hash value
+        # replaced by 64 zeros (portable verification's seal_hash_zeroed).
+        text = data["records"][c["record"]]
+        seal = json.loads(text)["seal_hash"]
+        stored = '"seal_hash":"' + seal + '"'
+        if text.count(stored) != 1:
+            raise ValueError("the record must carry its seal_hash once")
+        return ("match" if sha256(text.replace(stored, ZEROED).encode()) == seal else "mismatch"), ""
     if c["check"] != "spec":
         raise ValueError(f"unknown check {c['check']!r}")
     spec = specs[c["spec"]]
@@ -369,8 +501,9 @@ def binding_case(c, data, validators):
     findings = [f"{d}: {f}" for d in DIMENSIONS for f in got[d][1]]
     summary = {d: got[d][0] for d in DIMENSIONS}
     summary["execution_state"] = got["execution_state"]
-    if "observed" in c["expected"]:
-        summary["observed"] = got["observed"]
+    for key in CARRIED:
+        if key in c["expected"]:
+            summary[key] = got[key]
     return summary, "; ".join(findings)
 
 
@@ -390,6 +523,11 @@ def read_with_attachments(report, attachments, records):
     indexes = sorted(r["attachment_index"] for r in report["results"])
     if indexes != list(range(len(attachments))):
         problems.append(f"results name attachments {indexes}; each of 0 to {len(attachments) - 1} must appear once")
+    for label, ids in (("results", [r["decision_id"] for r in report["results"]]),
+                       ("attachments", [a["decision_id"] for a in attachments])):
+        twice = sorted({d for d in ids if ids.count(d) > 1})
+        if twice:
+            problems.append(f"{label} name {', '.join(twice)} more than once; there is one attachment per decision record")
     for r in report["results"]:
         i = r["attachment_index"]
         if i >= len(attachments):
@@ -397,6 +535,8 @@ def read_with_attachments(report, attachments, records):
         a = attachments[i]
         if r["decision_id"] != a["decision_id"]:
             problems.append(f"result {i}: decision_id differs from the attachment's")
+        if r["attachment_digest"] != sha256(attachment_bytes(a)):
+            problems.append(f"result {i}: attachment_digest is not the digest of the attachment read with it")
         ref = check_attachment(a, records.get(a["decision_id"]))
         specs = a["action_specifications"]
         if sorted(s["spec_index"] for s in r["specifications"]) != list(range(len(specs))):
@@ -417,19 +557,24 @@ def read_with_attachments(report, attachments, records):
         o = r["observed_results"]
         if o["execution_state"] != ref["execution_state"]:
             problems.append(f"result {i}: execution_state is {o['execution_state']}; the attachment shows {ref['execution_state']}")
-        if [[x["attempt_stage_id"], x["observed"]] for x in o["attempts"]] != ref["observed"]:
-            problems.append(f"result {i}: observed results not carried through as the attachment records them")
+        if [[x["attempt_stage_id"], x["observed"], x.get("basis")] for x in o["attempts"]] != ref["observed"]:
+            problems.append(f"result {i}: observed results and their basis not carried through as recorded")
+        if [[x["spec_index"], x["reached_by"]] for x in r["executed_specifications"]] != ref["executed"]:
+            problems.append(f"result {i}: executed specifications not reported as they were reached")
+        if [[x["review_stage_id"], x["shown"], x.get("edited_by")] for x in r["reviews"]] != ref["reviews"]:
+            problems.append(f"result {i}: reviews not reported as the attachment records them")
     return problems
 
 
 def pairing_case(c, data, validators):
     report = apply_patch(data["base_report"], c["report_patch"])
     attachments = [apply_patch(data["base_attachments"][n], c.get("attachment_patches", {}).get(n, []))
-                   for n in data["report_covers"]]
+                   for n in c.get("covers", data["report_covers"])]
     if list(validators["report"].iter_errors(report)) or any(
             list(validators["attachment"].iter_errors(a)) for a in attachments):
         return "error", "every document must be schema-valid for this case"
-    records = {json.loads(t)["decision_id"]: t.encode("utf-8") for t in data["records"].values()}
+    held = [data["records"][n] for n in data["report_records"]]  # the records the reader holds
+    records = {json.loads(t)["decision_id"]: t.encode("utf-8") for t in held}
     problems = read_with_attachments(report, attachments, records)
     return ("inconsistent" if problems else "consistent"), "; ".join(problems)
 
